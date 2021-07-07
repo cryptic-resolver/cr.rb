@@ -60,10 +60,13 @@ def update_sheets(sheet_repo)
 
   if sheet_repo.nil?
     Dir.chdir CRYPTIC_LESS_HOME do 
-      Dir.children CRYPTIC_LESS_HOME do |sheet|
+      Dir.children(CRYPTIC_LESS_HOME).each do |sheet|
+        puts "cr: Wait to update #{sheet}..."
         `git -C ./#{sheet} pull`
       end
     end
+  else
+    `git -C #{CRYPTIC_LESS_HOME} clone #{sheet_repo}`
   end
 
   puts "cr: Done"
@@ -144,7 +147,8 @@ def solve_word(word)
 
   # Then else
   rest = Dir.children(CRYPTIC_LESS_HOME)
-  rest.delete first_sheet do |sheet|
+  rest.delete first_sheet
+  rest.each do |sheet|
     result = lookup(sheet,index,word)
     continue if result == false
   end
