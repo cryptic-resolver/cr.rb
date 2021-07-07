@@ -1,11 +1,13 @@
-# cr: Cryptic Resolver
+# cr
 
 > cr: a general Cryptic Resolver. cr isn't Cryptic Really. 
 
-This general command line tool is used to **record and explain the cryptic commands, acronyms** in daily life.
+<br>
+
+This command line tool is used to **record and explain the cryptic commands, acronyms** in daily life.
 Not only can it be used in computer filed, but also you can use this to manager your own knowledge base easily.
 
-The aim of this projects is to:
+The aim of this project is to:
 
 1. make cryptic things clear
 2. help maintain your own personal knwoledge base
@@ -20,7 +22,7 @@ rather than
 
 # Implementation
 
-cr is Written in pure Ruby. You can implement this tools in any other langauge you like(name your projects as cr_python for example), just remember to reuse our [cryptic_computer] or other sheets which is the core part anyone can contribute to.
+cr is written in pure **Ruby**. You can implement this tools in any other langauge you like(name your projects as cr_python for example), just remember to reuse our [cryptic_computer] or other sheets which is the core part anyone can contribute to.
 
 ## Sheet layout
 
@@ -32,7 +34,9 @@ Every sheet should be a git repository. And every sheet should contain these fil
 3. ...
 4. z.toml
 
-and in every file, your definition format looks like this in pure toml:
+## File format
+
+In every file(or dictionary), your definition format looks like this in pure **toml**:
 ```toml
 # a normal definition
 # notice that we want to keep the key case unsenstive
