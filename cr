@@ -19,7 +19,7 @@
 #    -> update cryptic computer sheets from the 
 #    -> central repo by default
 #
-#    $ cr -u github.com/ccmywish/ruby_things.git
+#    $ cr -u https://github.com/ccmywish/ruby_things.git
 #    -> Add your own knowledge base! 
 #
 #    $ cr -h

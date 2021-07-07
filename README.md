@@ -23,12 +23,20 @@ rather than
 # Usage
 
 ```
-cr: a general Cryptic Resolver. cr isn't Cryptic Really. 
+Usage:
 
-usage
-  cr -h                         => print this help
-  cr -u (xx.com/user/repo.git)  => update 'computer' sheets by default or sheets from a git repo
-  cr emacs                      => Edit macros: a feature-riched editor
+  $ cr a_com_d
+ -> It means A COMmanD 
+
+  $ cr -u 
+ -> update cryptic computer sheets from the 
+ -> central repo by default
+
+  $ cr -u https://github.com/ccmywish/ruby_things.git
+ -> Add your own knowledge base! 
+
+  $ cr -h
+ -> show help
 
 ```
 
