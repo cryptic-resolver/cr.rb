@@ -20,6 +20,21 @@ rather than
 <br>
 
 
+# Usage
+
+```
+cr: a general Cryptic Resolver. cr isn't Cryptic Really. 
+
+usage
+  cr -h                         => print this help
+  cr -u (xx.com/user/repo.git)  => update 'computer' sheets by default or sheets from a git repo
+  cr emacs                      => Edit macros: a feature-riched editor
+
+```
+
+
+<br>
+
 # Implementation
 
 cr is written in pure **Ruby**. You can implement this tools in any other langauge you like(name your projects as cr_python for example), just remember to reuse our [cryptic_computer] or other sheets which is the core part anyone can contribute to.
