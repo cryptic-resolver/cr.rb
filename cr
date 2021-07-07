@@ -90,15 +90,16 @@ def pp_info(info)
   puts " - #{info['desc']}"
   puts 
   if msg = info['full']
-    puts msg 
+    print " "
+    puts msg,"\n"
   end
 end
 
 
 # lookup into a dictionary
-def lookup(path, file, word)
+def lookup(sheet, file, word)
   # only one meaning
-  dicts = load_dictionary(path,file) 
+  dicts = load_dictionary(sheet,file) 
   return false if dicts.nil?
   
   # We want keys in toml be case-insenstive. 
@@ -110,17 +111,19 @@ def lookup(path, file, word)
   return false if info.nil?
 
   if info['desc']
+    puts "\e[32mSheet: #{sheet}\e[0m"
     pp_info(info)
     return true
   end
 
-  # multi meanings
+  # multi meanings in one sheet
   info = info.keys
 
   unless info.empty?
+    puts "\e[32mSheet: #{sheet}\e[0m"
     info.each do |meaning|
       pp_info dicts[word][meaning]
-      puts "==========" unless info.last == meaning # last meaning doesn't show this separate line
+      puts "\e[34m OR\e[0m" unless info.last == meaning # last meaning doesn't show this separate line
     end
     return true
   else
@@ -142,18 +145,21 @@ def solve_word(word)
   
   # Default's first should be 1st to consider
   first_sheet = "cryptic_" + CRYPTIC_DEFAULT_SHEETS.keys[0].to_s # When Ruby3, We can use SHEETS.key(0)
-  result = lookup(first_sheet,index,word)
-  return if result == true
+
+  # cache lookup results
+  results = []
+  results << lookup(first_sheet,index,word)
+  # return if result == true # We should consider all sheets
 
   # Then else
   rest = Dir.children(CRYPTIC_LESS_HOME)
   rest.delete first_sheet
   rest.each do |sheet|
-    result = lookup(sheet,index,word)
-    continue if result == false
+    results << lookup(sheet,index,word)
+    # continue if result == false # We should consider all sheets
   end
 
-  if result == false
+  unless results.include? true
     puts "cr: Not found anything."
     puts
     puts "Could you please figure it out and help others learn?"
