@@ -4,8 +4,20 @@
 
 <br>
 
+
 This command line tool is used to **record and explain the cryptic commands, acronyms** in daily life.
 Not only can it be used in computer filed, but also you can use this to manager your own knowledge base easily.
+
+<br>
+
+## scenario
+
+Imaging one day you come across a strange word: **CUPS** while reading a book of Unix, you try hard to find what it means. Another day you find the **WAF** in the world of web, you again endaevor to figure it out and remeber this acronym.
+
+day after day, many inquisitive people gather around to finnally decide to record them in one place at hand.
+
+<br>
+
 
 The aim of this project is to:
 
