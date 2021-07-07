@@ -26,7 +26,7 @@ The aim of this project is to:
 
 rather than
 
-1. record the use of a command, for this you can refer to tldr, cheat and so on. 
+1. record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
 
 
 <br>
@@ -101,3 +101,5 @@ cr is under GPL
 
 
 [cryptic_computer]: https://github.com/cryptic-less/cryptic_computer
+[tldr]: https://github.com/tldr-pages/tldr
+[cheat]: https://github.com/cheat/cheat
