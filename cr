@@ -30,7 +30,7 @@ require 'toml'
 
 CRYPTIC_LESS_HOME = File.expand_path("~/.cryptic-less")
 CRYPTIC_DEFAULT_SHEETS = {
-  computer: "github.com/cryptic-less/cryptic_computer.git"
+  computer: "https://github.com/cryptic-less/cryptic_computer.git"
 }
 
 def is_there_any_sheet?
@@ -38,18 +38,25 @@ def is_there_any_sheet?
     Dir.mkdir CRYPTIC_LESS_HOME
   end
 
-  Dir.empty? CRYPTIC_LESS_HOME 
+  !Dir.empty? CRYPTIC_LESS_HOME 
+end
+
+
+def already_hold_least_one_sheet?
+  unless is_there_any_sheet?
+    puts "cr: first installed, add default sheet..."
+    CRYPTIC_DEFAULT_SHEETS.values.each do |sheet|
+      `git -C #{CRYPTIC_LESS_HOME} clone #{sheet}`
+    end
+    puts "cr: Done"
+    return false
+  end
+  true
 end
 
 
 def update_sheets(sheet_repo)
-
-  unless is_there_any_sheet?
-    CRYPTIC_DEFAULT_SHEETS.each_key do |sheet|
-      `git -C #{CRYPTIC_LESS_HOME} clone #{sheet}`
-    end
-    return
-  end
+  return if false == already_hold_least_one_sheet?
 
   if sheet_repo.nil?
     Dir.chdir CRYPTIC_LESS_HOME do 
@@ -59,6 +66,7 @@ def update_sheets(sheet_repo)
     end
   end
 
+  puts "cr: Done"
 end
 
 
@@ -119,6 +127,9 @@ end
 
 
 def solve_word(word)
+  
+  already_hold_least_one_sheet?
+
   word = word.downcase # downcase! would lead to frozen error in Ruby 2.7.2
   index = word.chr
   case index 
