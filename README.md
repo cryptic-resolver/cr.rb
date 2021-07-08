@@ -110,9 +110,9 @@ In one sheet, you should consider add a subkey to differ each other like the abo
 <br>
 
 # LICENSE
-cr is under GPL
+cr is under MIT
 
-[cryptic_computer] is under CC-BY
+[cryptic_computer] is under CC-BY-4.0
 
 
 [cryptic_computer]: https://github.com/cryptic-less/cryptic_computer
