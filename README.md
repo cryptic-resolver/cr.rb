@@ -10,7 +10,7 @@ Not only can it be used in computer filed, but also you can use this to manager 
 
 <br>
 
-## scenario
+## Scenario
 
 Imaging one day you come across a strange word: **CUPS** while reading a book of Unix, you try hard to find what it means. Another day you find the **WAF** in the world of web, you again endaevor to figure it out and remeber this acronym.
 
@@ -91,6 +91,21 @@ desc = "eXtreme Download Manager"
 [XDM.Display]
 desc = "X Display Manager"
 ```
+
+## name collision
+
+In one sheet, you should consider add a subkey to differ each other like the above example.
+
+*But what if a sheet's has the 'gdm' while another also has a 'GDM'?*
+
+> That's nothing, because cr knows this.
+
+*But what if a sheet has tow 'gdm'?* 
+
+> This will lead to toml's parser library fail. So you hace these solutions
+> 1. Use a better lint for example: [VSCode's Even Better TOML](https://github.com/tamasfe/taplo)
+> 2. Watch the fail message, you may notice 'override path xxx', the xxx is the collision, you may correct it back mannually.
+
 
 <br>
 
