@@ -109,6 +109,16 @@ In one sheet, you should consider add a subkey to differ each other like the abo
 
 <br>
 
+## cr in Ruby development
+
+1. `gem build cryptic-less`
+
+2. `gem install cryptic-less -l`
+
+3. `gem uninstall cryptic-less`
+
+<br>
+
 # LICENSE
 cr is under MIT
 
