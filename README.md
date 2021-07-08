@@ -11,15 +11,9 @@ Not only can it be used in computer filed, but also you can use this to manager 
 
 ## Install
 
-The only dependency is `Ruby`
+> gem install cryptic-less
 
 Tested well on `Linux Ubuntu` and `Windows 11`.
-
-maybe you need `sudo` access
-
-`gem install cryptic-less`
-
-then look at the usage section.
 
 <br>
 
