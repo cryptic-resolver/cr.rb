@@ -4,9 +4,16 @@
 
 <br>
 
-
 This command line tool is used to **record and explain the cryptic commands, acronyms** in daily life.
 Not only can it be used in computer filed, but also you can use this to manager your own knowledge base easily.
+
+<br>
+
+## Install
+
+maybe you need `sudo` access
+
+`gem install cryptic-less`
 
 <br>
 
@@ -92,7 +99,7 @@ desc = "eXtreme Download Manager"
 desc = "X Display Manager"
 ```
 
-## name collision
+## Name collision
 
 In one sheet, you should consider add a subkey to differ each other like the above example.
 
@@ -110,6 +117,8 @@ In one sheet, you should consider add a subkey to differ each other like the abo
 <br>
 
 ## cr in Ruby development
+
+maybe you need `sudo` access
 
 1. `gem build cryptic-less`
 
