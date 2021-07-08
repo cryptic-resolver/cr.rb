@@ -21,9 +21,9 @@ Tested well on `Linux Ubuntu` and `Windows 11`.
 
 ## Scenario
 
-Imaging one day you come across a strange word: **CUPS** while reading a book of Unix, you try hard to find what it means. Another day you find the **WAF** in the world of web, you again endaevor to figure it out and remeber this acronym.
+Imaging one day you come across a strange word: **CUPS** while reading a book of Unix, you try hard to find what it means. Another day you find the **WAF** in the world of web, you again endeavor to figure it out and remeber this acronym.
 
-day after day, many inquisitive people gather around to finnally decide to record them in one place at hand.
+Day after day, many inquisitive people gather around to finnally decide to record them in one place at hand.
 
 <br>
 
@@ -105,7 +105,7 @@ In one sheet, you should consider add a subkey to differ each other like the abo
 
 > That's nothing, because cr knows this.
 
-*But what if a sheet has tow 'gdm'?* 
+*But what if a sheet has two 'gdm'?* 
 
 > This will lead to toml's parser library fail. So you hace these solutions
 > 1. Use a better lint for example: [VSCode's Even Better TOML](https://github.com/tamasfe/taplo)
