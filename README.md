@@ -11,7 +11,9 @@ Not only can it be used in computer filed, but also you can use this to manager 
 
 ## Install
 
-> gem install cryptic-less
+```bash
+gem install cryptic-less
+```
 
 Tested well on `Linux Ubuntu` and `Windows 11`.
 
@@ -41,22 +43,18 @@ rather than
 
 # Usage
 
-```
-Usage:
+```bash
+$ cr a_com_d
+# -> It means A COMmanD 
 
-  $ cr a_com_d
- -> It means A COMmanD 
+$ cr -u 
+# -> update all sheets
 
-  $ cr -u 
- -> update cryptic computer sheets from the 
- -> central repo by default
+$ cr -u https://github.com/ccmywish/ruby_things.git
+# -> Add your own knowledge base! 
 
-  $ cr -u https://github.com/ccmywish/ruby_things.git
- -> Add your own knowledge base! 
-
-  $ cr -h
- -> show help
-
+$ cr -h
+# -> show help
 ```
 
 
