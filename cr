@@ -179,9 +179,9 @@ def help
   puts "cr: a general Cryptic Resolver. cr isn't Cryptic Really. "
   puts
   puts "usage:"
-  puts "  cr -h                         => print this help"
-  puts "  cr -u (xx.com/user/repo.git)  => update 'computer' sheets by default or sheets from a git repo"
-  puts "  cr emacs                      => Edit macros: a feature-riched editor"
+  puts "  cr -h                     => print this help"
+  puts "  cr -u (xx.com//repo.git)  => update default sheet or add sheet from a git repo"
+  puts "  cr emacs                  => Edit macros: a feature-rich editor"
 end
 
 
