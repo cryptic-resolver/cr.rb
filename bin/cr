@@ -99,21 +99,23 @@ end
 # @param word [String] the keyword in TOML which matches with user's request 
 # @param info [Hash] the information of the given word (mapped to a keyword in TOML) 
 def pp_info(word,info)
-  puts "\n  #{word}: #{info['desc']}","\n" 
+  puts "\n  #{word}: #{info['desc']}"
 
   if full = info['full']
-    print "  ",full,"\n\n"
+    print "\n  ",full,"\n"
   end
   
   if see_also = info['see']
-    print purple("SEE ALSO ")
+    print "\n", purple("SEE ALSO ")
     see_also.each {|x| print underline(x),' '}
   end 
 end
 
 # Make duplicatins a function
 def pp_sheet(sheet)
-  puts green("sheet: #{sheet}")
+  unless sheet.start_with?('cryptic_')
+    puts green("sheet: #{sheet}")
+  end
 end
 
 
@@ -191,7 +193,7 @@ def lookup(sheet, file, word)
     puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
     
     if same.chr.downcase == file  # no need to load dictionary again
-      pp_info(word,dicts[same])
+      pp_info(word,dict[same])
       return true
     else
       return directly_lookup(sheet, same.chr, same)
@@ -212,7 +214,7 @@ def lookup(sheet, file, word)
     info.each do |meaning|
       pp_info(word,dict[word][meaning])
       # last meaning doesn't show this separate line
-      puts blue(bold("OR")) unless info.last == meaning
+      print "\n", blue(bold("OR")),"\n" unless info.last == meaning
     end
     return true
   else
