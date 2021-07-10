@@ -3,27 +3,12 @@
 #  ---------------------------------------------------
 #  File          : cr.rb
 #  Authors       : ccmywish <leslieranaa@qq.com>
-#  Created on    : <2021-6-8>
-#  Last modified : <2021-6-8>
+#  Created on    : <2021-7-8>
+#  Last modified : <2021-7-10>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
 #  orther fileds.  
-#
-#  Usage:
-#
-#    $ cr a_com_d
-#    -> It means A COMmanD 
-#
-#    $ cr -u 
-#    -> update cryptic computer sheets from the 
-#    -> central repo by default
-#
-#    $ cr -u https://github.com/ccmywish/ruby_things.git
-#    -> Add your own knowledge base! 
-#
-#    $ cr -h
-#    -> show help
 #  ---------------------------------------------------
 
 require 'toml'
@@ -87,10 +72,10 @@ end
 # pretty print the info of the word
 def pp_info(info)
   puts ""
-  puts " - #{info['desc']}"
+  puts "  - #{info['desc']}"
   puts 
   if msg = info['full']
-    print " "
+    print "  "
     puts msg,"\n"
   end
 end
