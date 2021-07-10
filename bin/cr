@@ -18,6 +18,25 @@ CRYPTIC_DEFAULT_SHEETS = {
   computer: "https://github.com/cryptic-less/cryptic_computer.git"
 }
 
+
+####################
+# helper: for color
+####################
+
+def bold(str)       "\e[1m#{str}\e[0m" end
+def underline(str)  "\e[4m#{str}\e[0m" end
+def red(str)        "\e[31m#{str}\e[0m" end
+def green(str)      "\e[32m#{str}\e[0m" end
+def yellow(str)     "\e[33m#{str}\e[0m" end
+def blue(str)       "\e[34m#{str}\e[0m" end
+def purple(str)     "\e[35m#{str}\e[0m" end
+def cyan(str)       "\e[36m#{str}\e[0m" end
+
+
+####################
+# core: logic
+####################
+
 def is_there_any_sheet?
   unless Dir.exist? CRYPTIC_LESS_HOME
     Dir.mkdir CRYPTIC_LESS_HOME
@@ -86,13 +105,61 @@ def pp_info(word,info)
   end
   
   if see_also = info['see']
-    print "\e[35mSEE ALSO: \e[0m"
-    see_also.each {|x| print "\e[4m", x, "\e[0m " }
+    print purple("SEE ALSO ")
+    see_also.each {|x| print underline(x),' '}
   end 
 end
 
+# Make duplicatins a function
+def pp_sheet(sheet)
+  puts green("sheet: #{sheet}")
+end
 
-# lookup into a dictionary
+
+# Used for synonym jump
+# Because we absolutely jump to a must-have word
+# So we can directly lookup to it
+#
+# Notice that, we must jump to a specific word definition
+# So in the toml file, you must specify the precise word. 
+# If it has multiple meanings, for example
+# 
+#   [blah]
+#   same = "XDG"  # this is wrong
+#
+#   [blah]
+#   same = "XDG.Download" # this is true
+def directly_lookup(sheet,file,word)
+  dict = load_dictionary(sheet,file.downcase) 
+
+  words =  word.split('.') # [XDG Download]
+  word = words.shift # XDG [Download]
+  explain = words.first
+  if explain.nil?
+    info = dict[word]
+  else
+    info = dict[word][explain]
+  end
+
+  # Warn user this is the toml maintainer's fault
+  if info.nil?
+    puts red("WARN: Synonym jumps to a wrong place at `#{word}` 
+      Please consider fixing this in `#{file.downcase}.toml` of the sheet `#{sheet}`")
+    exit
+  end
+
+  pp_info(word,info)
+  return true # always true
+end
+
+
+# Lookup the given word in a dictionary (a .toml file in a sheet)
+# The core idea is that:
+# 1. load the toml file and check whether it has the only one meaning.
+#   1.1 If yes, then just print it using `pp_info`
+#   1.2 If not, then collect all the meanings of the word, and use `pp_info`
+# 2. if the word is `same` with another synonym, it will directly jump to 
+#   a word in this sheet, but maybe a different dictionary
 def lookup(sheet, file, word)
   # only one meaning
   dicts = load_dictionary(sheet,file) 
@@ -109,25 +176,41 @@ def lookup(sheet, file, word)
   # Warn user if the info is empty. For example:
   #   Emacs = { }
   if info.size == 0
-    puts "\e[31mWARN: Lack of everything of the given word 
-      Please consider fixing this in the sheet `#{sheet}` \e[0m"
+    puts red("WARN: Lack of everything of the given word 
+      Please consider fixing this in the sheet `#{sheet}`")
     exit 
   end
 
-  if info['desc']
-    puts "\e[32mSheet: #{sheet}\e[0m"
+  # Check whether it's a synonym for anther
+  # If yes, we should lookup into this sheet again, but maybe 
+  # with a different file
+  if same = info['same']
+    pp_sheet(sheet)
+    if same.chr.downcase == file  # no need to load dictionary again
+      pp_info(word,dicts[same])
+      return true
+    else
+      # point out to user, this is a jump
+      puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
+      return directly_lookup(sheet, same.chr, same)
+    end
+  end
+
+  if info.has_key?('desc')
+    pp_sheet(sheet)
     pp_info(word,info)
     return true
   end
 
-  # multi meanings in one sheet
+  # multiple meanings in one sheet
   info = info.keys
 
   unless info.empty?
-    puts "\e[32mSheet: #{sheet}\e[0m"
+    pp_sheet(sheet)
     info.each do |meaning|
       pp_info(word,dicts[word][meaning])
-      puts "\e[34m OR\e[0m" unless info.last == meaning # last meaning doesn't show this separate line
+      # last meaning doesn't show this separate line
+      puts blue("OR") unless info.last == meaning
     end
     return true
   else
@@ -136,11 +219,20 @@ def lookup(sheet, file, word)
 end
 
 
+# The core algorithm of `cr`
+# 1. Search the default's first sheet first
+# 2. Search the rest sheets in the cryptic sheets default dir
+# 
+# The `search` procedure is done via the `lookup` function. It
+# will print the info while finding. If `lookup` always return 
+# false then means lacking of this word in our sheets.So a wel-
+# comed contribution is prinetd on the screen.
 def solve_word(word)
   
   add_default_sheet_if_none_exist
 
   word = word.downcase # downcase! would lead to frozen error in Ruby 2.7.2
+  # The index is the toml file we'll look into
   index = word.chr
   case index 
   when '0'..'9' 
