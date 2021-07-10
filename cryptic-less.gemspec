@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name = "cryptic-less"
-  s.version = "1.0.0"
+  s.version = "1.0.1"
   s.date = "2021-07-10"
   
   s.summary = "cr: a general Cryptic Resolver. cr isn't Cryptic Really."
 
   s.description = <<DESC
-This command line tool is used to record and explain the cryptic commands, acronyms in daily life.
+This command line tool `cr` is used to record and explain the cryptic commands, acronyms in daily life.
 Not only can it be used in computer filed, but also you can use this to manager your own knowledge base easily.
 DESC
 
