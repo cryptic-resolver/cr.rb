@@ -106,9 +106,10 @@ def lookup(sheet, file, word)
   info = dicts[word]
   return false if info.nil?
 
-  # Warn user if no `desc` keyword
-  unless info.has_key?('desc')
-    puts "\e[31mWARN: Lack description of the given word 
+  # Warn user if the info is empty. For example:
+  #   Emacs = { }
+  if info.size == 0
+    puts "\e[31mWARN: Lack of everything of the given word 
       Please consider fixing this in the sheet `#{sheet}` \e[0m"
     exit 
   end
