@@ -193,7 +193,7 @@ def lookup(sheet, file, word)
     puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
     
     if same.chr.downcase == file  # no need to load dictionary again
-      pp_info(word,dict[same])
+      pp_info(same,dict[same])
       return true
     else
       return directly_lookup(sheet, same.chr, same)
