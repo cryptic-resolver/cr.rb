@@ -106,6 +106,13 @@ def lookup(sheet, file, word)
   info = dicts[word]
   return false if info.nil?
 
+  # Warn user if no `desc` keyword
+  unless info.has_key?('desc')
+    puts "\e[31mWARN: Lack description of the given word 
+      Please consider fixing this in the sheet `#{sheet}` \e[0m"
+    exit 
+  end
+
   if info['desc']
     puts "\e[32mSheet: #{sheet}\e[0m"
     pp_info(word,info)
