@@ -67,15 +67,28 @@ def load_dictionary(path,file)
 end
 
 
-# pretty print the info of the word
-def pp_info(info)
-  puts ""
-  puts "  - #{info['desc']}"
-  puts 
-  if msg = info['full']
-    print "  "
-    puts msg,"\n"
+# Pretty print the info of the given word
+#
+# A info looks like this
+#   Emacs = {
+#     desc = "edit macros"
+#     full = "a feature-rich editor"
+#     see  = ["Vim"]
+#   }
+#
+# @param word [String] the keyword in TOML which matches with user's request 
+# @param info [Hash] the information of the given word (mapped to a keyword in TOML) 
+def pp_info(word,info)
+  puts "\n  #{word}: #{info['desc']}","\n" 
+
+  if full = info['full']
+    print "  ",full,"\n\n"
   end
+  
+  if see_also = info['see']
+    print "\e[35mSEE ALSO: \e[0m"
+    see_also.each {|x| print "\e[4m", x, "\e[0m " }
+  end 
 end
 
 
@@ -95,7 +108,7 @@ def lookup(sheet, file, word)
 
   if info['desc']
     puts "\e[32mSheet: #{sheet}\e[0m"
-    pp_info(info)
+    pp_info(word,info)
     return true
   end
 
@@ -105,7 +118,7 @@ def lookup(sheet, file, word)
   unless info.empty?
     puts "\e[32mSheet: #{sheet}\e[0m"
     info.each do |meaning|
-      pp_info dicts[word][meaning]
+      pp_info(word,dicts[word][meaning])
       puts "\e[34m OR\e[0m" unless info.last == meaning # last meaning doesn't show this separate line
     end
     return true
