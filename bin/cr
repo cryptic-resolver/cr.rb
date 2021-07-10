@@ -186,12 +186,13 @@ def lookup(sheet, file, word)
   # with a different file
   if same = info['same']
     pp_sheet(sheet)
+    # point out to user, this is a jump
+    puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
+    
     if same.chr.downcase == file  # no need to load dictionary again
       pp_info(word,dicts[same])
       return true
     else
-      # point out to user, this is a jump
-      puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
       return directly_lookup(sheet, same.chr, same)
     end
   end
