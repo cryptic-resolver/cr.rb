@@ -11,7 +11,7 @@
 #  orther fileds.  
 #  ---------------------------------------------------
 
-require 'toml'
+require 'tomlrb'
 
 CRYPTIC_LESS_HOME = File.expand_path("~/.cryptic-less")
 CRYPTIC_DEFAULT_SHEETS = {
@@ -79,7 +79,8 @@ def load_dictionary(path,file)
   file = CRYPTIC_LESS_HOME + "/#{path}/#{file}.toml" 
   
   if File.exist? file
-    return TOML.load_file file
+    return Tomlrb.load_file file # gem 'tomlrb'
+    # return TOML.load_file file # gem 'toml'
   else
     nil
   end

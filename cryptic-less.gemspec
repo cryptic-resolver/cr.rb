@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "cryptic-less"
-  s.version = "0.1.1"
+  s.version = "1.0.0"
   s.date = "2021-07-10"
   
   s.summary = "cr: a general Cryptic Resolver. cr isn't Cryptic Really."
@@ -21,7 +21,7 @@ DESC
 
   s.executables = ["cr"]
 
-  s.add_dependency 'toml'
+  s.add_dependency 'tomlrb','~> 2.0'
 
   s.metadata = {
     "bug_tracker_uri"   => "https://github.com/cryptic-less/cr/issues",

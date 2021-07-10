@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'toml'
+gem 'tomlrb', '~> 2.0' 
