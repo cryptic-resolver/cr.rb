@@ -163,15 +163,15 @@ end
 #   a word in this sheet, but maybe a different dictionary
 def lookup(sheet, file, word)
   # only one meaning
-  dicts = load_dictionary(sheet,file) 
-  return false if dicts.nil?
-  
+  dict = load_dictionary(sheet,file) 
+  return false if dict.nil?
+
   # We want keys in toml be case-insenstive. 
   # So we only can use array to find them, but this may leave performance problem when data grows.
   # If we use hash, the toml keys must be downcase, the situation where we really avoid. 
-  word = dicts.keys.select {|k| k.downcase == word} .first
+  word = dict.keys.select {|k| k.downcase == word} .first
 
-  info = dicts[word]
+  info = dict[word]
   return false if info.nil?
 
   # Warn user if the info is empty. For example:
@@ -210,9 +210,9 @@ def lookup(sheet, file, word)
   unless info.empty?
     pp_sheet(sheet)
     info.each do |meaning|
-      pp_info(word,dicts[word][meaning])
+      pp_info(word,dict[word][meaning])
       # last meaning doesn't show this separate line
-      puts blue("OR") unless info.last == meaning
+      puts blue(bold("OR")) unless info.last == meaning
     end
     return true
   else
