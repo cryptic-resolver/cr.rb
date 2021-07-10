@@ -4,7 +4,13 @@
 
 <br>
 
-This command line tool is used to **record and explain the cryptic commands, acronyms** in daily life.
+## Screenshot
+
+![image](./screenshot.png)
+
+<br>
+
+This command line tool `cr` is used to **record and explain the cryptic commands, acronyms** in daily life.
 Not only can it be used in computer filed, but also you can use this to manager your own knowledge base easily.
 
 <br>
