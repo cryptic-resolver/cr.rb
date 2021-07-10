@@ -25,7 +25,7 @@ Tested well on `Linux Ubuntu` and `Windows 11`.
 
 <br>
 
-## Scenario
+## Why
 
 Imaging one day you come across a strange word: **CUPS** while reading a book of Unix, you try hard to find what it means. Another day you find the **WAF** in the world of web, you again endeavor to figure it out and remeber this acronym.
 
@@ -101,6 +101,21 @@ desc = "eXtreme Download Manager"
 
 [XDM.Display]
 desc = "X Display Manager"
+```
+
+We have more features than above
+```toml
+[JPEG]
+desc = "Joint Photographic Experts Group"
+full = "Introduced in 1992. A commonly used method of lossy compression for digital images"
+
+[JPG]
+same = "JPEG" # Yes, we just need to redirect this. No duplicate!
+see = ['MPG','PNG'] # Yes, this is a `see also`
+
+["H.265"]
+desc = "A video compression standard" # The 'dot' keyword supported using quoted strings
+
 ```
 
 ## Name collision
