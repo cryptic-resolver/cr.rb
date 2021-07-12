@@ -108,6 +108,7 @@ def pp_info(word,info)
   if see_also = info['see']
     print "\n", purple("SEE ALSO ")
     see_also.each {|x| print underline(x),' '}
+    puts
   end 
 end
 
@@ -263,12 +264,12 @@ def solve_word(word)
     puts <<-NotFound
 cr: Not found anything.
 
-Could you please figure it out and help others learn?
-Welcome to contribute to our sheets: 
+You may use `cr -u` to update the sheets.
+Or could you please figure it out and help others learn?
+Welcome to contribute to our sheets: Thanks!
 
   computer: https://github.com/cryptic-less/cryptic_computer
-  
-Thanks!
+
 NotFound
 
   else
