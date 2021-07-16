@@ -8,12 +8,23 @@
 #
 #  This file is used to count the key words in default 
 #  sheet: cryptic_computer
+#
+#  Usage:
+#       wc      # output count in each file
+#       wc --ci # only output the total counts 
 #  ---------------------------------------------------
 
 require 'tomlrb'
 
 CRYPTIC_LESS_HOME = File.expand_path("~/.cryptic-less")
 CRYPTIC_COMPUTER =  CRYPTIC_LESS_HOME + "/cryptic_computer/"
+
+
+if "--ci" == ARGV.shift
+  CI_MODE = true
+else
+  CI_MODE = false
+end
 
 # A file is like 
 #   a.toml
@@ -34,7 +45,9 @@ Dir.children(CRYPTIC_COMPUTER).each do |entry|
   next unless entry.end_with?('.toml')
   dict = load_dictionary(entry)
   count = dict.keys.count
-  puts "#{entry}: #{count} "
+  puts "#{entry}: #{count} " unless CI_MODE
   wc = wc + count
 end
-puts "all: #{wc}"
+puts "all: #{wc}" unless CI_MODE
+
+puts wc if CI_MODE

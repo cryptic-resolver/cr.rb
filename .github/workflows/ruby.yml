@@ -1,0 +1,26 @@
+name: My workflow
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Update word counts in README
+      run: |
+        bundle install
+        rake uwc
+    - name: Git commit
+      run: |
+        git config --local user.email "leslieranaa@qq.com"
+        git config --local user.name "ccmywish"
+        git add README.md
+        git commit -m "update word counts"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.MY_GIT_TOKEN }}
+        branch: main
