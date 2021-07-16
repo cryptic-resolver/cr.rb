@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <leslieranaa@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2021-7-10>
+#  Last modified : <2021-7-12>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -108,6 +108,7 @@ def pp_info(word,info)
   if see_also = info['see']
     print "\n", purple("SEE ALSO ")
     see_also.each {|x| print underline(x),' '}
+    puts
   end 
 end
 
@@ -263,12 +264,12 @@ def solve_word(word)
     puts <<-NotFound
 cr: Not found anything.
 
-Could you please figure it out and help others learn?
-Welcome to contribute to our sheets: 
+You may use `cr -u` to update the sheets.
+Or could you please figure it out and help others learn?
+Welcome to contribute to our sheets: Thanks!
 
   computer: https://github.com/cryptic-less/cryptic_computer
-  
-Thanks!
+
 NotFound
 
   else

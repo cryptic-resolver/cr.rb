@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = "cryptic-less"
-  s.version = "1.0.1"
-  s.date = "2021-07-10"
+  s.version = "1.0.2"
+  s.date = "2021-07-12"
   
   s.summary = "cr: a general Cryptic Resolver. cr isn't Cryptic Really."
 
