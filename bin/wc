@@ -10,20 +10,20 @@
 #  sheet: cryptic_computer
 #
 #  Usage:
-#       wc      # output count in each file
-#       wc --ci # only output the total counts 
+#       wc       # Output count in each file
+#       wc --all # Only output the total counts 
 #  ---------------------------------------------------
 
 require 'tomlrb'
 
-CRYPTIC_LESS_HOME = File.expand_path("~/.cryptic-less")
-CRYPTIC_COMPUTER =  CRYPTIC_LESS_HOME + "/cryptic_computer/"
+op = ARGV.shift
+ALL_MODE = op == "--all" ? true : false
 
+try_sheet_dir = File.expand_path "~/.cryptic-less/cryptic_computer/"
 
-if "--ci" == ARGV.shift
-  CI_MODE = true
-else
-  CI_MODE = false
+# This is for CI
+unless Dir.exist? try_sheet_dir
+  try_sheet_dir = "./cryptic_computer"
 end
 
 # A file is like 
@@ -38,16 +38,21 @@ def load_dictionary(file)
   end
 end
 
-Dir.chdir(CRYPTIC_COMPUTER)
+Dir.chdir(try_sheet_dir)
 wc = 0
 
-Dir.children(CRYPTIC_COMPUTER).each do |entry|
+Dir.children(try_sheet_dir).each do |entry|
   next unless entry.end_with?('.toml')
   dict = load_dictionary(entry)
   count = dict.keys.count
-  puts "#{entry}: #{count} " unless CI_MODE
+  
+  puts "#{entry}: #{count}" unless ALL_MODE
   wc = wc + count
 end
-puts "all: #{wc}" unless CI_MODE
 
-print wc if CI_MODE # must use print, or rake `` will parse to a new line
+
+if ALL_MODE
+  print wc # must use print, or rake `` will parse to a new line
+else
+  puts "all: #{wc}"
+end

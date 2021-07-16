@@ -1,11 +1,16 @@
-desc "count words in default sheet `cryptic_computer`"
+desc "count words in sheet `cryptic_computer`"
 task :wc do
   ruby "bin/wc"
 end
 
+desc "altogether count words in sheet `cryptic_computer`"
+task :wc_all do
+  ruby "bin/wc --all"
+end
+
 desc "update word counts in README"
 task :uwc do |t|
-  wc = `ruby bin/wc --ci`
+  wc = `ruby bin/wc --all`
   badge_url = "https://img.shields.io/badge/Keywords%20Inlcuded-#{wc}-brightgreen"
 
   file = File.read("./README.md")
