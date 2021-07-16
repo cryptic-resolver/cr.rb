@@ -12,6 +12,7 @@ jobs:
     - name: Update word counts in README
       run: |
         bundle install
+        git clone https://github.com/cryptic-less/cryptic_computer
         rake uwc
     - name: Git commit
       run: |
