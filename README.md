@@ -1,17 +1,20 @@
-# cr
+<div align="center">
 
-> cr: a general Cryptic Resolver. cr isn't Cryptic Really. 
+  ![Cryptic-Resolver](./images/Cryptic-Resolver.png)
+
+  🤔 A general Cryptic Resolver. cr isn't Cryptic Really. 
+
+  [![License](https://img.shields.io/badge/LICENSE-MIT-brightgreen)](./README.md)
+  [![Gem Version](https://badge.fury.io/rb/cryptic-less.svg)](https://rubygems.org/gems/cryptic-less) 
+ 
+  ![screenshot](./images/screenshot.png)
+
+</div>
 
 <br>
 
-## Screenshot
-
-![image](./screenshot.png)
-
-<br>
-
-This command line tool `cr` is used to **record and explain the cryptic commands, acronyms** in daily life.
-Not only can it be used in computer filed, but also you can use this to manage your own knowledge base easily.
+This command line tool `cr` is used to **record and explain cryptic commands, acronyms and so forth** in daily life.
+Not only can it be used in computer filed via our default sheet [cryptic_computer], but also you can use this to manage your own knowledge base easily.
 
 <br>
 
@@ -21,7 +24,7 @@ Not only can it be used in computer filed, but also you can use this to manage y
 gem install cryptic-less
 ```
 
-Tested well on `Linux Ubuntu` and `Windows 11`.
+Tested well on `Ubuntu` and `Windows 11`.
 
 <br>
 
