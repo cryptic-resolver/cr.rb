@@ -1,9 +1,9 @@
 name: My workflow
 on: 
   push: 
-    branches: [ $default-branch ]
+    branches: main
   pull_request:
-    branches: [ $default-branch ]
+    branches: main
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '0 9 * * *'
