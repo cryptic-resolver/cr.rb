@@ -19,7 +19,7 @@ require 'tomlrb'
 op = ARGV.shift
 ALL_MODE = op == "--all" ? true : false
 
-try_sheet_dir = File.expand_path "~/.cryptic-less/cryptic_computer/"
+try_sheet_dir = File.expand_path "~/.cryptic-resolver/cryptic_computer/"
 
 # This is for CI
 unless Dir.exist? try_sheet_dir
