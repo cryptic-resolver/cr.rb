@@ -50,4 +50,4 @@ Dir.children(CRYPTIC_COMPUTER).each do |entry|
 end
 puts "all: #{wc}" unless CI_MODE
 
-puts wc if CI_MODE
+print wc if CI_MODE # must use print, or rake `` will parse to a new line
