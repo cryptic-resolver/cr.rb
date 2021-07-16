@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# coding: utf-8
+#  ---------------------------------------------------
+#  File          : wc.rb
+#  Authors       : ccmywish <leslieranaa@qq.com>
+#  Created on    : <2021-7-16>
+#  Last modified : <2021-7-16>
+#
+#  This file is used to count the key words in default 
+#  sheet: cryptic_computer
+#  ---------------------------------------------------
+
+require 'tomlrb'
+
+CRYPTIC_LESS_HOME = File.expand_path("~/.cryptic-less")
+CRYPTIC_COMPUTER =  CRYPTIC_LESS_HOME + "/cryptic_computer/"
+
+# A file is like 
+#   a.toml
+#   d.toml
+# So we should first cd into the cryptic_computer sheet
+def load_dictionary(file)
+  if File.exist? file
+    return Tomlrb.load_file file # gem 'tomlrb'
+  else
+    nil
+  end
+end
+
+Dir.chdir(CRYPTIC_COMPUTER)
+wc = 0
+
+Dir.children(CRYPTIC_COMPUTER).each do |entry|
+  next unless entry.end_with?('.toml')
+  dict = load_dictionary(entry)
+  count = dict.keys.count
+  puts "#{entry}: #{count} "
+  wc = wc + count
+end
+puts "all: #{wc}"
