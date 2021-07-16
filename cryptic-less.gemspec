@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
 
   s.description = <<DESC
 This command line tool `cr` is used to record and explain the cryptic commands, acronyms in daily life.
-Not only can it be used in computer filed, but also you can use this to manager your own knowledge base easily.
+Not only can it be used in computer filed, but also you can use this to manage your own knowledge base easily.
 DESC
 
   s.license = "MIT"

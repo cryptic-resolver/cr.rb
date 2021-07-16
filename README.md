@@ -11,7 +11,7 @@
 <br>
 
 This command line tool `cr` is used to **record and explain the cryptic commands, acronyms** in daily life.
-Not only can it be used in computer filed, but also you can use this to manager your own knowledge base easily.
+Not only can it be used in computer filed, but also you can use this to manage your own knowledge base easily.
 
 <br>
 
@@ -68,11 +68,11 @@ $ cr -h
 
 # Implementation
 
-cr is written in pure **Ruby**. You can implement this tools in any other langauge you like(name your projects as cr_python for example), just remember to reuse our [cryptic_computer] or other sheets which is the core part anyone can contribute to.
+cr is written in pure **Ruby**. You can implement this tool in any other langauge you like(name your projects as `cr_python` for example), just remember to reuse our [cryptic_computer] or other sheets which are the core parts anyone can contribute to.
 
 ## Sheet layout
 
-Every sheet should be a git repository. And every sheet should contain these files(we call these dictionarys):
+Every sheet should be a git repository. And each should contain these files(we call these dictionarys):
 
 1. 0123456789.toml
 2. a.toml
@@ -120,9 +120,9 @@ desc = "A video compression standard" # The 'dot' keyword supported using quoted
 
 ## Name collision
 
-In one sheet, you should consider add a subkey to differ each other like the above example.
+In one sheet, you should consider adding a subkey to differ each other like the example above.
 
-*But what if a sheet's has the 'gdm' while another also has a 'GDM'?*
+*But what if a sheet has 'gdm' while another also has a 'GDM'?*
 
 > That's nothing, because cr knows this.
 
