@@ -6,7 +6,7 @@
 
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-90-brightgreen)][cryptic_computer]
 [![License](https://img.shields.io/badge/LICENSE-MIT-brightgreen)](./README.md)
-[![Gem Version](https://badge.fury.io/rb/cryptic-less.svg)](https://rubygems.org/gems/cryptic-less) 
+[![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
 
@@ -22,7 +22,7 @@ Not only can it be used in computer filed via our default sheet [cryptic_compute
 ## Install
 
 ```bash
-gem install cryptic-less
+gem install cryptic-resolver
 ```
 
 Tested well on `Ubuntu` and `Windows 11`.
@@ -143,11 +143,11 @@ In one sheet, you should consider adding a subkey to differ each other like the 
 
 maybe you need `sudo` access
 
-1. `gem build cryptic-less`
+1. `gem build cryptic-resolver`
 
-2. `gem install cryptic-less -l`
+2. `gem install cryptic-resolver -l`
 
-3. `gem uninstall cryptic-less`
+3. `gem uninstall cryptic-resolver`
 
 <br>
 
@@ -157,6 +157,6 @@ cr is under MIT
 [cryptic_computer] is under CC-BY-4.0
 
 
-[cryptic_computer]: https://github.com/cryptic-less/cryptic_computer
+[cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat
