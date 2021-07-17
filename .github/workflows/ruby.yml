@@ -1,9 +1,5 @@
 name: My workflow
 on: 
-  push: 
-    branches: main
-  pull_request:
-    branches: main
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron:  '0 9 * * *'
@@ -25,6 +21,7 @@ jobs:
       run: |
         git config --local user.email "leslieranaa@qq.com"
         git config --local user.name "ccmywish"
+        git pull
         git add README.md
         git commit -m "update word counts"
     - name: Push changes
