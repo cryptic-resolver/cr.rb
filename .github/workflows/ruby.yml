@@ -21,7 +21,6 @@ jobs:
       run: |
         git config --local user.email "leslieranaa@qq.com"
         git config --local user.name "ccmywish"
-        git pull
         git add README.md
         git commit -m "update word counts"
     - name: Push changes

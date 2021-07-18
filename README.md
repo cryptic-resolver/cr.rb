@@ -143,11 +143,10 @@ In one sheet, you should consider adding a subkey to differ each other like the 
 
 maybe you need `sudo` access
 
-1. `gem build cryptic-resolver`
-
-2. `gem install cryptic-resolver -l`
-
-3. `gem uninstall cryptic-resolver`
+- `gem build cryptic-resolver`
+- `gem install cryptic-resolver -l`
+- `gem uninstall cryptic-resolver`
+- `gem update cryptic-resolver (--pre)`
 
 <br>
 
