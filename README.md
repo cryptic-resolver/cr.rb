@@ -4,7 +4,7 @@
 
 🤔 A general Cryptic Resolver. cr isn't Cryptic Really. 
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded--brightgreen)][cryptic_computer]
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-90-brightgreen)][cryptic_computer]
 [![License](https://img.shields.io/badge/LICENSE-MIT-brightgreen)](./README.md)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
@@ -15,7 +15,7 @@
 This command line tool `cr` is used to **record and explain cryptic commands, acronyms and so forth** in daily life.
 Not only can it be used in computer filed via our default sheet [cryptic_computer], but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **** keywords explained in our default sheet!! 🎉
+- Currently we have **90** keywords explained in our default sheet!! 🎉
 
 <br>
 

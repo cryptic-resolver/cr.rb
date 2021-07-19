@@ -2,7 +2,7 @@ name: My workflow
 on: 
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '2 * * * *' # everyday 6 +8 = 14 in CST
+    - cron:  '0 9 * * *' # everyday 9 +8 = 17 in CST
 jobs:
   Update-Readme:
     runs-on: ubuntu-latest
