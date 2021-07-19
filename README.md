@@ -1,11 +1,8 @@
 <div align="center">
 
-![Cryptic-Resolver](./images/Cryptic-Resolver.png)
-
-🤔 A general Cryptic Resolver. cr isn't Cryptic Really. 
+**Cryptic Resolver**
 
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded--brightgreen)][cryptic_computer]
-[![License](https://img.shields.io/badge/LICENSE-MIT-brightgreen)](./README.md)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
@@ -15,7 +12,7 @@
 This command line tool `cr` is used to **record and explain cryptic commands, acronyms and so forth** in daily life.
 Not only can it be used in computer filed via our default sheet [cryptic_computer], but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **** keywords explained in our default sheet!! 🎉
+- Currently we have **** keywords explained in our default sheet.
 
 <br>
 
@@ -31,13 +28,6 @@ Tested well on `Ubuntu` and `Windows 11`.
 
 ## Why
 
-Imaging one day you come across a strange word: **CUPS** while reading a book of Unix, you try hard to find what it means. Another day you find the **WAF** in the world of web, you again endeavor to figure it out and remeber this acronym.
-
-Day after day, many inquisitive people gather around to finnally decide to record them in one place at hand.
-
-<br>
-
-
 The aim of this project is to:
 
 1. make cryptic things clear
@@ -47,9 +37,7 @@ rather than
 
 1. record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
 
-
 <br>
-
 
 # Usage
 

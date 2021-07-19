@@ -13,13 +13,14 @@ jobs:
         ruby-version: 2.7
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Update word counts in README
-      run: |
+      run: | # Try gem install again, because require error
         bundle install
+        gem install tomlrb
         git clone https://github.com/cryptic-less/cryptic_computer
         rake uwc
     - name: Git commit
       run: |
-        git config --local user.email "leslieranaa@qq.com"
+        git config --local user.email "ccmywish@qq.com"
         git config --local user.name "ccmywish"
         git add README.md
         git commit -m "update word counts"

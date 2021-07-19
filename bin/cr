@@ -2,9 +2,9 @@
 # coding: utf-8
 #  ---------------------------------------------------
 #  File          : cr.rb
-#  Authors       : ccmywish <leslieranaa@qq.com>
+#  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2021-7-17>
+#  Last modified : <2021-7-19>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -265,8 +265,7 @@ def solve_word(word)
 cr: Not found anything.
 
 You may use `cr -u` to update the sheets.
-Or could you please figure it out and help others learn?
-Welcome to contribute to our sheets: Thanks!
+Or you could contribute to our sheets: Thanks!
 
   computer:  #{CRYPTIC_DEFAULT_SHEETS[:computer]}
 
@@ -281,7 +280,7 @@ end
 
 def help
   puts <<-HELP
-cr: a general Cryptic Resolver. cr isn't Cryptic Really. 
+cr: Cryptic Resolver. 
 
 usage:
   cr -h                     => print this help

@@ -17,7 +17,7 @@ task :uwc do |t|
   new_file = ""
   file.each_line do |l|
     if l.start_with?("- Currently we have **")
-      new_file = new_file + "- Currently we have **#{wc}** keywords explained in our default sheet!! 🎉\n"
+      new_file = new_file + "- Currently we have **#{wc}** keywords explained in our default sheet.\n"
     elsif l.start_with?("[![word-count](https://img.shields")
       new_file = new_file + "[![word-count](#{badge_url})][cryptic_computer]\n"
     else
