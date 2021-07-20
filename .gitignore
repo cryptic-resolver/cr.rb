@@ -1,2 +1,7 @@
 Gemfile.lock
 *.gem
+
+# For CI
+.bundle
+vendor
+cryptic_computer
