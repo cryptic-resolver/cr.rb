@@ -2,7 +2,7 @@ name: My workflow
 on: 
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '30 9 * * *' # everyday 1 +8 = 9 in CST
+    - cron:  '38 9 * * *' # everyday 1 +8 = 9 in CST
 jobs:
   Update-Readme:
     runs-on: ubuntu-latest
@@ -14,8 +14,8 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Check out another repo
       uses: actions/checkout@v2
-        with:
-          repository: "cryptic-resolver/cryptic_computer"
+      with:
+        repository: "cryptic-resolver/cryptic_computer"
     - name: Update word counts in README
       run: | # Try gem install again, because require error; Not use bundle 
         gem install tomlrb
