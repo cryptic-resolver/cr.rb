@@ -2,7 +2,7 @@ name: My workflow
 on: 
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '0 4 * * *' # everyday 1 +8 = 9 in CST
+    - cron:  '0 8 * * *' # everyday 1 +8 = 9 in CST
 jobs:
   Update-Readme:
     runs-on: ubuntu-latest
@@ -15,8 +15,7 @@ jobs:
         ruby-version: 2.7
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Update word counts in README
-      run: | # Try gem install again, because require error
-        bundle install
+      run: | # Try gem install again, because require error; Not use bundle 
         gem install tomlrb
         rake uwc
     - name: Git commit
