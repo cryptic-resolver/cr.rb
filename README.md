@@ -62,7 +62,7 @@ $ cr -h
 
 # Implementation
 
-cr is written in pure **Ruby**. You can implement this tool in any other langauge you like(name your projects as `cr_python` for example), just remember to reuse our [cryptic_computer] or other sheets which are the core parts anyone can contribute to.
+cr is written in pure **Ruby**. You can implement this tool in any other language you like(name your projects as `cr_python` for example), just remember to reuse our [cryptic_computer] or other sheets which are the core parts anyone can contribute to.
 
 ## Sheet layout
 
@@ -79,7 +79,7 @@ Every sheet should be a git repository. And each should contain these files(we c
 In every file(or dictionary), your definition format looks like this in pure **toml**:
 ```toml
 # a normal definition
-# notice that we want to keep the key case unsenstive
+# notice that we want to keep the key case unsensitive
 # because the case sometimes contains  details to help we understand
 [XDG]
 desc = "Cross Desktop Group"
@@ -122,9 +122,9 @@ In one sheet, you should consider adding a subkey to differ each other like the 
 
 *But what if a sheet has two 'gdm'?* 
 
-> This will lead to toml's parser library fail. So you hace these solutions
+> This will lead to toml's parser library fail. You have these solutions
 > 1. Use a better lint for example: [VSCode's Even Better TOML](https://github.com/tamasfe/taplo)
-> 2. Watch the fail message, you may notice 'override path xxx', the xxx is the collision, you may correct it back mannually.
+> 2. Watch the fail message, you may notice 'override path xxx', the xxx is the collision, you may correct it back manually.
 
 
 <br>
