@@ -44,8 +44,12 @@ rather than
 # Usage
 
 ```bash
-$ cr a_com_d
-# -> It means A COMmanD 
+$ cr emacs
+# -> Emacs: Edit macros
+# ->
+# ->   a feature-rich editor
+# ->
+# -> SEE ALSO Vim 
 
 $ cr -u 
 # -> update all sheets
@@ -62,7 +66,7 @@ $ cr -h
 
 # Implementation
 
-cr is written in pure **Ruby**. You can implement this tool in any other language you like(name your projects as `cr_python` for example), just remember to reuse our [cryptic_computer] or other sheets which are the core parts anyone can contribute to.
+`cr` is written in pure **Ruby**. You can implement this tool in any other language you like(name your projects as `cr_python` for example), just remember to reuse our [cryptic_computer] or other sheets which are the core parts anyone can contribute to.
 
 ## Sheet layout
 
@@ -78,36 +82,49 @@ Every sheet should be a git repository. And each should contain these files(we c
 
 In every file(or dictionary), your definition format looks like this in pure **toml**:
 ```toml
-# a normal definition
-# notice that we want to keep the key case unsensitive
-# because the case sometimes contains  details to help we understand
-[XDG]
+# A normal definition
+#
+# NOTICE: 
+#   We MUST keep the key downcase
+#   We use a key 'disp' to display its original form 
+#   Because the case sometimes contains details to help we understand
+#
+#   And 'disp' && 'desc' is both MUST-HAVE
+#
+[xdg]
+disp = "XDG"
 desc = "Cross Desktop Group"
 
 # If you want to explain more, use 'full'
 [xxd]
+disp = "xxd"
 desc = "hex file dump"
 full = "Why call this 'xxd' rather than 'xd'?? Maybe a historical reason"
 
-# if there are multiple meanings, you should add a subkey to differ
-[XDM.Download]
+# If there are multiple meanings, you should add a subkey to differ
+[xdm.Download]
+disp = "XDM"
 desc = "eXtreme Download Manager"
 
-[XDM.Display]
+[xdm.Display]
+disp = "XDM"
 desc = "X Display Manager"
 ```
 
 We have more features than above
 ```toml
-[JPEG]
+[jpeg]
+disp = "JPEG"
 desc = "Joint Photographic Experts Group"
 full = "Introduced in 1992. A commonly used method of lossy compression for digital images"
 
-[JPG]
-same = "JPEG" # Yes, we just need to redirect this. No duplicate!
-see = ['MPG','PNG'] # Yes, this is a `see also`
+[jpg]
+disp = "JPG"
+same = "JPEG" # We just need to redirect this. No duplicate!
+see = ['MPG','PNG'] # This is a `see also`
 
-["H.265"]
+["h.265"]
+disp = "H.265"
 desc = "A video compression standard" # The 'dot' keyword supported using quoted strings
 
 ```
