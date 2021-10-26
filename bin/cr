@@ -13,7 +13,7 @@
 
 require 'tomlrb'
 
-CRYPTIC_LESS_HOME = File.expand_path("~/.cryptic-resolver")
+CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
 CRYPTIC_DEFAULT_SHEETS = {
   computer: "https://github.com/cryptic-resolver/cryptic_computer.git"
 }
@@ -38,11 +38,11 @@ def cyan(str)       "\e[36m#{str}\e[0m" end
 ####################
 
 def is_there_any_sheet?
-  unless Dir.exist? CRYPTIC_LESS_HOME
-    Dir.mkdir CRYPTIC_LESS_HOME
+  unless Dir.exist? CRYPTIC_RESOLVER_HOME
+    Dir.mkdir CRYPTIC_RESOLVER_HOME
   end
 
-  !Dir.empty? CRYPTIC_LESS_HOME 
+  !Dir.empty? CRYPTIC_RESOLVER_HOME 
 end
 
 
@@ -50,7 +50,7 @@ def add_default_sheet_if_none_exist
   unless is_there_any_sheet?
     puts "cr: first installed, add default sheet..."
     CRYPTIC_DEFAULT_SHEETS.values.each do |sheet|
-      `git -C #{CRYPTIC_LESS_HOME} clone #{sheet}`
+      `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet}`
     end
     puts "cr: Done"
   end
@@ -61,14 +61,14 @@ def update_sheets(sheet_repo)
   return if false == is_there_any_sheet?
 
   if sheet_repo.nil?
-    Dir.chdir CRYPTIC_LESS_HOME do 
-      Dir.children(CRYPTIC_LESS_HOME).each do |sheet|
+    Dir.chdir CRYPTIC_RESOLVER_HOME do 
+      Dir.children(CRYPTIC_RESOLVER_HOME).each do |sheet|
         puts "cr: Wait to update #{sheet}..."
         `git -C ./#{sheet} pull`
       end
     end
   else
-    `git -C #{CRYPTIC_LESS_HOME} clone #{sheet_repo}`
+    `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet_repo}`
   end
 
   puts "cr: Done"
@@ -76,7 +76,7 @@ end
 
 
 def load_dictionary(path,file)
-  file = CRYPTIC_LESS_HOME + "/#{path}/#{file}.toml" 
+  file = CRYPTIC_RESOLVER_HOME + "/#{path}/#{file}.toml" 
   
   if File.exist? file
     return Tomlrb.load_file file # gem 'tomlrb'
@@ -90,16 +90,17 @@ end
 # Pretty print the info of the given word
 #
 # A info looks like this
-#   Emacs = {
+#   emacs = {
+#     disp = "Emacs" 
 #     desc = "edit macros"
 #     full = "a feature-rich editor"
 #     see  = ["Vim"]
 #   }
 #
-# @param word [String] the keyword in TOML which matches with user's request 
 # @param info [Hash] the information of the given word (mapped to a keyword in TOML) 
-def pp_info(word,info)
-  puts "\n  #{word}: #{info['desc']}"
+def pp_info(info)
+  disp = info['disp'] || red("No name!")  # keyword `or` is invalid here in Ruby
+  puts "\n  #{disp}: #{info['desc']}"
 
   if full = info['full']
     print "\n  ",full,"\n"
@@ -110,13 +111,12 @@ def pp_info(word,info)
     see_also.each {|x| print underline(x),' '}
     puts
   end 
+  puts
 end
 
-# Make duplicatins a function
+# Print default cryptic_ sheets
 def pp_sheet(sheet)
-  unless sheet.start_with?('cryptic_')
-    puts green("sheet: #{sheet}")
-  end
+    puts green("From: #{sheet}")
 end
 
 
@@ -132,7 +132,7 @@ end
 #   same = "XDG"  # this is wrong
 #
 #   [blah]
-#   same = "XDG.Download" # this is true
+#   same = "XDG.Download" # this is right
 def directly_lookup(sheet,file,word)
   dict = load_dictionary(sheet,file.downcase) 
 
@@ -152,68 +152,70 @@ def directly_lookup(sheet,file,word)
     exit
   end
 
-  pp_info(word,info)
+  pp_info(info)
   return true # always true
 end
 
 
-# Lookup the given word in a dictionary (a .toml file in a sheet)
+# Lookup the given word in a dictionary (a toml file in a sheet) and also print.
 # The core idea is that:
-# 1. load the toml file and check whether it has the only one meaning.
-#   1.1 If yes, then just print it using `pp_info`
-#   1.2 If not, then collect all the meanings of the word, and use `pp_info`
-# 2. if the word is `same` with another synonym, it will directly jump to 
+#
+# 1. if the word is `same` with another synonym, it will directly jump to 
 #   a word in this sheet, but maybe a different dictionary
+#
+# 2. load the toml file and check whether it has the only one meaning.
+#   2.1 If yes, then just print it using `pp_info`
+#   2.2 If not, then collect all the meanings of the word, and use `pp_info`
+#
 def lookup(sheet, file, word)
-  # only one meaning
+  # Only one meaning
   dict = load_dictionary(sheet,file) 
   return false if dict.nil?
 
-  # We want keys in toml be case-insenstive. 
-  # So we only can use array to find them, but this may leave performance problem when data grows.
-  # If we use hash, the toml keys must be downcase, the situation where we really avoid. 
-  word = dict.keys.select {|k| k.downcase == word} .first
+  # We firstly want keys in toml be case-insenstive, but later in 2021/10/26 I found it caused problems.
+  # So I decide to add a new must-have format member: `disp`
+  # This will display the word in its traditional form.
+  # Then, all the keywords can be downcase.
 
-  info = dict[word]
+  info = dict[word] # Directly hash it
   return false if info.nil?
 
   # Warn user if the info is empty. For example:
-  #   Emacs = { }
+  #   emacs = { }
   if info.size == 0
     puts red("WARN: Lack of everything of the given word 
       Please consider fixing this in the sheet `#{sheet}`")
     exit 
   end
 
-  # Check whether it's a synonym for anther
-  # If yes, we should lookup into this sheet again, but maybe 
-  # with a different file
+  # Check whether it's a synonym for anther word
+  # If yes, we should lookup into this sheet again, but maybe with a different file
   if same = info['same']
-    pp_sheet(sheet)
     # point out to user, this is a jump
     puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
     
     if same.chr.downcase == file  # no need to load dictionary again
-      pp_info(same,dict[same])
+      pp_info(dict[same])
       return true
     else
       return directly_lookup(sheet, same.chr, same)
     end
   end
 
+  # Check if it's only one meaning
   if info.has_key?('desc')
     pp_sheet(sheet)
-    pp_info(word,info)
+    pp_info(info)
     return true
   end
 
-  # multiple meanings in one sheet
+  # Multiple meanings in one sheet
   info = info.keys
 
   unless info.empty?
     pp_sheet(sheet)
     info.each do |meaning|
-      pp_info(word,dict[word][meaning])
+      pp_info(dict[word][meaning])
       # last meaning doesn't show this separate line
       print "\n", blue(bold("OR")),"\n" unless info.last == meaning
     end
@@ -224,9 +226,9 @@ def lookup(sheet, file, word)
 end
 
 
-# The core algorithm of `cr`
-# 1. Search the default's first sheet first
-# 2. Search the rest sheets in the cryptic sheets default dir
+# The main logic of `cr`
+#   1. Search the default's first sheet first
+#   2. Search the rest sheets in the cryptic sheets default dir
 # 
 # The `search` procedure is done via the `lookup` function. It
 # will print the info while finding. If `lookup` always return 
@@ -253,7 +255,7 @@ def solve_word(word)
   # return if result == true # We should consider all sheets
 
   # Then else
-  rest = Dir.children(CRYPTIC_LESS_HOME)
+  rest = Dir.children(CRYPTIC_RESOLVER_HOME)
   rest.delete first_sheet
   rest.each do |sheet|
     results << lookup(sheet,index,word)
