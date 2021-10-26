@@ -89,7 +89,8 @@ In every file(or dictionary), your definition format looks like this in pure **t
 #   We use a key 'disp' to display its original form 
 #   Because the case sometimes contains details to help we understand
 #
-#   And 'disp' && 'desc' is both MUST-HAVE
+#   And 'disp' && 'desc' is both MUST-HAVE. 
+#   But if you use 'same', all other infos are not needed.   
 #
 [xdg]
 disp = "XDG"
@@ -117,11 +118,13 @@ We have more features than above
 disp = "JPEG"
 desc = "Joint Photographic Experts Group"
 full = "Introduced in 1992. A commonly used method of lossy compression for digital images"
+see = ['MPG','PNG'] # This is a `see also`
 
 [jpg]
-disp = "JPG"
 same = "JPEG" # We just need to redirect this. No duplicate!
-see = ['MPG','PNG'] # This is a `see also`
+
+[sth]
+same = "xdm" # If we direct to a multimeaning word, we don't need to specify its category(subkey).
 
 ["h.265"]
 disp = "H.265"

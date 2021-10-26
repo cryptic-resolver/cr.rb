@@ -9,6 +9,7 @@
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
 #  orther fileds.  
+#
 #  ---------------------------------------------------
 
 require 'tomlrb'
@@ -195,8 +196,19 @@ def lookup(sheet, file, word)
     puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
     
     if same.chr.downcase == file  # no need to load dictionary again
-      pp_info(dict[same])
-      return true
+      # Explicitly convert it to downcase.
+      # In case the dictionary maintainer redirects to a uppercase word by mistake.
+      same = same.downcase
+      info = dict[same]
+      if info.nil?
+        puts red("WARN: Synonym jumps to the wrong place `#{same}`,
+          Please consider fixing this in `#{file.downcase}.toml` of the sheet `#{sheet}`")
+        exit
+        return false
+      else
+        pp_info(info)
+        return true
+      end
     else
       return directly_lookup(sheet, same.chr, same)
     end
@@ -217,7 +229,7 @@ def lookup(sheet, file, word)
     info.each do |meaning|
       pp_info(dict[word][meaning])
       # last meaning doesn't show this separate line
-      print "\n", blue(bold("OR")),"\n" unless info.last == meaning
+      print  blue(bold("OR")),"\n" unless info.last == meaning
     end
     return true
   else
