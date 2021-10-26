@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = "cryptic-resolver"
-  s.version = "1.1"
-  s.date = "2021-07-19"
+  s.version = "2.0"
+  s.date = "2021-10-26"
   
   s.summary = "cr: Cryptic Resolver"
 
@@ -13,7 +13,7 @@ DESC
   s.license = "MIT"
 
   s.authors = "ccmywish"
-  s.email = "leslieranaa@qq.com"
+  s.email = "ccmywish@qq.com"
   s.homepage = "https://github.com/cryptic-resolver/cr"
 
   s.files = [
