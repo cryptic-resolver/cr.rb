@@ -2,6 +2,8 @@
 
 **Cryptic Resolver**
 
+[简体中文](README-CN.md)
+
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-215-brightgreen)][cryptic_computer]
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
@@ -33,7 +35,7 @@ Tested well on `Ubuntu` and `Windows 11`.
 The aim of this project is to:
 
 1. make cryptic things clear
-2. help maintain your own personal knwoledge base
+2. help maintain your own personal knowledge base
 
 rather than
 
@@ -70,7 +72,7 @@ $ cr -h
 
 ## Sheet layout
 
-Every sheet should be a git repository. And each should contain these files(we call these dictionarys):
+Sheet is the knowledgebase. Every sheet should be a git repository. And each should contain these files(we call these dictionarys):
 
 1. 0123456789.toml
 2. a.toml
@@ -78,7 +80,7 @@ Every sheet should be a git repository. And each should contain these files(we c
 3. ...
 4. z.toml
 
-## File format
+## Dictionary format(File format)
 
 In every file(or dictionary), your definition format looks like this in pure **toml**:
 ```toml
