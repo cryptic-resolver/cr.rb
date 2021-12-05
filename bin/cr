@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2021-10-26>
+#  Last modified : <2021-12-5>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -16,7 +16,8 @@ require 'tomlrb'
 
 CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
 CRYPTIC_DEFAULT_SHEETS = {
-  computer: "https://github.com/cryptic-resolver/cryptic_computer.git"
+  computer: "https://github.com/cryptic-resolver/cryptic_computer.git",
+  common: "https://github.com/cryptic-resolver/cryptic_common.git"
 }
 
 

@@ -4,7 +4,7 @@
 
 [English](README.md)
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-215-brightgreen)][cryptic_computer]
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-224-brightgreen)][cryptic_computer]
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
@@ -16,7 +16,7 @@
 
 它不仅可以通过我们的默认工作表 [cryptic_computer] 用于计算机领域，而且您还可以使用它轻松管理自己的知识库。
 
-- 目前，我们在默认工作表中已解释了 **215** 个关键词。
+- 目前，我们在默认工作表中已解释了 **224** 个关键词。
 
 <br>
 
