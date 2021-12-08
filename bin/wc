@@ -4,7 +4,7 @@
 #  File          : wc.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-16>
-#  Last modified : <2021-7-19>
+#  Last modified : <2021-12-8>
 #
 #  This file is used to count the key words in default 
 #  sheet: cryptic_computer
@@ -19,12 +19,12 @@ require 'tomlrb'
 op = ARGV.shift
 ALL_MODE = op == "--all" ? true : false
 
-try_sheet_dir = File.expand_path "~/.cryptic-resolver/cryptic_computer/"
 
-# This is for CI
-unless Dir.exist? try_sheet_dir
-  try_sheet_dir = "./cryptic_computer"
-end
+defaults = [
+  "~/.cryptic-resolver/cryptic_computer/",
+  "~/.cryptic-resolver/cryptic_common/",
+].map {|path| File.expand_path(path)}
+
 
 # A file is like 
 #   a.toml
@@ -38,21 +38,33 @@ def load_dictionary(file)
   end
 end
 
-Dir.chdir(try_sheet_dir)
-wc = 0
+$WordCount = 0
 
-Dir.children(try_sheet_dir).each do |entry|
-  next unless entry.end_with?('.toml')
-  dict = load_dictionary(entry)
-  count = dict.keys.count
+def count_sheet_words(sheet_dir)
+  Dir.chdir(sheet_dir)
+  wc = 0
+
+  Dir.children(sheet_dir).each do |entry|
+    next unless entry.end_with?('.toml')
+    dict = load_dictionary(entry)
+    count = dict.keys.count
   
-  puts "#{entry}: #{count}" unless ALL_MODE
-  wc = wc + count
+    puts "#{entry}: #{count}" unless ALL_MODE
+    wc = wc + count
+  end
+
+  $WordCount += wc
+
+  unless ALL_MODE
+    puts "#{sheet_dir} words: #{wc}\n\n"
+  end
+
 end
 
+defaults.each do |s|
+  count_sheet_words(s)
+end
 
 if ALL_MODE
-  print wc # must use print, or rake `` will parse to a new line
-else
-  puts "all: #{wc}"
+  print $WordCount # must use print, or rake `` will parse to a new line
 end

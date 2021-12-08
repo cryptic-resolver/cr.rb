@@ -4,19 +4,27 @@
 
 [English](README.md)
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-224-brightgreen)][cryptic_computer]
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-232-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
 
 </div>
 
-这个命令行工具 `cr` 用于**记录和解释日常生活中的奇怪命令，缩略词等**。
+这个命令行工具 `cr` 用于**记录和解释计算机领域的命令以及日常生活中的缩略词等**。
 这项工作是为了研究词源，了解命名惯例。
 
-它不仅可以通过我们的默认工作表 [cryptic_computer] 用于计算机领域，而且您还可以使用它轻松管理自己的知识库。
+它不仅可以用于计算机领域，而且您还可以使用它轻松管理自己的知识库。
 
-- 目前，我们在默认工作表中已解释了 **224** 个关键词。
+- 目前，我们在默认工作表中已解释了 **232** 个关键词。
+
+<br>
+
+<a name="default-sheets"></a> 
+## 默认Sheet
+
+- [cryptic_computer]
+- [cryptic_common]
 
 <br>
 
@@ -171,5 +179,6 @@ cr 使用MIT协议
 
 
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
+[cryptic_common]: https://github.com/cryptic-resolver/cryptic_common
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat

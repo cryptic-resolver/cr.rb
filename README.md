@@ -4,7 +4,7 @@
 
 [简体中文](README-CN.md)
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-224-brightgreen)][cryptic_computer]
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-232-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
@@ -14,11 +14,21 @@
 This command line tool `cr` is used to **record and explain cryptic commands, acronyms and so forth** in daily life.
 The effort is to study etymology and know of naming conventions.
 
-Not only can it be used in computer filed via our default sheet [cryptic_computer], but also you can use this to manage your own knowledge base easily.
+Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **224** keywords explained in our default sheet.
+- Currently we have **232** keywords explained in our default sheets.
 
 <br>
+
+
+<a name="default-sheets"></a> 
+## Default Sheets
+
+- [cryptic_computer]
+- [cryptic_common]
+
+<br>
+
 
 ## Install
 
@@ -170,5 +180,6 @@ cr is under MIT
 
 
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
+[cryptic_common]: https://github.com/cryptic-resolver/cryptic_common
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat

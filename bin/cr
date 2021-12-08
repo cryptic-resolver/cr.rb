@@ -282,7 +282,8 @@ cr: Not found anything.
 You may use `cr -u` to update the sheets.
 Or you could contribute to our sheets: Thanks!
 
-  computer:  #{CRYPTIC_DEFAULT_SHEETS[:computer]}
+  computer:   #{CRYPTIC_DEFAULT_SHEETS[:computer]}
+  common:     #{CRYPTIC_DEFAULT_SHEETS[:common]}
 
 NotFound
 
