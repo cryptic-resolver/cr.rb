@@ -53,7 +53,7 @@ end
 
 def add_default_sheet_if_none_exist
   unless is_there_any_sheet?
-    puts "cr: first installed, add default sheet..."
+    puts "cr: Adding default sheets..."
     CRYPTIC_DEFAULT_SHEETS.values.each do |sheet|
       `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet}`
     end
@@ -319,7 +319,7 @@ end
 arg = ARGV.shift
 
 case arg
-when nil            then help
+when nil            then (help && add_default_sheet_if_none_exist)
 when '-h'           then help
 when '-u'           then update_sheets   ARGV.shift
 else
