@@ -4,7 +4,7 @@
 
 [简体中文](README-CN.md)
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-232-brightgreen)](#default-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-256-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
@@ -16,7 +16,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **232** keywords explained in our default sheets.
+- Currently we have **256** keywords explained in our default sheets.
 
 <br>
 
@@ -26,6 +26,9 @@ Not only can it be used in the computer filed, but also you can use this to mana
 
 - [cryptic_computer]
 - [cryptic_common]
+- [cryptic_science]
+- [cryptic_economy]
+- [cryptic_medicine]
 
 <br>
 
@@ -174,12 +177,15 @@ maybe you need `sudo` access
 <br>
 
 # LICENSE
-cr is under MIT
+`cr` itself is under MIT
 
-[cryptic_computer] is under CC-BY-4.0
+Official [default sheets](#default-sheets) are all under CC-BY-4.0
 
 
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
 [cryptic_common]: https://github.com/cryptic-resolver/cryptic_common
+[cryptic_science]: https://github.com/cryptic-resolver/cryptic_science
+[cryptic_economy]: https://github.com/cryptic-resolver/cryptic_economy
+[cryptic_medicine]: https://github.com/cryptic-resolver/cryptic_medicine
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat

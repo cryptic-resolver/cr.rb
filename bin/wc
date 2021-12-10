@@ -4,7 +4,7 @@
 #  File          : wc.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-16>
-#  Last modified : <2021-12-8>
+#  Last modified : <2021-12-10>
 #
 #  This file is used to count the key words in default 
 #  sheet: cryptic_computer
@@ -23,6 +23,9 @@ ALL_MODE = op == "--all" ? true : false
 defaults = [
   "~/.cryptic-resolver/cryptic_computer/",
   "~/.cryptic-resolver/cryptic_common/",
+  "~/.cryptic-resolver/cryptic_science/",
+  "~/.cryptic-resolver/cryptic_economy/",
+  "~/.cryptic-resolver/cryptic_medicine/",
 ].map {|path| File.expand_path(path)}
 
 

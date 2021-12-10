@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2021-12-5>
+#  Last modified : <2021-12-10>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -17,7 +17,10 @@ require 'tomlrb'
 CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
 CRYPTIC_DEFAULT_SHEETS = {
   computer: "https://github.com/cryptic-resolver/cryptic_computer.git",
-  common: "https://github.com/cryptic-resolver/cryptic_common.git"
+  common:   "https://github.com/cryptic-resolver/cryptic_common.git",
+  science:  "https://github.com/cryptic-resolver/cryptic_science.git",
+  economy:  "https://github.com/cryptic-resolver/cryptic_economy.git",
+  medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
 
@@ -282,8 +285,11 @@ cr: Not found anything.
 You may use `cr -u` to update the sheets.
 Or you could contribute to our sheets: Thanks!
 
-  computer:   #{CRYPTIC_DEFAULT_SHEETS[:computer]}
-  common:     #{CRYPTIC_DEFAULT_SHEETS[:common]}
+  1. computer:   #{CRYPTIC_DEFAULT_SHEETS[:computer]}
+  2. common:     #{CRYPTIC_DEFAULT_SHEETS[:common]}
+  3. science:    #{CRYPTIC_DEFAULT_SHEETS[:science]}
+  4. economy:    #{CRYPTIC_DEFAULT_SHEETS[:economy]}
+  5. medicine:   #{CRYPTIC_DEFAULT_SHEETS[:medicine]}
 
 NotFound
 

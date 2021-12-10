@@ -4,7 +4,7 @@
 
 [English](README.md)
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-232-brightgreen)](#default-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-256-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
@@ -16,7 +16,7 @@
 
 它不仅可以用于计算机领域，而且您还可以使用它轻松管理自己的知识库。
 
-- 目前，我们在默认工作表中已解释了 **232** 个关键词。
+- 目前，我们在默认工作表中已解释了 **256** 个关键词。
 
 <br>
 
@@ -25,6 +25,9 @@
 
 - [cryptic_computer]
 - [cryptic_common]
+- [cryptic_science]
+- [cryptic_economy]
+- [cryptic_medicine]
 
 <br>
 
@@ -173,12 +176,15 @@ desc = "A video compression standard" # 通过使用双引号来支持 '.'(点�
 <br>
 
 # LICENSE
-cr 使用MIT协议
+`cr` 自身使用 MIT 协议
 
-[cryptic_computer] 使用CC-BY-4.0协议
+所有官方 [默认表单](#default-sheets) 均使用 CC-BY-4.0
 
 
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
 [cryptic_common]: https://github.com/cryptic-resolver/cryptic_common
+[cryptic_science]: https://github.com/cryptic-resolver/cryptic_science
+[cryptic_economy]: https://github.com/cryptic-resolver/cryptic_economy
+[cryptic_medicine]: https://github.com/cryptic-resolver/cryptic_medicine
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat
