@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2021-12-10>
+#  Last modified : <2021-12-26>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -196,12 +196,13 @@ def lookup(sheet, file, word)
   # Check whether it's a synonym for anther word
   # If yes, we should lookup into this sheet again, but maybe with a different file
   if same = info['same']
+    pp_sheet(sheet)
     # point out to user, this is a jump
     puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
     
     if same.chr.downcase == file  # no need to load dictionary again
       # Explicitly convert it to downcase.
-      # In case the dictionary maintainer redirects to a uppercase word by mistake.
+      # In case the dictionary maintainer redirects to an uppercase word by mistake.
       same = same.downcase
       info = dict[same]
       if info.nil?
