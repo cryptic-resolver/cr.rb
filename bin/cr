@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2021-12-26>
+#  Last modified : <2021-12-28>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -22,6 +22,8 @@ CRYPTIC_DEFAULT_SHEETS = {
   economy:  "https://github.com/cryptic-resolver/cryptic_economy.git",
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
+
+CRYPTIC_VERSION = "3.1"
 
 
 ####################
@@ -57,26 +59,27 @@ def add_default_sheet_if_none_exist
     CRYPTIC_DEFAULT_SHEETS.values.each do |sheet|
       `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet}`
     end
-    puts "cr: Done"
+    puts "cr: Add done"
   end
 end
 
 
 def update_sheets(sheet_repo)
-  return if false == is_there_any_sheet?
+  add_default_sheet_if_none_exist
 
   if sheet_repo.nil?
+    puts "cr: Updating all sheets..."
     Dir.chdir CRYPTIC_RESOLVER_HOME do 
       Dir.children(CRYPTIC_RESOLVER_HOME).each do |sheet|
         puts "cr: Wait to update #{sheet}..."
         `git -C ./#{sheet} pull`
       end
     end
+    puts "cr: Update done"
   else
     `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet_repo}`
+    puts "cr: Add new sheet done"
   end
-
-  puts "cr: Done"
 end
 
 
@@ -303,7 +306,7 @@ end
 
 def help
   puts <<-HELP
-cr: Cryptic Resolver. 
+cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby 
 
 usage:
   cr -h                     => print this help
@@ -320,7 +323,7 @@ end
 arg = ARGV.shift
 
 case arg
-when nil            then (help && add_default_sheet_if_none_exist)
+when nil            then (help || add_default_sheet_if_none_exist)
 when '-h'           then help
 when '-u'           then update_sheets   ARGV.shift
 else
