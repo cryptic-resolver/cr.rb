@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2021-12-28>
+#  Last modified : <2022-1-13>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -23,7 +23,7 @@ CRYPTIC_DEFAULT_SHEETS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.1"
+CRYPTIC_VERSION = "3.2.0"
 
 
 ####################
@@ -56,8 +56,9 @@ end
 def add_default_sheet_if_none_exist
   unless is_there_any_sheet?
     puts "cr: Adding default sheets..."
-    CRYPTIC_DEFAULT_SHEETS.values.each do |sheet|
-      `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet}`
+    CRYPTIC_DEFAULT_SHEETS.each do |key, sheet|
+      puts "cr: Pulling cryptic_#{key}..."
+      `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet} -q`
     end
     puts "cr: Add done"
   end
@@ -72,12 +73,13 @@ def update_sheets(sheet_repo)
     Dir.chdir CRYPTIC_RESOLVER_HOME do 
       Dir.children(CRYPTIC_RESOLVER_HOME).each do |sheet|
         puts "cr: Wait to update #{sheet}..."
-        `git -C ./#{sheet} pull`
+        `git -C ./#{sheet} pull -q`
       end
     end
     puts "cr: Update done"
   else
-    `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet_repo}`
+    puts "cr: Adding new sheet..."
+    `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet_repo} -q`
     puts "cr: Add new sheet done"
   end
 end
