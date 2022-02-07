@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2022-1-13>
+#  Last modified : <2022-2-7>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -23,7 +23,7 @@ CRYPTIC_DEFAULT_SHEETS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.2.0"
+CRYPTIC_VERSION = "3.3.0"
 
 
 ####################
@@ -318,6 +318,10 @@ HELP
 end
 
 
+def print_version
+  puts "cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby "
+end
+
 
 ####################
 # main: CLI Handling
@@ -327,6 +331,7 @@ arg = ARGV.shift
 case arg
 when nil            then (help || add_default_sheet_if_none_exist)
 when '-h'           then help
+when '-v'           then print_version
 when '-u'           then update_sheets   ARGV.shift
 else
   solve_word arg

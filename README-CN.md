@@ -4,7 +4,7 @@
 
 [English](README.md)
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-444-brightgreen)](#default-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-541-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
@@ -16,7 +16,7 @@
 
 它不仅可以用于计算机领域，而且您还可以使用它轻松管理自己的知识库。
 
-- 目前，我们在默认工作表中已解释了 **444** 个关键词。
+- 目前，我们在默认工作表中已解释了 **541** 个关键词。
 
 <br>
 
