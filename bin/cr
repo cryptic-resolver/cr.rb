@@ -23,7 +23,7 @@ CRYPTIC_DEFAULT_SHEETS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.3.0"
+CRYPTIC_VERSION = "3.3.1"
 
 
 ####################
@@ -311,6 +311,7 @@ def help
 cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby 
 
 usage:
+  cr -v                     => print version
   cr -h                     => print this help
   cr -u (xx.com//repo.git)  => update default sheet or add sheet from a git repo
   cr emacs                  => Edit macros: a feature-rich editor
