@@ -155,9 +155,9 @@ desc = "A video compression standard" # The 'dot' keyword supported using quoted
 
 In one sheet, you should consider adding a subkey to differ each other like the example above.
 
-*But what if a sheet has 'gdm' while another also has a 'GDM'?*
+*But what if a dictionary has 'gdm' while another also has a 'GDM'?*
 
-> That's nothing, because cr knows this.
+> cr can handle this.
 
 *But what if a sheet has two 'gdm'?* 
 
@@ -173,7 +173,7 @@ In one sheet, you should consider adding a subkey to differ each other like the 
 maybe you need `sudo` access
 
 - `gem build cryptic-resolver`
-- `gem install cryptic-resolver -l`
+- `gem install ./cryptic-resolver-4.x.gem -l`
 - `gem uninstall cryptic-resolver`
 - `gem update cryptic-resolver (--pre)`
 - `gem push cryptic-resolver-x.x.gem`
