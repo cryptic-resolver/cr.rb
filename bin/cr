@@ -23,7 +23,7 @@ CRYPTIC_DEFAULT_SHEETS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.4"
+CRYPTIC_VERSION = "4.1"
 
 
 ####################
@@ -324,6 +324,7 @@ cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby
 usage:
   cr -v                     => print version
   cr -h                     => print this help
+  cr -l                     => list local dictionaries
   cr -u (xx.com//repo.git)  => update default sheet or add sheet from a git repo
   cr emacs                  => Edit macros: a feature-rich editor
 
@@ -336,6 +337,15 @@ def print_version
 end
 
 
+def list_dictionaries
+  Dir.chdir CRYPTIC_RESOLVER_HOME do 
+    Dir.children(CRYPTIC_RESOLVER_HOME).each_with_index do |sheet,i|
+      puts "#{blue(i+1)}. #{bold(green(sheet))}"
+    end
+  end
+end
+
+
 ####################
 # main: CLI Handling
 ####################
@@ -345,6 +355,7 @@ case arg
 when nil            then (help || add_default_sheet_if_none_exist)
 when '-h'           then help
 when '-v'           then print_version
+when '-l'           then list_dictionaries
 when '-u'           then update_sheets   ARGV.shift
 else
   solve_word arg
