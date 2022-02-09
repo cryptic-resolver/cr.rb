@@ -24,7 +24,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "4.3"
+CRYPTIC_VERSION = "4.4"
 
 
 ####################
@@ -58,9 +58,12 @@ def add_default_dicts_if_none_exists
   unless is_there_any_dict?
     puts "cr: Adding default dictionaries..."
     CRYPTIC_DEFAULT_DICTS.each do |key, dict|
-      puts "cr: Pulling cryptic_#{key}..."
-      `git -C #{CRYPTIC_RESOLVER_HOME} clone #{dict} -q`
+      fork do 
+        puts "cr: Pulling cryptic_#{key}..."
+        `git -C #{CRYPTIC_RESOLVER_HOME} clone #{dict} -q`
+      end
     end
+    Process.waitall
     puts "cr: Add done"
   end
 end
@@ -72,9 +75,12 @@ def update_dicts()
   puts "cr: Updating all dictionaries..."
   Dir.chdir CRYPTIC_RESOLVER_HOME do 
     Dir.children(CRYPTIC_RESOLVER_HOME).each do |dict|
-      puts "cr: Wait to update #{dict}..."
-      `git -C ./#{dict} pull -q`
+      fork do 
+        puts "cr: Wait to update #{dict}..."
+        `git -C ./#{dict} pull -q`
+      end
     end
+    Process.waitall
   end
   puts "cr: Update done"
 end
