@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2022-2-7>
+#  Last modified : <2022-2-9>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -23,7 +23,7 @@ CRYPTIC_DEFAULT_SHEETS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.3.1"
+CRYPTIC_VERSION = "3.4"
 
 
 ####################
@@ -97,6 +97,7 @@ def load_dictionary(path,file)
 end
 
 
+#
 # Pretty print the info of the given word
 #
 # A info looks like this
@@ -108,6 +109,7 @@ end
 #   }
 #
 # @param info [Hash] the information of the given word (mapped to a keyword in TOML) 
+#
 def pp_info(info)
   disp = info['disp'] || red("No name!")  # keyword `or` is invalid here in Ruby
   puts "\n  #{disp}: #{info['desc']}"
@@ -130,6 +132,7 @@ def pp_sheet(sheet)
 end
 
 
+#
 # Used for synonym jump
 # Because we absolutely jump to a must-have word
 # So we can directly lookup to it
@@ -143,6 +146,7 @@ end
 #
 #   [blah]
 #   same = "XDG.Download" # this is right
+#
 def directly_lookup(sheet,file,word)
   dict = load_dictionary(sheet,file.downcase) 
 
@@ -167,30 +171,27 @@ def directly_lookup(sheet,file,word)
 end
 
 
+#
 # Lookup the given word in a dictionary (a toml file in a sheet) and also print.
 # The core idea is that:
 #
 # 1. if the word is `same` with another synonym, it will directly jump to 
 #   a word in this sheet, but maybe a different dictionary
 #
-# 2. load the toml file and check whether it has the only one meaning.
-#   2.1 If yes, then just print it using `pp_info`
-#   2.2 If not, then collect all the meanings of the word, and use `pp_info`
+# 2. load the toml file and check the given word
+#   2.1 with no category specifier
+#       [abcd]
+#   2.2 with category specifier
+#       [abcd.type]
 #
 def lookup(sheet, file, word)
-  # Only one meaning
   dict = load_dictionary(sheet,file) 
   return false if dict.nil?
-
-  # We firstly want keys in toml be case-insenstive, but later in 2021/10/26 I found it caused problems.
-  # So I decide to add a new must-have format member: `disp`
-  # This will display the word in its traditional form.
-  # Then, all the keywords can be downcase.
 
   info = dict[word] # Directly hash it
   return false if info.nil?
 
-  # Warn user if the info is empty. For example:
+  # Warn if the info is empty. For example:
   #   emacs = { }
   if info.size == 0
     puts red("WARN: Lack of everything of the given word 
@@ -198,11 +199,11 @@ def lookup(sheet, file, word)
     exit 
   end
 
-  # Check whether it's a synonym for anther word
-  # If yes, we should lookup into this sheet again, but maybe with a different file
+  # If it's a synonym for anther word,
+  # we should lookup into this sheet again, but maybe with a different file
   if same = info['same']
     pp_sheet(sheet)
-    # point out to user, this is a jump
+    
     puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
     
     if same.chr.downcase == file  # no need to load dictionary again
@@ -224,22 +225,30 @@ def lookup(sheet, file, word)
     end
   end
 
-  # Check if it's only one meaning
+  # Single meaning with no category specifier
+  # We call this meaning as type 1
+  type_1_exist_flag = false
   if info.has_key?('desc')
     pp_sheet(sheet)
     pp_info(info)
-    return true
+    type_1_exist_flag = true
   end
 
-  # Multiple meanings in one sheet
-  info = info.keys
+  # Meanings with category specifier
+  # We call this meaning as type 2
+  categories = info.keys - ["disp", "desc", "full", "same", "see"]
 
-  unless info.empty?
-    pp_sheet(sheet)
-    info.each do |meaning|
+  unless categories.empty?
+    if (type_1_exist_flag)
+      print  blue(bold("OR")),"\n"
+    else
+      pp_sheet(sheet)
+    end
+
+    categories.each do |meaning|
       pp_info(dict[word][meaning])
       # last meaning doesn't show this separate line
-      print  blue(bold("OR")),"\n" unless info.last == meaning
+      print  blue(bold("OR")),"\n" unless categories.last == meaning
     end
     return true
   else
@@ -248,14 +257,16 @@ def lookup(sheet, file, word)
 end
 
 
-# The main logic of `cr`
+#
+# The main procedure of `cr`
 #   1. Search the default's first sheet first
 #   2. Search the rest sheets in the cryptic sheets default dir
 # 
-# The `search` procedure is done via the `lookup` function. It
-# will print the info while finding. If `lookup` always return 
-# false then means lacking of this word in our sheets.So a wel-
-# comed contribution is prinetd on the screen.
+# The `search` is done via the `lookup` function. It will print
+# the info while finding. If `lookup` always return false then
+# means lacking of this word in our sheets. So a welcomed
+# contribution is prinetd on the screen.
+#
 def solve_word(word)
   
   add_default_sheet_if_none_exist
@@ -315,6 +326,7 @@ usage:
   cr -h                     => print this help
   cr -u (xx.com//repo.git)  => update default sheet or add sheet from a git repo
   cr emacs                  => Edit macros: a feature-rich editor
+
 HELP
 end
 
