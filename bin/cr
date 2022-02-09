@@ -44,7 +44,7 @@ def cyan(str)       "\e[36m#{str}\e[0m" end
 # core: logic
 ####################
 
-def is_there_any_sheet?
+def is_there_any_dict?
   unless Dir.exist? CRYPTIC_RESOLVER_HOME
     Dir.mkdir CRYPTIC_RESOLVER_HOME
   end
@@ -53,8 +53,8 @@ def is_there_any_sheet?
 end
 
 
-def add_default_sheet_if_none_exist
-  unless is_there_any_sheet?
+def add_default_dicts_if_none_exists
+  unless is_there_any_dict?
     puts "cr: Adding default sheets..."
     CRYPTIC_DEFAULT_SHEETS.each do |key, sheet|
       puts "cr: Pulling cryptic_#{key}..."
@@ -65,24 +65,26 @@ def add_default_sheet_if_none_exist
 end
 
 
-def update_sheets(sheet_repo)
-  add_default_sheet_if_none_exist
+def update_dicts()
+  add_default_dicts_if_none_exists
 
-  if sheet_repo.nil?
-    puts "cr: Updating all sheets..."
-    Dir.chdir CRYPTIC_RESOLVER_HOME do 
-      Dir.children(CRYPTIC_RESOLVER_HOME).each do |sheet|
-        puts "cr: Wait to update #{sheet}..."
-        `git -C ./#{sheet} pull -q`
-      end
+  puts "cr: Updating all sheets..."
+  Dir.chdir CRYPTIC_RESOLVER_HOME do 
+    Dir.children(CRYPTIC_RESOLVER_HOME).each do |sheet|
+      puts "cr: Wait to update #{sheet}..."
+      `git -C ./#{sheet} pull -q`
     end
-    puts "cr: Update done"
-  else
-    puts "cr: Adding new sheet..."
-    `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet_repo} -q`
-    puts "cr: Add new sheet done"
   end
+  puts "cr: Update done"
 end
+
+
+def add_dict(repo)
+  puts "cr: Adding new sheet..."
+  `git -C #{CRYPTIC_RESOLVER_HOME} clone #{repo} -q`
+  puts "cr: Add new sheet done"
+end
+
 
 
 def load_dictionary(path,file)
@@ -269,7 +271,7 @@ end
 #
 def solve_word(word)
   
-  add_default_sheet_if_none_exist
+  add_default_dicts_if_none_exists
 
   word = word.downcase # downcase! would lead to frozen error in Ruby 2.7.2
   # The index is the toml file we'll look into
@@ -322,11 +324,12 @@ def help
 cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby 
 
 usage:
-  cr -v                     => print version
-  cr -h                     => print this help
-  cr -l                     => list local dictionaries
-  cr -u (xx.com//repo.git)  => update default sheet or add sheet from a git repo
-  cr emacs                  => Edit macros: a feature-rich editor
+  cr -v                   => print version
+  cr -h                   => print this help
+  cr -l                   => list local dictionaries
+  cr -u                   => update all dictionaries
+  cr -a xx.com//repo.git  => add a new dictionary
+  cr emacs                => Edit macros: a feature-rich editor
 
 HELP
 end
@@ -352,11 +355,12 @@ end
 arg = ARGV.shift
 
 case arg
-when nil            then (help || add_default_sheet_if_none_exist)
-when '-h'           then help
-when '-v'           then print_version
-when '-l'           then list_dictionaries
-when '-u'           then update_sheets   ARGV.shift
+when nil    then (help || add_default_dicts_if_none_exists)
+when '-v'   then print_version
+when '-h'   then help
+when '-l'   then list_dictionaries
+when '-u'   then update_dicts   
+when '-a'   then add_dict ARGV.shift  
 else
   solve_word arg
 end
