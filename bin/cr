@@ -16,7 +16,7 @@ require 'tomlrb'
 require 'fileutils'
 
 CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
-CRYPTIC_DEFAULT_SHEETS = {
+CRYPTIC_DEFAULT_DICTS = {
   computer: "https://github.com/cryptic-resolver/cryptic_computer.git",
   common:   "https://github.com/cryptic-resolver/cryptic_common.git",
   science:  "https://github.com/cryptic-resolver/cryptic_science.git",
@@ -24,7 +24,7 @@ CRYPTIC_DEFAULT_SHEETS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "4.2"
+CRYPTIC_VERSION = "4.3"
 
 
 ####################
@@ -56,10 +56,10 @@ end
 
 def add_default_dicts_if_none_exists
   unless is_there_any_dict?
-    puts "cr: Adding default sheets..."
-    CRYPTIC_DEFAULT_SHEETS.each do |key, sheet|
+    puts "cr: Adding default dictionaries..."
+    CRYPTIC_DEFAULT_DICTS.each do |key, dict|
       puts "cr: Pulling cryptic_#{key}..."
-      `git -C #{CRYPTIC_RESOLVER_HOME} clone #{sheet} -q`
+      `git -C #{CRYPTIC_RESOLVER_HOME} clone #{dict} -q`
     end
     puts "cr: Add done"
   end
@@ -69,11 +69,11 @@ end
 def update_dicts()
   add_default_dicts_if_none_exists
 
-  puts "cr: Updating all sheets..."
+  puts "cr: Updating all dictionaries..."
   Dir.chdir CRYPTIC_RESOLVER_HOME do 
-    Dir.children(CRYPTIC_RESOLVER_HOME).each do |sheet|
-      puts "cr: Wait to update #{sheet}..."
-      `git -C ./#{sheet} pull -q`
+    Dir.children(CRYPTIC_RESOLVER_HOME).each do |dict|
+      puts "cr: Wait to update #{dict}..."
+      `git -C ./#{dict} pull -q`
     end
   end
   puts "cr: Update done"
@@ -110,8 +110,8 @@ def del_dict(repo)
 end
 
 
-def load_dictionary(path,file)
-  file = CRYPTIC_RESOLVER_HOME + "/#{path}/#{file}.toml" 
+def load_sheet(dict, sheet_name)
+  file = CRYPTIC_RESOLVER_HOME + "/#{dict}/#{sheet_name}.toml" 
   
   if File.exist? file
     return Tomlrb.load_file file # gem 'tomlrb'
@@ -151,9 +151,9 @@ def pp_info(info)
   puts
 end
 
-# Print default cryptic_ sheets
-def pp_sheet(sheet)
-    puts green("From: #{sheet}")
+# Print default cryptic_ dictionaries
+def pp_dict(dict)
+    puts green("From: #{dict}")
 end
 
 
@@ -172,22 +172,22 @@ end
 #   [blah]
 #   same = "XDG.Download" # this is right
 #
-def directly_lookup(sheet,file,word)
-  dict = load_dictionary(sheet,file.downcase) 
+def directly_lookup(dict,sheet_name,word)
+  piece = load_sheet(dict,sheet_name.downcase) 
 
-  words =  word.split('.') # [XDG Download]
-  word = words.shift # XDG [Download]
+  words =  word.split('.')  # [XDG Download]
+  word = words.shift        # XDG [Download]
   explain = words.first
   if explain.nil?
-    info = dict[word]
+    info = piece[word]
   else
-    info = dict[word][explain]
+    info = piece[word][explain]
   end
 
   # Warn user this is the toml maintainer's fault
   if info.nil?
     puts red("WARN: Synonym jumps to a wrong place at `#{word}` 
-      Please consider fixing this in `#{file.downcase}.toml` of the sheet `#{sheet}`")
+      Please consider fixing this in `#{sheet_name.downcase}.toml` of the dictionary `#{dict}`")
     exit
   end
 
@@ -197,11 +197,11 @@ end
 
 
 #
-# Lookup the given word in a dictionary (a toml file in a sheet) and also print.
+# Lookup the given word in a sheet (a toml file) and also print.
 # The core idea is that:
 #
 # 1. if the word is `same` with another synonym, it will directly jump to 
-#   a word in this sheet, but maybe a different dictionary
+#   a word in this dictionary, but maybe a different sheet.
 #
 # 2. load the toml file and check the given word
 #   2.1 with no category specifier
@@ -209,25 +209,25 @@ end
 #   2.2 with category specifier
 #       [abcd.type]
 #
-def lookup(sheet, file, word)
-  dict = load_dictionary(sheet,file) 
-  return false if dict.nil?
+def lookup(dict, file, word)
+  piece = load_sheet(dict, file) 
+  return false if piece.nil?
 
-  info = dict[word] # Directly hash it
+  info = piece[word]
   return false if info.nil?
 
   # Warn if the info is empty. For example:
   #   emacs = { }
   if info.size == 0
     puts red("WARN: Lack of everything of the given word 
-      Please consider fixing this in the sheet `#{sheet}`")
+      Please consider fixing this in the dict `#{dict}`")
     exit 
   end
 
   # If it's a synonym for anther word,
-  # we should lookup into this sheet again, but maybe with a different file
+  # we should lookup into this dict again, but maybe with a different file
   if same = info['same']
-    pp_sheet(sheet)
+    pp_dict(dict)
     
     puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
     
@@ -235,10 +235,10 @@ def lookup(sheet, file, word)
       # Explicitly convert it to downcase.
       # In case the dictionary maintainer redirects to an uppercase word by mistake.
       same = same.downcase
-      info = dict[same]
+      info = piece[same]
       if info.nil?
         puts red("WARN: Synonym jumps to the wrong place `#{same}`,
-          Please consider fixing this in `#{file.downcase}.toml` of the sheet `#{sheet}`")
+          Please consider fixing this in `#{file.downcase}.toml` of the dictionary `#{dict}`")
         exit
         return false
       else
@@ -246,7 +246,7 @@ def lookup(sheet, file, word)
         return true
       end
     else
-      return directly_lookup(sheet, same.chr, same)
+      return directly_lookup(dict, same.chr, same)
     end
   end
 
@@ -254,7 +254,7 @@ def lookup(sheet, file, word)
   # We call this meaning as type 1
   type_1_exist_flag = false
   if info.has_key?('desc')
-    pp_sheet(sheet)
+    pp_dict(dict)
     pp_info(info)
     type_1_exist_flag = true
   end
@@ -263,18 +263,20 @@ def lookup(sheet, file, word)
   # We call this meaning as type 2
   categories = info.keys - ["disp", "desc", "full", "same", "see"]
 
-  unless categories.empty?
-    if (type_1_exist_flag)
+  if !categories.empty?
+    if type_1_exist_flag
       print  blue(bold("OR")),"\n"
     else
-      pp_sheet(sheet)
+      pp_dict(dict)
     end
 
     categories.each do |meaning|
-      pp_info(dict[word][meaning])
+      pp_info(piece[word][meaning])
       # last meaning doesn't show this separate line
       print  blue(bold("OR")),"\n" unless categories.last == meaning
     end
+    return true
+  elsif type_1_exist_flag
     return true
   else
     return false
@@ -284,12 +286,12 @@ end
 
 #
 # The main procedure of `cr`
-#   1. Search the default's first sheet first
-#   2. Search the rest sheets in the cryptic sheets default dir
+#   1. Search the default's first dict first
+#   2. Search the rest dictionaries in the cryptic dictionaries default dir
 # 
 # The `search` is done via the `lookup` function. It will print
 # the info while finding. If `lookup` always return false then
-# means lacking of this word in our sheets. So a welcomed
+# means lacking of this word in our dictionaries. So a welcomed
 # contribution is prinetd on the screen.
 #
 def solve_word(word)
@@ -305,33 +307,33 @@ def solve_word(word)
   end
   
   # Default's first should be 1st to consider
-  first_sheet = "cryptic_" + CRYPTIC_DEFAULT_SHEETS.keys[0].to_s # When Ruby3, We can use SHEETS.key(0)
+  first_dict = "cryptic_" + CRYPTIC_DEFAULT_DICTS.keys[0].to_s # When Ruby3, We can use DICTS.key(0)
 
   # cache lookup results
   results = []
-  results << lookup(first_sheet,index,word)
-  # return if result == true # We should consider all sheets
+  results << lookup(first_dict,index,word)
+  # return if result == true # We should consider all dicts
 
   # Then else
   rest = Dir.children(CRYPTIC_RESOLVER_HOME)
-  rest.delete first_sheet
-  rest.each do |sheet|
-    results << lookup(sheet,index,word)
-    # continue if result == false # We should consider all sheets
+  rest.delete first_dict
+  rest.each do |dict|
+    results << lookup(dict,index,word)
+    # continue if result == false # We should consider all dicts
   end
 
   unless results.include? true
     puts <<-NotFound
 cr: Not found anything.
 
-You may use `cr -u` to update the sheets.
-Or you could contribute to our sheets: Thanks!
+You may use `cr -u` to update all dictionaries.
+Or you could contribute to:
 
-  1. computer:   #{CRYPTIC_DEFAULT_SHEETS[:computer]}
-  2. common:     #{CRYPTIC_DEFAULT_SHEETS[:common]}
-  3. science:    #{CRYPTIC_DEFAULT_SHEETS[:science]}
-  4. economy:    #{CRYPTIC_DEFAULT_SHEETS[:economy]}
-  5. medicine:   #{CRYPTIC_DEFAULT_SHEETS[:medicine]}
+  1. computer:   #{CRYPTIC_DEFAULT_DICTS[:computer]}
+  2. common:     #{CRYPTIC_DEFAULT_DICTS[:common]}
+  3. science:    #{CRYPTIC_DEFAULT_DICTS[:science]}
+  4. economy:    #{CRYPTIC_DEFAULT_DICTS[:economy]}
+  5. medicine:   #{CRYPTIC_DEFAULT_DICTS[:medicine]}
 
 NotFound
 
@@ -366,8 +368,8 @@ end
 
 def list_dictionaries
   Dir.chdir CRYPTIC_RESOLVER_HOME do 
-    Dir.children(CRYPTIC_RESOLVER_HOME).each_with_index do |sheet,i|
-      puts "#{blue(i+1)}. #{bold(green(sheet))}"
+    Dir.children(CRYPTIC_RESOLVER_HOME).each_with_index do |dict,i|
+      puts "#{blue(i+1)}. #{bold(green(dict))}"
     end
   end
 end
