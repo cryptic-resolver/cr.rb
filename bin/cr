@@ -13,6 +13,7 @@
 #  ---------------------------------------------------
 
 require 'tomlrb'
+require 'fileutils'
 
 CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
 CRYPTIC_DEFAULT_SHEETS = {
@@ -23,7 +24,7 @@ CRYPTIC_DEFAULT_SHEETS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "4.1"
+CRYPTIC_VERSION = "4.2"
 
 
 ####################
@@ -80,11 +81,33 @@ end
 
 
 def add_dict(repo)
-  puts "cr: Adding new sheet..."
+  if repo.nil? 
+    puts bold(red("cr: Need an argument!"))
+    exit -1
+  end
+  puts "cr: Adding new dictionary..."
   `git -C #{CRYPTIC_RESOLVER_HOME} clone #{repo} -q`
-  puts "cr: Add new sheet done"
+  puts "cr: Add new dictionary done"
 end
 
+
+def del_dict(repo)
+  if repo.nil? 
+    puts bold(red("cr: Need an argument!"))
+    exit -1
+  end
+  Dir.chdir CRYPTIC_RESOLVER_HOME do 
+    begin 
+      # Dir.rmdir repo        # Can't rm a filled dir
+      # FileUtils.rmdir repo  # Can't rm a filled dir
+      FileUtils.rm_rf repo
+      puts "cr: Delete dictionary #{bold(green(repo))} done"
+    rescue Exception => e
+      puts bold(red("cr: #{e}"))
+      list_dictionaries
+    end
+  end
+end
 
 
 def load_dictionary(path,file)
@@ -324,12 +347,13 @@ def help
 cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby 
 
 usage:
-  cr -v                   => print version
-  cr -h                   => print this help
-  cr -l                   => list local dictionaries
-  cr -u                   => update all dictionaries
-  cr -a xx.com//repo.git  => add a new dictionary
-  cr emacs                => Edit macros: a feature-rich editor
+  cr -v                  => Print version
+  cr -h                  => Print this help
+  cr -l                  => List local dictionaries
+  cr -u                  => Update all dictionaries
+  cr -a xx.com/repo.git  => Add a new dictionary
+  cr -d cryptic_xx       => Delete a dictionary
+  cr emacs               => Edit macros: a feature-rich editor
 
 HELP
 end
@@ -360,7 +384,8 @@ when '-v'   then print_version
 when '-h'   then help
 when '-l'   then list_dictionaries
 when '-u'   then update_dicts   
-when '-a'   then add_dict ARGV.shift  
+when '-a'   then add_dict ARGV.shift
+when '-d'   then del_dict ARGV.shift   
 else
   solve_word arg
 end
