@@ -4,11 +4,11 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2022-2-9>
+#  Last modified : <2022-2-18>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
-#  orther fileds.  
+#  other fields.  
 #
 #  ---------------------------------------------------
 
@@ -298,7 +298,7 @@ end
 # The `search` is done via the `lookup` function. It will print
 # the info while finding. If `lookup` always return false then
 # means lacking of this word in our dictionaries. So a welcomed
-# contribution is prinetd on the screen.
+# contribution is printed on the screen.
 #
 def solve_word(word)
   
