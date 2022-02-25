@@ -2,7 +2,7 @@
 
 **Cryptic Resolver**
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-541-brightgreen)](#default-dictionaries)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-628-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
@@ -14,7 +14,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **541** keywords explained in our default dictionaries.
+- Currently we have **628** keywords explained in our default sheets.
 
 <br>
 
@@ -83,7 +83,7 @@ $ cr -h
 
 ## Dictionary layout
 
-`Dictionary` is a knowledgebase. Every dictionary should be a `git` repository, and each consists of many files(we call these `sheets`):
+`Dictionary` is a knowledge base. Every dictionary should be a `git` repository, and each consists of many files(we call these `sheets`):
 ```
 Dictionary
 .
@@ -104,7 +104,7 @@ In every file(or sheet), your definition format looks like this in pure **toml**
 # A normal definition
 #
 # NOTICE: 
-#   We MUST keep the key downcase
+#   We MUST keep the key in lower case.
 #   We use a key 'disp' to display its original form 
 #   Because the case sometimes contains details to help we understand
 #
@@ -131,6 +131,9 @@ disp = "XDM"
 desc = "X Display Manager"
 ```
 
+**The search strategy is to treat words with or without a category specifier in the same way.**
+
+
 More features:
 ```toml
 [jpeg]
@@ -143,7 +146,7 @@ see = ['MPG','PNG'] # This is a `see also`
 same = "JPEG" # We just need to redirect this. No duplicate!
 
 [sth]
-same = "xdm" # If we direct to a multimeaning word, we don't need to specify its category(subkey).
+same = "xdm.Download" # You must point to a exact position, not just xdm
 
 ["h.265"]
 disp = "H.265"
@@ -153,7 +156,7 @@ desc = "A video compression standard" # The 'dot' keyword supported using quoted
 
 ## Name collision
 
-In one sheet, you should consider adding a subkey to differ each other like the example above.
+In one sheet, you should consider adding a category specifier to differ each other like the example above.
 
 *But what if a dictionary has 'gdm' while another also has a 'GDM'?*
 
