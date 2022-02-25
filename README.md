@@ -121,7 +121,12 @@ disp = "xxd"
 desc = "hex file dump"
 full = "Why call this 'xxd' rather than 'xd'?? Maybe a historical reason"
 
+[xdm]
+disp = "XDM"
+desc = "xdm without specifier"
+
 # You can add a subkey as a category specifier to differ
+# While the main word must be lower case, the category name can be any case!
 [xdm.Download]
 disp = "XDM"
 desc = "eXtreme Download Manager"
@@ -143,14 +148,20 @@ full = "Introduced in 1992. A commonly used method of lossy compression for digi
 see = ['MPG','PNG'] # This is a `see also`
 
 [jpg]
-same = "JPEG" # We just need to redirect this. No duplicate!
+same = "jpeg" # We just need to redirect this. No duplicate!
 
 [sth]
-same = "xdm.Download" # You must point to a exact position, not just xdm
+# You must point to a exact position, not just xdm
+# And we use '<=>' symbol to split it into two parts
+#   the first will output to user
+#   the second is for internal jump
+same = "Extreme Downloader <=>xdm.Download" 
 
+
+# The 'dot' keyword supported using quoted strings
 ["h.265"]
 disp = "H.265"
-desc = "A video compression standard" # The 'dot' keyword supported using quoted strings
+desc = "A video compression standard" 
 
 ```
 
