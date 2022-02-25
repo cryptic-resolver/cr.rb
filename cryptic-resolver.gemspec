@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = "cryptic-resolver"
-  s.version = "4.4"
-  s.date = "2022-02-09"
+  s.version = "5.0"
+  s.date = "2022-02-25"
   
   s.summary = "cr: Cryptic Resolver"
 
