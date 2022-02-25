@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2022-2-18>
+#  Last modified : <2022-2-25>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -24,7 +24,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "4.4"
+CRYPTIC_VERSION = "4.5"
 
 
 ####################
@@ -163,6 +163,62 @@ def pp_dict(dict)
 end
 
 
+# Print same jump info
+def pp_same_info(dict, word, file, cache_content, same_key)
+
+  # If it's a synonym for anther word,
+  # we should lookup into this dict again, but maybe with a different file
+  
+  pp_dict(dict)
+    
+    # 
+    # dictionary maintainer must obey the rule for xxx.yyy word:
+    #   xxx should be lower case
+    #   yyy can be any case
+    # 
+    # Because yyy should clearly explain the category info, IBM is better than ibm
+    #   implementation should not be too simple if we want to stress the function
+    #   we expect. 
+    # 
+    # 'jump to' will output to user, so this is important not only inside our sheet.
+    #   
+    #     same = "XDM downloader/xdm.Download"
+    #
+    # We split 'same' key into two parts via char '/', first part will output to user,
+    # the second part is for internal jump.
+    #
+    
+    jump_to, same = same_key.split('/')
+    same =  jump_to if same.nil?
+
+    puts blue(bold(word)) + ' redirects to ' + blue(bold(jump_to))
+
+    same, category = same.split('.')
+
+    if same.chr == file 
+      # No need to load another dictionary if match
+      sheet_content = cache_content
+    else
+      sheet_content = load_sheet(dict, file)
+    end
+
+    if category.nil?
+      info = sheet_content[same]
+    else
+      info = sheet_content[same][category]
+    end
+
+    if info.nil?
+      puts red("Warn: Synonym jumps to the wrong place `#{same}`,
+      Please consider fixing this in `#{file.downcase}.toml` of the dictionary `#{dict}`")
+      # exit
+      return false
+    else
+      pp_info(info)
+      return true
+    end
+end
+
 #
 # Used for synonym jump
 # Because we absolutely jump to a must-have word
@@ -173,28 +229,29 @@ end
 # If it has multiple meanings, for example
 # 
 #   [blah]
-#   same = "XDG"  # this is wrong
+#   same = "xdg"  # this is wrong
 #
 #   [blah]
-#   same = "XDG.Download" # this is right
+#   same = "XDG downloader /xdg.Download" # this is correct
 #
-def directly_lookup(dict,sheet_name,word)
-  piece = load_sheet(dict,sheet_name.downcase) 
+def directly_lookup(dict, sheet_name, word)
+  sheet_content = load_sheet(dict, sheet_name.downcase) 
 
-  words =  word.split('.')  # [XDG Download]
-  word = words.shift        # XDG [Download]
+  words =  word.split('.')  # [xdg Download]
+  word = words.shift        # xdg [Download]
   explain = words.first
   if explain.nil?
-    info = piece[word]
+    info = sheet_content[word]
   else
-    info = piece[word][explain]
+    info = sheet_content[word][explain]
   end
 
   # Warn user this is the toml maintainer's fault
   if info.nil?
     puts red("WARN: Synonym jumps to a wrong place at `#{word}` 
       Please consider fixing this in `#{sheet_name.downcase}.toml` of the dictionary `#{dict}`")
-    exit
+    # exit
+    return false
   end
 
   pp_info(info)
@@ -216,10 +273,10 @@ end
 #       [abcd.type]
 #
 def lookup(dict, file, word)
-  piece = load_sheet(dict, file) 
-  return false if piece.nil?
+  sheet_content = load_sheet(dict, file) 
+  return false if sheet_content.nil?
 
-  info = piece[word]
+  info = sheet_content[word]
   return false if info.nil?
 
   # Warn if the info is empty. For example:
@@ -230,36 +287,24 @@ def lookup(dict, file, word)
     exit 
   end
 
-  # If it's a synonym for anther word,
-  # we should lookup into this dict again, but maybe with a different file
-  if same = info['same']
-    pp_dict(dict)
-    
-    puts blue(bold(word)) + ' redirects to ' + blue(bold(same))
-    
-    if same.chr.downcase == file  # no need to load dictionary again
-      # Explicitly convert it to downcase.
-      # In case the dictionary maintainer redirects to an uppercase word by mistake.
-      same = same.downcase
-      info = piece[same]
-      if info.nil?
-        puts red("WARN: Synonym jumps to the wrong place `#{same}`,
-          Please consider fixing this in `#{file.downcase}.toml` of the dictionary `#{dict}`")
-        exit
-        return false
-      else
-        pp_info(info)
-        return true
-      end
-    else
-      return directly_lookup(dict, same.chr, same)
-    end
-  end
 
-  # Single meaning with no category specifier
+
+  # Word with no category specifier
   # We call this meaning as type 1
   type_1_exist_flag = false
-  if info.has_key?('desc')
+
+  # if already jump, don't check the word itself
+  is_jump = false 
+
+  # synonym jump
+  if same_key = info['same']
+    pp_same_info(dict, word, file, sheet_content, same_key)
+    # It's also a type 1
+    type_1_exist_flag = true
+    is_jump = true
+  end
+
+  if !is_jump and info.has_key?('desc')
     pp_dict(dict)
     pp_info(info)
     type_1_exist_flag = true
@@ -277,7 +322,7 @@ def lookup(dict, file, word)
     end
 
     categories.each do |meaning|
-      pp_info(piece[word][meaning])
+      pp_info(sheet_content[word][meaning])
       # last meaning doesn't show this separate line
       print  blue(bold("OR")),"\n" unless categories.last == meaning
     end
