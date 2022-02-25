@@ -24,7 +24,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "4.5"
+CRYPTIC_VERSION = "5.0"
 
 
 ####################
@@ -176,13 +176,16 @@ end
 #   same = "xdg"  # this is wrong
 #
 #   [blah]
-#   same = "XDG downloader /xdg.Download" # this is correct
+#   same = "XDG downloader <=>xdg.Download" # this is correct
 #
-def pp_same_info(dict, word, file, cache_content, same_key)
+def pp_same_info(dict, word, cache_content, same_key)
 
   # If it's a synonym for anther word,
   # we should lookup into this dict again, but maybe with a different file
   
+  # file name
+  x = word.chr.downcase
+
   pp_dict(dict)
     
   # 
@@ -196,24 +199,24 @@ def pp_same_info(dict, word, file, cache_content, same_key)
   # 
   # 'jump to' will output to user, so this is important not only inside our sheet.
   #   
-  #     same = "XDM downloader/xdm.Download"
+  #     same = "XDM downloader<=>xdm.Download"
   #
-  # We split 'same' key into two parts via char '/', first part will output to user,
-  # the second part is for internal jump.
+  # We split 'same' key into two parts via spaceship symbol <=>, first part will
+  # output to user, the second part is for internal jump.
   #
     
-  jump_to, same = same_key.split('/')
+  jump_to, same = same_key.split("<=>")
   same =  jump_to if same.nil?
 
   puts blue(bold(word)) + ' redirects to ' + blue(bold(jump_to))
 
   same, category = same.split('.')
 
-  if same.chr == file 
+  if same.chr == x
     # No need to load another dictionary if match
     sheet_content = cache_content
   else
-    sheet_content = load_sheet(dict, file)
+    sheet_content = load_sheet(dict, same.chr.downcase)
   end
 
   if category.nil?
@@ -224,7 +227,7 @@ def pp_same_info(dict, word, file, cache_content, same_key)
 
   if info.nil?
     puts red("Warn: Synonym jumps to the wrong place `#{same}`,
-    Please consider fixing this in `#{file.downcase}.toml` of the dictionary `#{dict}`")
+      Please consider fixing this in `#{x}.toml` of the dictionary `#{dict}`")
     # exit
     return false
   else
@@ -274,7 +277,7 @@ def lookup(dict, file, word)
 
   # synonym jump
   if same_key = info['same']
-    pp_same_info(dict, word, file, sheet_content, same_key)
+    pp_same_info(dict, word, sheet_content, same_key)
     # It's also a type 1
     type_1_exist_flag = true
     is_jump = true
@@ -291,14 +294,19 @@ def lookup(dict, file, word)
   categories = info.keys - ["disp", "desc", "full", "same", "see"]
 
   if !categories.empty?
+
     if type_1_exist_flag
       print  blue(bold("OR")),"\n"
-    else
-      pp_dict(dict)
     end
 
     categories.each do |meaning|
-      pp_info(sheet_content[word][meaning])
+      info0 = sheet_content[word][meaning]
+      if same_key = info0['same']
+        pp_same_info(dict, word, sheet_content, same_key)
+      else
+        pp_info(info0)
+      end
+      
       # last meaning doesn't show this separate line
       print  blue(bold("OR")),"\n" unless categories.last == meaning
     end
