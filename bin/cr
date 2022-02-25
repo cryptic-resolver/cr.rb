@@ -163,62 +163,6 @@ def pp_dict(dict)
 end
 
 
-# Print same jump info
-def pp_same_info(dict, word, file, cache_content, same_key)
-
-  # If it's a synonym for anther word,
-  # we should lookup into this dict again, but maybe with a different file
-  
-  pp_dict(dict)
-    
-    # 
-    # dictionary maintainer must obey the rule for xxx.yyy word:
-    #   xxx should be lower case
-    #   yyy can be any case
-    # 
-    # Because yyy should clearly explain the category info, IBM is better than ibm
-    #   implementation should not be too simple if we want to stress the function
-    #   we expect. 
-    # 
-    # 'jump to' will output to user, so this is important not only inside our sheet.
-    #   
-    #     same = "XDM downloader/xdm.Download"
-    #
-    # We split 'same' key into two parts via char '/', first part will output to user,
-    # the second part is for internal jump.
-    #
-    
-    jump_to, same = same_key.split('/')
-    same =  jump_to if same.nil?
-
-    puts blue(bold(word)) + ' redirects to ' + blue(bold(jump_to))
-
-    same, category = same.split('.')
-
-    if same.chr == file 
-      # No need to load another dictionary if match
-      sheet_content = cache_content
-    else
-      sheet_content = load_sheet(dict, file)
-    end
-
-    if category.nil?
-      info = sheet_content[same]
-    else
-      info = sheet_content[same][category]
-    end
-
-    if info.nil?
-      puts red("Warn: Synonym jumps to the wrong place `#{same}`,
-      Please consider fixing this in `#{file.downcase}.toml` of the dictionary `#{dict}`")
-      # exit
-      return false
-    else
-      pp_info(info)
-      return true
-    end
-end
-
 #
 # Used for synonym jump
 # Because we absolutely jump to a must-have word
@@ -234,29 +178,61 @@ end
 #   [blah]
 #   same = "XDG downloader /xdg.Download" # this is correct
 #
-def directly_lookup(dict, sheet_name, word)
-  sheet_content = load_sheet(dict, sheet_name.downcase) 
+def pp_same_info(dict, word, file, cache_content, same_key)
 
-  words =  word.split('.')  # [xdg Download]
-  word = words.shift        # xdg [Download]
-  explain = words.first
-  if explain.nil?
-    info = sheet_content[word]
+  # If it's a synonym for anther word,
+  # we should lookup into this dict again, but maybe with a different file
+  
+  pp_dict(dict)
+    
+  # 
+  # dictionary maintainer must obey the rule for xxx.yyy word:
+  #   xxx should be lower case
+  #   yyy can be any case
+  # 
+  # Because yyy should clearly explain the category info, IBM is better than ibm
+  #   implementation should not be too simple if we want to stress the function
+  #   we expect. 
+  # 
+  # 'jump to' will output to user, so this is important not only inside our sheet.
+  #   
+  #     same = "XDM downloader/xdm.Download"
+  #
+  # We split 'same' key into two parts via char '/', first part will output to user,
+  # the second part is for internal jump.
+  #
+    
+  jump_to, same = same_key.split('/')
+  same =  jump_to if same.nil?
+
+  puts blue(bold(word)) + ' redirects to ' + blue(bold(jump_to))
+
+  same, category = same.split('.')
+
+  if same.chr == file 
+    # No need to load another dictionary if match
+    sheet_content = cache_content
   else
-    info = sheet_content[word][explain]
+    sheet_content = load_sheet(dict, file)
   end
 
-  # Warn user this is the toml maintainer's fault
+  if category.nil?
+    info = sheet_content[same]
+  else
+    info = sheet_content[same][category]
+  end
+
   if info.nil?
-    puts red("WARN: Synonym jumps to a wrong place at `#{word}` 
-      Please consider fixing this in `#{sheet_name.downcase}.toml` of the dictionary `#{dict}`")
+    puts red("Warn: Synonym jumps to the wrong place `#{same}`,
+    Please consider fixing this in `#{file.downcase}.toml` of the dictionary `#{dict}`")
     # exit
     return false
+  else
+    pp_info(info)
+    return true
   end
-
-  pp_info(info)
-  return true # always true
 end
+
 
 
 #
@@ -270,7 +246,7 @@ end
 #   2.1 with no category specifier
 #       [abcd]
 #   2.2 with category specifier
-#       [abcd.type]
+#       [abcd.tYPe]
 #
 def lookup(dict, file, word)
   sheet_content = load_sheet(dict, file) 
