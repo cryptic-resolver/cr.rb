@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2022-2-25>
+#  Last modified : <2022-3-3>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -24,7 +24,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "5.1"
+CRYPTIC_VERSION = "5.2"
 
 
 ####################
@@ -205,8 +205,6 @@ def pp_same_info(dict, word, cache_content, same_key)
   
   # file name
   x = word.chr.downcase
-
-  pp_dict(dict)
     
   # 
   # dictionary maintainer must obey the rule for xxx.yyy word:
@@ -295,14 +293,16 @@ def lookup(dict, file, word)
   # if already jump, don't check the word itself
   is_jump = false 
 
-  # synonym jump
+  # synonym info print
   if same_key = info['same']
+    pp_dict(dict)
     pp_same_info(dict, word, sheet_content, same_key)
     # It's also a type 1
     type_1_exist_flag = true
     is_jump = true
   end
 
+  # normal info print
   if !is_jump and info.has_key?('desc')
     pp_dict(dict)
     pp_info(info)
@@ -317,6 +317,8 @@ def lookup(dict, file, word)
 
     if type_1_exist_flag
       print  blue(bold("OR")),"\n"
+    else
+      pp_dict(dict)
     end
 
     categories.each do |meaning|
