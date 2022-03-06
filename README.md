@@ -2,7 +2,7 @@
 
 **Cryptic Resolver**
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-719-brightgreen)](#default-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-728-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
 ![screenshot](./images/screenshot.png)
@@ -14,7 +14,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **719** keywords explained in our default sheets.
+- Currently we have **728** keywords explained in our default sheets.
 
 <br>
 
@@ -67,11 +67,14 @@ $ cr emacs
 $ cr -u 
 # -> update all dictionaries
 
-$ cr -u https://github.com/ccmywish/ruby_things.git
+$ cr -a https://github.com/ccmywish/ruby_knowledge
 # -> Add your own knowledge base! 
 
+$ cr -c
+# -> word count
+
 $ cr -h
-# -> show help
+# -> show help for more operations
 ```
 
 
