@@ -24,7 +24,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "6.1"
+CRYPTIC_VERSION = "6.2"
 
 
 ####################
@@ -138,7 +138,7 @@ def update_dicts()
   end
 
   puts
-  puts "#{diff.[]0} words added: default/#{diff.[]1} user/#{diff.[]2}"
+  puts "#{diff.[]2} words added: default/#{diff.[]0} user/#{diff.[]1}"
 
 end
 
