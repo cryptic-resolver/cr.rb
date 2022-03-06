@@ -58,6 +58,7 @@ def add_default_dicts_if_none_exists
   unless is_there_any_dict?
     puts "cr: Adding default dictionaries..."
 
+    begin
     if RUBY_PLATFORM.include? "mingw"
       # Windows doesn't have fork
       CRYPTIC_DEFAULT_DICTS.each do |key, dict|
@@ -65,6 +66,7 @@ def add_default_dicts_if_none_exists
         `git -C #{CRYPTIC_RESOLVER_HOME} clone #{dict} -q`
       end
     else
+      # *nix
       CRYPTIC_DEFAULT_DICTS.each do |key, dict|
         fork do 
           puts "cr: Pulling cryptic_#{key}..."
@@ -73,8 +75,16 @@ def add_default_dicts_if_none_exists
       end
       Process.waitall      
     end
+
+    rescue Interrupt
+      puts "cr: Cancel add default dicts"
+      exit 1
+    end
     
     puts "cr: Add done"
+    word_count(p: false)
+    puts 
+    puts "#{$WordCount} words added"
   end
 end
 
@@ -82,7 +92,12 @@ end
 def update_dicts()
   add_default_dicts_if_none_exists
 
+  word_count(p: false)
+  old_wc = [$DefaultWordCount, $WordCount-$DefaultWordCount, $WordCount]
+
   puts "cr: Updating all dictionaries..."
+
+  begin
   Dir.chdir CRYPTIC_RESOLVER_HOME do 
     
     if RUBY_PLATFORM.include? "mingw"
@@ -92,6 +107,7 @@ def update_dicts()
         `git -C ./#{dict} pull -q`
       end
     else
+      # *nix
       Dir.children(CRYPTIC_RESOLVER_HOME).each do |dict|
         fork do 
           puts "cr: Wait to update #{dict}..."
@@ -99,10 +115,31 @@ def update_dicts()
         end
       end
       Process.waitall
-    end
 
+    end # end if/else
   end
+
+  rescue Interrupt
+    puts "cr: Cancel update"
+    exit 1
+  end
+
+
   puts "cr: Update done"
+
+  # clear
+  $DefaultWordCount, $WordCount = 0, 0
+  # recount
+  word_count(p: false)
+  new_wc = [$DefaultWordCount, $WordCount-$DefaultWordCount, $WordCount]
+  diff = []
+  new_wc.each_with_index do 
+    diff[_2] = _1 - old_wc[_2]
+  end
+
+  puts
+  puts "#{diff.[]0} words added: default/#{diff.[]1} user/#{diff.[]2}"
+
 end
 
 
@@ -111,9 +148,23 @@ def add_dict(repo)
     puts bold(red("cr: Need an argument!"))
     exit -1
   end
-  puts "cr: Adding new dictionary..."
-  `git -C #{CRYPTIC_RESOLVER_HOME} clone #{repo} -q`
+
+  begin
+    puts "cr: Adding new dictionary..."
+    `git -C #{CRYPTIC_RESOLVER_HOME} clone #{repo} -q`
+  rescue Interrupt
+    puts "cr: Cancel add dict"
+    exit 1
+  end
+
   puts "cr: Add new dictionary done"
+
+  # github/com/ccmywish/ruby_knowledge(.git)
+  dict = repo.split('/')[-1].delete_suffix('.git')
+  count_dict_words(dict)
+  puts
+  puts "#$WordCount words added"
+
 end
 
 
