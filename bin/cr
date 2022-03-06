@@ -24,7 +24,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "6.0"
+CRYPTIC_VERSION = "6.1"
 
 
 ####################
