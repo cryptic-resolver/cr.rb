@@ -4,7 +4,7 @@
 #  File          : wc.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-16>
-#  Last modified : <2022-2-9>
+#  Last modified : <2022-3-6>
 #
 #  This file is used to count the key words in default 
 #  sheet: cryptic_computer
@@ -33,7 +33,7 @@ defaults = [
 #   a.toml
 #   d.toml
 # So we should first cd into the cryptic_computer sheet
-def load_dictionary(file)
+def load_sheet(file)
   if File.exist? file
     return Tomlrb.load_file file # gem 'tomlrb'
   else
@@ -43,13 +43,13 @@ end
 
 $WordCount = 0
 
-def count_sheet_words(sheet_dir)
-  Dir.chdir(sheet_dir)
+def count_dict_words(dict_dir)
+  Dir.chdir(dict_dir)
   wc = 0
 
-  Dir.children(sheet_dir).each do |entry|
+  Dir.children(dict_dir).each do |entry|
     next unless entry.end_with?('.toml')
-    dict = load_dictionary(entry)
+    dict = load_sheet(entry)
     count = dict.keys.count
   
     puts "#{entry}: #{count}" unless ALL_MODE
@@ -59,13 +59,13 @@ def count_sheet_words(sheet_dir)
   $WordCount += wc
 
   unless ALL_MODE
-    puts "#{sheet_dir} words: #{wc}\n\n"
+    puts "#{dict_dir} words: #{wc}\n\n"
   end
 
 end
 
 defaults.each do |s|
-  count_sheet_words(s)
+  count_dict_words(s)
 end
 
 if ALL_MODE
