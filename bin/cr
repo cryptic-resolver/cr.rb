@@ -4,7 +4,7 @@
 #  File          : cr.rb
 #  Authors       : ccmywish <ccmywish@qq.com>
 #  Created on    : <2021-7-8>
-#  Last modified : <2022-3-3>
+#  Last modified : <2022-3-6>
 #
 #  This file is used to explain a CRyptic command
 #  or an acronym's real meaning in computer world or 
@@ -24,7 +24,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "5.2"
+CRYPTIC_VERSION = "6.0"
 
 
 ####################
@@ -402,8 +402,10 @@ end
 
 
 def help
+  user_words = $WordCount - $DefaultWordCount
+  word_count(p: false)
   puts <<-HELP
-cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby 
+cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
 
 usage:
   cr -v                  => Print version
@@ -460,7 +462,7 @@ def count_dict_words(dict)
 end
 
 
-def word_count
+def word_count(p:)
 
   # real dicts in user's directory
   locals = []
@@ -477,12 +479,12 @@ def word_count
   defaults &= locals
 
   unless defaults.empty?
-    puts bold(green("Default dict: "))
+    puts(bold(green("Default dict: "))) if p
     defaults.each do |s|
       wc = count_dict_words(s)
       $DefaultWordCount += wc
       # With color, ljust not works, so we disable color
-      puts "  #{s.ljust(17)}: #{wc}"
+      puts("  #{s.ljust(17)}: #{wc}") if p
     end
   end
 
@@ -490,23 +492,23 @@ def word_count
   user_words = 0
   unless users.empty?
     wc = 0
-    puts bold(blue("\nUser's dict:"))
+    puts(bold(blue("\nUser's dict:"))) if p
     users.each do |s|
       wc = count_dict_words(s)
       # no need to add to $WordCount，
       # because it's done in `count_dict_words` func
-      puts "  #{s.ljust(17)}: #{wc}"
+      puts("  #{s.ljust(17)}: #{wc}") if p
     end
 
     user_words = $WordCount - $DefaultWordCount
   end
-  
+
+  if p 
   puts
-  
   puts "#{$DefaultWordCount.to_s.rjust(4)} words in default dictionaries"
   puts "#{user_words.to_s.rjust(4)} words in user's  dictionaries"
   puts "#{$WordCount.to_s.rjust(4)} words altogether"
-
+  end
 end
 
 
@@ -520,7 +522,7 @@ when nil    then (help || add_default_dicts_if_none_exists)
 when '-v'   then print_version
 when '-h'   then help
 when '-l'   then list_dictionaries
-when '-c'   then word_count
+when '-c'   then word_count(p: true)
 when '-u'   then update_dicts   
 when '-a'   then add_dict ARGV.shift
 when '-d'   then del_dict ARGV.shift   
