@@ -82,7 +82,7 @@ $ cr -h
 
 # Implementation
 
-`cr` is written in pure **Ruby**. You can implement this tool in any other language you like(name your projects as `cr_python` for example), just remember to reuse our [cryptic_computer] or other dictionaries which are the core parts anyone can contribute to.
+`cr` is written in pure **Ruby**. You can implement this tool in any other language you like(name your projects as `cr_Python` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to.
 
 ## Dictionary layout
 
@@ -107,8 +107,8 @@ In every file(or sheet), your definition format looks like this in pure **toml**
 # A normal definition
 #
 # NOTICE: 
-#   We MUST keep the key in lower case.
-#   We use a key 'disp' to display its original form 
+#   You MUST keep the key in lower case.
+#   Use a key 'disp' to display its original form 
 #   Because the case sometimes contains details to help we understand
 #
 #   And 'disp' && 'desc' is both MUST-HAVE. 
@@ -190,7 +190,7 @@ In one sheet, you should consider adding a category specifier to differ each oth
 maybe you need `sudo` access
 
 - `gem build cryptic-resolver`
-- `gem install ./cryptic-resolver-5.x.gem -l`
+- `gem install ./cryptic-resolver-6.x.gem -l`
 - `gem uninstall cryptic-resolver`
 - `gem update cryptic-resolver (--pre)`
 - `gem push cryptic-resolver-x.x.gem`
