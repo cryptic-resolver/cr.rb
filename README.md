@@ -5,12 +5,6 @@
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-728-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
 
-</div>
-
-<br>
-
-## Install
-
 ```bash
 gem install cryptic-resolver
 ```
@@ -20,6 +14,9 @@ Tested well on `Ubuntu` and `Windows 11`
 <br>
 
 ![screenshot](./images/screenshot.png)
+
+</div>
+
 
 This command line tool `cr` is used to **record and explain cryptic commands, acronyms(initialism) and so forth** in daily life.
 The effort is to study etymology and know of naming conventions.
