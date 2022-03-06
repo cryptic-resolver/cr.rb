@@ -5,6 +5,14 @@
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-728-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
  
+
+```bash
+gem install cryptic-resolver
+```
+Tested well on `Ubuntu` and `Windows 11`.
+
+<br>
+
 ![screenshot](./images/screenshot.png)
 
 </div>
@@ -15,42 +23,6 @@ The effort is to study etymology and know of naming conventions.
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
 - Currently we have **728** keywords explained in our default sheets.
-
-<br>
-
-
-<a name="default-dictionaries"></a> 
-## Default Dictionaries
-
-- [cryptic_computer]
-- [cryptic_common]
-- [cryptic_science]
-- [cryptic_economy]
-- [cryptic_medicine]
-
-<br>
-
-
-## Install
-
-```bash
-gem install cryptic-resolver
-```
-
-Tested well on `Ubuntu` and `Windows 11`.
-
-<br>
-
-## Why
-
-The aim of this project is to:
-
-1. make cryptic things clear
-2. help maintain your own personal knowledge base
-
-rather than
-
-1. record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
 
 <br>
 
@@ -77,10 +49,37 @@ $ cr -h
 # -> show help for more operations
 ```
 
+<br>
+
+
+## Why
+
+The aim of this project is to:
+
+1. make cryptic things clear
+2. help maintain your own personal knowledge base
+
+rather than
+
+1. record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
 
 <br>
 
-# Implementation
+
+
+<a name="default-dictionaries"></a> 
+## Default Dictionaries
+
+- [cryptic_computer]
+- [cryptic_common]
+- [cryptic_science]
+- [cryptic_economy]
+- [cryptic_medicine]
+
+<br>
+
+
+## Implementation
 
 `cr` is written in pure **Ruby**. You can implement this tool in any other language you like(name your projects as `cr_Python` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to.
 
@@ -197,7 +196,7 @@ maybe you need `sudo` access
 
 <br>
 
-# LICENSE
+## LICENSE
 `cr` itself is under MIT
 
 Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
