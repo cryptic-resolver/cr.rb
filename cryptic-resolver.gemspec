@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.summary = "cr: Cryptic Resolver"
 
   s.description = <<DESC
-This command line tool `cr` is used to record and explain cryptic commands, acronyms and so forth in daily life.
+This command line tool `cr` is used to record and explain cryptic commands, acronyms(initialism), abbreviations and so forth in daily life.
 Not only can it be used in computer filed via our default sheet cryptic_computer, but also you can use this to manage your own knowledge base easily.
 DESC
 

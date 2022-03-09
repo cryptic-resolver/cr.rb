@@ -2,7 +2,7 @@
 
 # Cryptic Resolver
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-805-brightgreen)](#default-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-815-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
 
 ```bash
@@ -18,12 +18,12 @@ Tested well on `Ubuntu` and `Windows 11`
 </div>
 
 
-This command line tool `cr` is used to **record and explain cryptic commands, acronyms(initialism) and so forth** in daily life.
+This command line tool `cr` is used to **record and explain cryptic commands, acronyms(initialism), abbreviations and so forth** in daily life.
 The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **805** keywords explained in our default sheets.
+- Currently we have **815** keywords explained in our default sheets.
 
 <br>
 
