@@ -27,7 +27,7 @@ Not only can it be used in the computer filed, but also you can use this to mana
 
 <br>
 
-# Usage
+## Usage
 
 ```bash
 $ cr emacs
@@ -53,7 +53,7 @@ $ cr -h
 <br>
 
 
-## Why
+## Why?
 
 The aim of this project is to:
 

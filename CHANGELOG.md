@@ -1,14 +1,11 @@
 # Changelog
 
-## [6.x](https://github.com/cryptic-resolver/cr/tree/HEAD)
+## [v6.x](#) (2022-03-18)
 
 **Enhancements:**
 
+- migrate from **github_changelog_generator** to **chlog**
 - spaceship delimiter for jump info
-
-**Bug fix**
-
-- redundant *From cryptic_xxx* info
 
 <br>
 
@@ -25,4 +22,14 @@
 **Closed issues:**
 
 - cr in Ruby version [\#6](https://github.com/cryptic-resolver/cr/issues/6)
+
+<br>
+
+## [Initialize](#) (2021-07-08)
+
+<br>
+
+<hr>
+
+This Changelog is maintained with [chlog](https://github.com/ccmywish/chlog)
 
