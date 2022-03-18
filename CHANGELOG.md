@@ -8,11 +8,11 @@
 
 **Bug fix**
 
-- redundant 'From cryptic_xxx' info
+- redundant ***From cryptic_xxx*** info
 
 <br>
 
-## [Before 6.0]
+## [Before 6.0](./)
 
 **Implemented enhancements:**
 
