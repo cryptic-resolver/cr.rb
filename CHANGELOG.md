@@ -1,9 +1,10 @@
 # Changelog
 
-## [Unreleased](#) (2022-03-21)
+## [Unreleased](#) (2022-03-22)
 
 ### New features:
 
+- Add support to search words via regexp
 - Add support to jump to dotted word
 
 <br>

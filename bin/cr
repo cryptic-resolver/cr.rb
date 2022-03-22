@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-03-18>
+# Last modified : <2022-03-22>
 #
 # cr:
 #
@@ -475,6 +475,96 @@ NotFound
 end
 
 
+#
+# print helper
+#   To be like `ls`
+#
+def ls_table(arr)
+
+  return if arr.empty?
+
+  word_len = 9
+  word_num = 8
+  one_line_cap = (word_len + 1) * word_num  # == 80
+
+  i = 0
+  arr.each do |e|
+    if e.length <= word_len
+      e = e.ljust(word_len)
+    end
+    if i >= word_num
+      i = 0
+      puts 
+    end
+    print blue("#{e} ")
+    i +=1  
+  end
+  puts
+end
+
+
+#
+# The search word process is quite like `solve_word``
+# Notice:
+#   We handle two cases
+#   
+#   1. the 'pattern' is the regexp itself
+#   2. the 'pattern' is like '/blahblah/'
+#                       
+#  The second is what Ruby and Perl users like to do, handle it!
+#
+def search_word(pattern)
+
+  if pattern.nil? 
+    puts bold(red("cr: Need an argument!"))
+    exit -1
+  end
+
+  add_default_dicts_if_none_exists
+
+  if pattern =~ /^\/(.*)\/$/
+    regexp = %r[#$1]
+  else
+    regexp = %r[#{pattern}]
+  end
+  
+  found = false
+
+  #
+  # Try to match every word in all dictionaries
+  #
+  Dir.children(CRYPTIC_RESOLVER_HOME).each do |dict|
+    sheets = Dir.children(File.join(CRYPTIC_RESOLVER_HOME, dict)).select do
+      _1.end_with?('.toml')
+    end
+
+    similar_words_in_a_dict = []
+
+    sheets.each do |sheet|
+      sheet_content = load_sheet(dict, File.basename(sheet,'.toml'))
+
+      sheet_content.keys.each do 
+        if _1 =~ regexp
+          found = true
+          similar_words_in_a_dict << _1
+        end
+      end
+    # end of each sheet in a dict
+    end
+
+    unless similar_words_in_a_dict.empty?
+      pp_dict(dict)
+      ls_table(similar_words_in_a_dict)
+      puts 
+    end
+  end
+  if !found
+    puts red("cr: No words match with #{regexp.inspect}")
+    puts
+  end
+end
+
+
 def help
   user_words = $WordCount - $DefaultWordCount
   word_count(p: false)
@@ -489,6 +579,7 @@ usage:
   cr -u                  => Update all dictionaries
   cr -a xx.com/repo.git  => Add a new dictionary
   cr -d cryptic_xx       => Delete a dictionary
+  cr -s pattern          => Search words matched with pattern
   cr emacs               => Edit macros: a feature-rich editor
 
 HELP
@@ -598,6 +689,7 @@ when '-h'   then help
 when '-l'   then list_dictionaries
 when '-c'   then word_count(p: true)
 when '-u'   then update_dicts   
+when '-s'   then search_word ARGV.shift
 when '-a'   then add_dict ARGV.shift
 when '-d'   then del_dict ARGV.shift   
 else
