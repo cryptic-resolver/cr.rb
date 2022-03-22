@@ -2,9 +2,16 @@
 
 ## [Unreleased](#) (2022-03-22)
 
+<br>
+
+## [v3.11](#) (2022-03-22)
+
 ### New features:
 
 - Add support to search words via regexp
+
+### Enhancements:
+
 - Add support to jump to dotted word
 
 <br>
