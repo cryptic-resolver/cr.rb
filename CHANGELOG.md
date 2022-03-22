@@ -1,6 +1,6 @@
 # Changelog
 
-## [v3.4](#) (2022-03-18)
+## [v3.10](#) (2022-03-18)
 
 ### New features:
 
@@ -9,7 +9,7 @@
 ### Enhancements:
 
 - Migrate from **github_changelog_generator** to **chlog**
-- Yank version v4,5,6 from RubyGems
+- Yank version v4,5,6 from RubyGems, release on v3.x series
 
 <br>
 

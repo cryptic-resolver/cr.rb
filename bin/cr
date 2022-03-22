@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-03-17>
+# Last modified : <2022-03-18>
 #
 # cr:
 #
@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.4"
+CRYPTIC_VERSION = "3.10"
 
 
 ####################
@@ -458,7 +458,7 @@ def help
   user_words = $WordCount - $DefaultWordCount
   word_count(p: false)
   puts <<-HELP
-cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
+cr: Cryptic Resolver v#{CRYPTIC_VERSION} (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
 
 usage:
   cr -v                  => Print version
