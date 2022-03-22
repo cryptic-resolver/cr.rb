@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.10"
+CRYPTIC_VERSION = "3.11"
 
 
 ####################
@@ -246,10 +246,13 @@ end
 # If it has multiple meanings, for example
 # 
 #   [blah]
-#   same = "xdg"  # this is wrong
+#   same = "xdg"  # this is wrong, because xdg has multiple
+#                 # definitions, and all of them specify a
+#                 # category
 #
 #   [blah]
 #   same = "XDG downloader <=>xdg.Download" # this is correct
+#
 #
 def pp_same_info(dict, word, cache_content, same_key)
 
@@ -265,8 +268,8 @@ def pp_same_info(dict, word, cache_content, same_key)
   #   yyy can be any case
   # 
   # Because yyy should clearly explain the category info, IBM is better than ibm
-  #   implementation should not be too simple if we want to stress the function
-  #   we expect. 
+  # Implementation should not be too simple if we want to stress the function we
+  # expect. 
   # 
   # 'jump to' will output to user, so this is important not only inside our sheet.
   #   
@@ -281,8 +284,26 @@ def pp_same_info(dict, word, cache_content, same_key)
 
   puts blue(bold(word)) + ' redirects to ' + blue(bold(jump_to))
 
-  same, category = same.split('.')
+  #
+  # As '.' is used to delimit a word and a category, what if 
+  # we jump to a dotted word?
+  # 
+  #   [eg]
+  #   same = "e.g." # this must lead to a wrong resolution to 
+  #                 # word 'e', category 'g' 
+  #
+  # All you need is to be like this:
+  #   
+  #   [eg]
+  #   same = "'e.g.'" # cr will notice the single quote 
+  #
 
+  if same =~ /^'(.*)'$/
+    same, category = $1, nil
+  else
+    same, category = same.split('.')
+  end
+  
   if same.chr == x
     # No need to load another dictionary if match
     sheet_content = cache_content

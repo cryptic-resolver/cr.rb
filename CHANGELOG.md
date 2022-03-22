@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](#) (2022-03-21)
+
+### New features:
+
+- Add support to jump to dotted word
+
+<br>
+
 ## [v3.10](#) (2022-03-18)
 
 ### New features:
@@ -13,11 +21,24 @@
 
 <br>
 
-## [Before v3.4](#)
+## [v3.0 - v3.9](#)
 
-### Enhancements:
+### New features:
 
-- Support dot words [\#5](https://github.com/cryptic-resolver/cr/issues/5)
+- Add parallel update and pull support
+- Add '-l', '-d' to manage local dictionaries
+
+### Bug fixes:
+
+- Fix many small bugs
+
+<br>
+
+## [v1.0 - v2.3](#)
+
+### New features:
+
+- Support dotted words [\#5](https://github.com/cryptic-resolver/cr/issues/5)
 - Warn to imcomplete explanation [\#4](https://github.com/cryptic-resolver/cr/issues/4)
 - Add original keyword to print [\#3](https://github.com/cryptic-resolver/cr/issues/3)
 - Add 'see' keyword [\#2](https://github.com/cryptic-resolver/cr/issues/2)
