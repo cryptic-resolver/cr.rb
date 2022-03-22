@@ -1,27 +1,27 @@
 # Changelog
 
-## [v6.x](#) (2022-03-18)
+## [v3.4](#) (2022-03-18)
 
-**Enhancements:**
+### New features:
 
-- migrate from **github_changelog_generator** to **chlog**
-- spaceship delimiter for jump info
+- Add spaceship delimiter for jump info
+
+### Enhancements:
+
+- Migrate from **github_changelog_generator** to **chlog**
+- Yank version v4,5,6 from RubyGems
 
 <br>
 
-## [Before 6.0](#)
+## [Before v3.4](#)
 
-**Implemented enhancements:**
+### Enhancements:
 
 - Support dot words [\#5](https://github.com/cryptic-resolver/cr/issues/5)
-- warning to imcomplete explanation [\#4](https://github.com/cryptic-resolver/cr/issues/4)
+- Warn to imcomplete explanation [\#4](https://github.com/cryptic-resolver/cr/issues/4)
 - Add original keyword to print [\#3](https://github.com/cryptic-resolver/cr/issues/3)
 - Add 'see' keyword [\#2](https://github.com/cryptic-resolver/cr/issues/2)
 - Add 'same' keyword  [\#1](https://github.com/cryptic-resolver/cr/issues/1)
-
-**Closed issues:**
-
-- cr in Ruby version [\#6](https://github.com/cryptic-resolver/cr/issues/6)
 
 <br>
 
