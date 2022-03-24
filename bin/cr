@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.13"
+CRYPTIC_VERSION = "3.14"
 
 
 ####################
@@ -216,12 +216,18 @@ end
 #
 def pp_info(info)
   disp = info['disp'] || red("No name!")  # keyword `or` is invalid here in Ruby
-  puts "\n  #{disp}: #{info['desc']}"
-
-  if full = info['full']
-    print "\n  ",full,"\n"
-  end
   
+  desc = info['desc']
+  full = info['full']
+  
+  if desc 
+    puts "\n  #{disp}: #{desc}"
+    print "\n  ",full,"\n" if full
+  else
+    puts "\n  #{disp}"
+    print "\n  ",full,"\n" if full
+  end
+
   if see_also = info['see']
     print "\n", purple("SEE ALSO ")
     see_also.each {|x| print underline(x),' '}
@@ -380,7 +386,15 @@ def lookup(dict, file, word)
   end
 
   # normal info print
-  if !is_jump and info.has_key?('desc')
+  # To developer:
+  #   The word should at least has one of `desc` and `full`
+  #   But when none exists, this may not be considered wrong,
+  #   Because the type2 make the case too. 
+  #   
+  #   So, just ignore it, even if it's really a mistake(insignificant)
+  #   by dictionary maintainers.
+  #
+  if !is_jump && (info.has_key?('desc') || info.has_key?('full'))
     pp_dict(dict)
     pp_info(info)
     type_1_exist_flag = true

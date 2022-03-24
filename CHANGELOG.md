@@ -4,6 +4,14 @@
 
 <br>
 
+## [v3.14](#) (2022-03-24)
+
+### Enhancements:
+
+- Either `desc` or `full` exists is OK
+
+<br>
+
 ## [v3.13](#) (2022-03-24)
 
 ### New features:
