@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-03-22>
+# Last modified : <2022-03-24>
 #
 # cr:
 #
@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.11"
+CRYPTIC_VERSION = "3.12"
 
 
 ####################
@@ -475,33 +475,6 @@ NotFound
 end
 
 
-#
-# print helper
-#   To be like `ls`
-#
-def ls_table(arr)
-
-  return if arr.empty?
-
-  word_len = 9
-  word_num = 8
-  one_line_cap = (word_len + 1) * word_num  # == 80
-
-  i = 0
-  arr.each do |e|
-    if e.length <= word_len
-      e = e.ljust(word_len)
-    end
-    if i >= word_num
-      i = 0
-      puts 
-    end
-    print blue("#{e} ")
-    i +=1  
-  end
-  puts
-end
-
 
 #
 # The search word process is quite like `solve_word``
@@ -554,7 +527,10 @@ def search_word(pattern)
 
     unless similar_words_in_a_dict.empty?
       pp_dict(dict)
-      ls_table(similar_words_in_a_dict)
+      require 'ls_table'
+      LsTable.ls(similar_words_in_a_dict) do |e|
+        puts blue(e)
+      end
       puts 
     end
   end

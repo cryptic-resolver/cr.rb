@@ -22,6 +22,7 @@ DESC
   s.executables = ["cr"]
 
   s.add_dependency 'tomlrb','~> 2.0'
+  s.add_dependency 'ls_table', '~> 0.1'
 
   s.metadata = {
     "bug_tracker_uri"   => "https://github.com/cryptic-resolver/cr/issues",
