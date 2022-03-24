@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.12"
+CRYPTIC_VERSION = "3.13"
 
 
 ####################
@@ -322,6 +322,9 @@ def pp_same_info(dict, word, cache_content, same_key)
       Please consider fixing this in `#{x}.toml` of the dictionary `#{dict}`")
     # exit
     return false
+  # double or more jumps
+  elsif same_key = info['same']
+    return pp_same_info(dict, same, cache_content, same_key)
   else
     pp_info(info)
     return true

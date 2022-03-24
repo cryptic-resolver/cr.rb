@@ -2,6 +2,10 @@
 
 ## [Unreleased](#) (2022-03-24)
 
+### New features:
+
+- Allow double or more jumps
+
 <br>
 
 ## [v3.12](#) (2022-03-24)
