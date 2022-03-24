@@ -23,8 +23,11 @@ cr bcd
 # test spaceship same
 # and test type2 jump
 
-cr eg
+cr eg.
 # test dot word jump
+
+cr eg
+# test multiple jumps
 
 cr xdm
 cr ide
