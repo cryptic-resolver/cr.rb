@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2022-03-22)
+## [Unreleased](#) (2022-03-24)
+
+<br>
+
+## [v3.12](#) (2022-03-24)
+
+### Enhancements:
+
+- add dependency to print
 
 <br>
 
