@@ -559,8 +559,8 @@ end
 
 
 def help
-  user_words = $WordCount - $DefaultWordCount
   word_count(p: false)
+  user_words = $WordCount - $DefaultWordCount
   puts <<-HELP
 cr: Cryptic Resolver v#{CRYPTIC_VERSION} (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
 
