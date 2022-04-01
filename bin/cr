@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-03-24>
+# Last modified : <2022-04-01>
 #
 # cr:
 #
@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.14"
+CRYPTIC_VERSION = "3.15"
 
 
 ####################

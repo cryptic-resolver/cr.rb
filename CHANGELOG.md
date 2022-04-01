@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2022-03-24)
+## [Unreleased](#) (2022-04-01)
+
+<br>
+
+## [v3.15](#) (2022-04-01)
+
+### Bug fixes:
+
+- Fix user dict word count
 
 <br>
 
