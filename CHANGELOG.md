@@ -2,6 +2,10 @@
 
 ## [Unreleased](#) (2022-04-06)
 
+### Enhancements:
+
+- Always add default dicts when help
+
 ### Bug fixes:
 
 - Fix error on cr -u when first installed, this is because of double word counting
