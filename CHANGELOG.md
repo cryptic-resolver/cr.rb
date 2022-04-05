@@ -4,6 +4,7 @@
 
 ### Bug fixes:
 
+- Fix error on cr -u when first installed, this is because of double word counting
 - Fix no dir error when first installed, this is because of the word count of help
 
 <br>
