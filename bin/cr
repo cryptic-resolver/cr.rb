@@ -581,6 +581,9 @@ usage:
   cr emacs               => Edit macros: a feature-rich editor
 
 HELP
+
+  add_default_dicts_if_none_exists
+
 end
 
 
@@ -684,7 +687,7 @@ end
 arg = ARGV.shift
 
 case arg
-when nil    then (help || add_default_dicts_if_none_exists)
+when nil    then help
 when '-v'   then print_version
 when '-h'   then help
 when '-l'   then list_dictionaries
