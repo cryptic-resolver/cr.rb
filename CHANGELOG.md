@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](#) (2022-04-01)
+## [Unreleased](#) (2022-04-06)
+
+### Bug fixes:
+
+- Fix no dir error when first installed, this is because of the word count of help
 
 <br>
 
