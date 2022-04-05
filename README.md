@@ -193,10 +193,11 @@ In one sheet, you should consider adding a category specifier to differ each oth
 maybe you need `sudo` access
 
 - `gem build cryptic-resolver`
-- `gem install ./cryptic-resolver-6.x.gem -l`
+- `gem install ./cryptic-resolver-3.x.gem -l`
 - `gem uninstall cryptic-resolver`
 - `gem update cryptic-resolver (--pre)`
 - `gem push cryptic-resolver-x.x.gem`
+- `gh release create`
 
 <br>
 
