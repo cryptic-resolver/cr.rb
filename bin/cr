@@ -87,12 +87,17 @@ def add_default_dicts_if_none_exists
     word_count(p: false)
     puts 
     puts "#{$WordCount} words added"
+    
+    # Really added
+    return true
   end
+  # Not added
+  return false
 end
 
 
 def update_dicts()
-  add_default_dicts_if_none_exists
+  return if add_default_dicts_if_none_exists
 
   word_count(p: false)
   old_wc = [$DefaultWordCount, $WordCount-$DefaultWordCount, $WordCount]
