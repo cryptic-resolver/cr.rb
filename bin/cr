@@ -693,6 +693,8 @@ when '-u'   then update_dicts
 when '-s'   then search_word ARGV.shift
 when '-a'   then add_dict ARGV.shift
 when '-d'   then del_dict ARGV.shift   
+when '--help' 
+  help
 else
   solve_word arg
 end
