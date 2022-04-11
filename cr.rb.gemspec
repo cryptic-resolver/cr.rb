@@ -2,7 +2,7 @@ load './bin/cr'
 
 Gem::Specification.new do |s|
   s.name = "cr.rb"
-  s.version = CRYPTIC_VERSION
+  s.version = CR_GEM_VERSION
   require 'date'
   s.date = Date.today.to_s
   

@@ -46,14 +46,29 @@ Rake::TestTask.new do |t|
   t.verbose = true  
 end
 
+
 desc "Generate gen_output.txt for tests"
 task :gen_output do
   ruby "test/gen_output.rb"
 end
 
-desc "Build two gems"
+
+desc "Build and release two gems"
 task :release do 
   sh 'gem build cryptic-resolver'
   puts
   sh 'gem build cr.rb'
+  puts
+
+  cr_rb = Dir.children('.').select { 
+    /cr.rb-(\d)+\.(\d)+(.)*\.gem/.match? _1 
+  }.sort.last
+
+  cryptic_resolver = Dir.children('.').select { 
+    /cryptic-resolver-(\d)+\.(\d)+(.)*\.gem/.match? _1 
+  }.sort.last
+
+  sh "gem push #{cr_rb}"
+  sh "gem push #{cryptic_resolver}"
+
 end
