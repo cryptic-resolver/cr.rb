@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CRYPTIC_VERSION = "3.16"
+CR_GEM_VERSION = "3.17.0"
 
 
 ####################
@@ -577,7 +577,7 @@ def help
   word_count(p: false)
   user_words = $WordCount - $DefaultWordCount
   puts <<-HELP
-cr: Cryptic Resolver v#{CRYPTIC_VERSION} (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
+cr: Cryptic Resolver v#{CR_GEM_VERSION} (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
 
 usage:
   cr -v                  => Print version
@@ -598,7 +598,7 @@ end
 
 
 def print_version
-  puts "cr: Cryptic Resolver version #{CRYPTIC_VERSION} in Ruby "
+  puts "cr: Cryptic Resolver version #{CR_GEM_VERSION} in Ruby "
 end
 
 
