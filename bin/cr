@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-04-11>
+# Last modified : <2022-04-12>
 #
 # cr:
 #
@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CR_GEM_VERSION = "3.18.0"
+CR_GEM_VERSION = "3.18.1"
 
 
 ####################
@@ -580,15 +580,15 @@ def help
 cr: Cryptic Resolver v#{CR_GEM_VERSION} (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
 
 usage:
-  cr -v                  => Print version
-  cr -h                  => Print this help
-  cr -c                  => Print word count
-  cr -l                  => List local dictionaries
-  cr -u                  => Update all dictionaries
-  cr -a xx.com/repo.git  => Add a new dictionary
-  cr -d cryptic_xx       => Delete a dictionary
-  cr -s pattern          => Search words matched with pattern
-  cr emacs               => Edit macros: a feature-rich editor
+  cr -v             => Print version
+  cr -h             => Print this help
+  cr -c             => Print word count
+  cr -l             => List local dictionaries
+  cr -u             => Update all dictionaries
+  cr -a repo.git    => Add a new dictionary
+  cr -d cryptic_xx  => Delete a dictionary
+  cr -s pattern     => Search words matched with pattern
+  cr emacs          => Edit macros: a feature-rich editor
 
 HELP
 
