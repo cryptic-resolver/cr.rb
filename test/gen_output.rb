@@ -16,8 +16,8 @@ commands = %w[
 output = ""
 
 commands.each do
+  output += "-----------#{_1}-------------\n"
   output += cr _1
-  output += "------------------------\n"
 end
 
 # convert the ESC to real \e
