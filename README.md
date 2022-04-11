@@ -3,10 +3,10 @@
 # Cryptic Resolver
 
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1152-brightgreen)](#default-sheets)
-[![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
+[![Gem Version](https://badge.fury.io/rb/cr.rb.svg)](https://rubygems.org/gems/cr.rb) 
 
 ```bash
-gem install cryptic-resolver
+gem install cr.rb
 ```
 
 Tested well on `Ubuntu` and `Windows 11`
@@ -100,7 +100,6 @@ Dictionary
 ├── ...
 ├── y.toml
 └── z.toml
-
 ```
 
 ## Sheet format(File format)
