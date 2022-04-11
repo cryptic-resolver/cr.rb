@@ -1,9 +1,9 @@
-desc "count words in all dictionaries"
+desc "Count words in all dictionaries"
 task :wc do
   ruby "bin/wc"
 end
 
-desc "altogether count words in all dictionaries"
+desc "Altogether count words in all dictionaries"
 task :wc_all do
   ruby "bin/wc --all"
 end
@@ -33,7 +33,7 @@ def update_wc_en
 end
 
 
-desc "update word counts in README"
+desc "Update word counts in README"
 task :uwc do |t|
   update_wc_en
 end
@@ -44,4 +44,9 @@ Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList['test/test*.rb']
   t.verbose = true  
+end
+
+desc "Generate gen_output.txt for tests"
+task :gen_output do
+  ruby "test/gen_output.rb"
 end
