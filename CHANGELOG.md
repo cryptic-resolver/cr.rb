@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2022-04-06)
+## [Unreleased](#) (2022-04-11)
+
+### Enhancements:
+
+- Add tests
+
+<br>
+
+## [v3.16](#) (2022-04-05)
 
 ### Enhancements:
 
