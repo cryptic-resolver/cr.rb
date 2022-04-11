@@ -8,6 +8,7 @@
 
 ### Enhancements:
 
+- Add cr.rb gem
 - Add tests
 
 <br>
