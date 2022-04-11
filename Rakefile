@@ -37,3 +37,11 @@ desc "update word counts in README"
 task :uwc do |t|
   update_wc_en
 end
+
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/test*.rb']
+  t.verbose = true  
+end
