@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-04-06>
+# Last modified : <2022-04-11>
 #
 # cr:
 #
@@ -264,8 +264,12 @@ end
 #   [blah]
 #   same = "XDG downloader <=>xdg.Download" # this is correct
 #
+#   [blah]
+#   disp = "BlaH" # You may want to display a better name first
+#   same = "XDG downloader <=>xdg.Download" # this is correct
 #
-def pp_same_info(dict, word, cache_content, same_key)
+#
+def pp_same_info(dict, word, cache_content, same_key, own_name)
 
   # If it's a synonym for anther word,
   # we should lookup into this dict again, but maybe with a different file
@@ -293,7 +297,10 @@ def pp_same_info(dict, word, cache_content, same_key)
   jump_to, same = same_key.split("<=>")
   same =  jump_to if same.nil?
 
-  puts blue(bold(word)) + ' redirects to ' + blue(bold(jump_to))
+  unless own_name
+    own_name = word
+  end
+  puts blue(bold(own_name)) + ' redirects to ' + blue(bold(jump_to))
 
   #
   # As '.' is used to delimit a word and a category, what if 
@@ -335,7 +342,8 @@ def pp_same_info(dict, word, cache_content, same_key)
     return false
   # double or more jumps
   elsif same_key = info['same']
-    return pp_same_info(dict, same, cache_content, same_key)
+    own_name = info['disp']
+    return pp_same_info(dict, same, cache_content, same_key, own_name)
   else
     pp_info(info)
     return true
@@ -383,8 +391,9 @@ def lookup(dict, file, word)
 
   # synonym info print
   if same_key = info['same']
+    own_name = info['disp']
     pp_dict(dict)
-    pp_same_info(dict, word, sheet_content, same_key)
+    pp_same_info(dict, word, sheet_content, same_key, own_name)
     # It's also a type 1
     type_1_exist_flag = true
     is_jump = true
@@ -420,7 +429,8 @@ def lookup(dict, file, word)
     categories.each do |meaning|
       info0 = sheet_content[word][meaning]
       if same_key = info0['same']
-        pp_same_info(dict, word, sheet_content, same_key)
+        own_name = info0['disp']
+        pp_same_info(dict, word, sheet_content, same_key, own_name)
       else
         pp_info(info0)
       end
