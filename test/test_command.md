@@ -1,49 +1,53 @@
 # Test command
 
 ```bash
+# should display help
 cr
-# display help
 
+# should display help
 cr -h
-# display help
 
-cr -help
 # Not found anything
+cr -help
 
+# Test the basic word with see also
 cr emacs
-# test the basic word with see also
 
+# Test jump in same dict
 cr jpg
-# test jump in same dict
 
+# Test jump to another dict
 cr loc
-# test jump to another dict
 
+# Test spaceship same, and
+# Test type2 jump
 cr bcd
-# test spaceship same
-# and test type2 jump
 
+# Test to show word's own better name when jumping
+cr gles
+
+# Test dot word jump
 cr eg.
-# test dot word jump
 
+# Test multiple jumps
 cr eg
-# test multiple jumps
 
+# Test or
 cr xdm
 cr ide
-# test or
 
+# Test cross sheet
 cr mri
-# test cross sheet
 
+# should add a new sheet
 cr -u https://github.com/cryptic-resolver/cryptic_test
-# add a new sheet
 
+# Test no name from cryptic_test 
 cr gdm
-# test no name from cryptic_test 
 
+# should update all sheets
 cr -u 
-# update all sheets
+
 ```
 
 

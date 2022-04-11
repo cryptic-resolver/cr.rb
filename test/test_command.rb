@@ -71,6 +71,18 @@ class TestCommand < Test::Unit::TestCase
   end
 
 
+  def test_gles
+    result = cr("gles")
+    assert_equal(<<~EOC, result)
+    \e[32mFrom: cryptic_computer\e[0m
+    \e[34m\e[1mGLES\e[0m\e[0m redirects to \e[34m\e[1mOpenGL ES\e[0m\e[0m
+    
+      OpenGL ES: OpenGL for Embedded Systems
+    
+    EOC
+  end
+
+
   def test_eg_dot
     result = cr("eg.")
     assert_equal(<<~EOC, result)

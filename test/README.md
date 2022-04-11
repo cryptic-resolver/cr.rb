@@ -6,6 +6,8 @@ The file `basic.rb` is just an experiment when I introduce tests.
 
 2. Write new tests
 
+Add case in `test_command.md` and `gen_output.rb`, and then insert it to `test_command.rb`
+
 ```ruby
 def test_cmd
   result = cr("cmd")

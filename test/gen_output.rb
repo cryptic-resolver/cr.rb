@@ -5,6 +5,7 @@ commands = %w[
   jpg
   loc
   bcd
+  gles
   eg.
   eg
   xdm
