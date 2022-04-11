@@ -5,3 +5,6 @@ Gemfile.lock
 .bundle
 vendor
 cryptic_computer
+
+# Generate test's expected result
+gen_output.txt
