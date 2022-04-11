@@ -69,6 +69,7 @@ task :release do
   }.sort.last
 
   sh "gem push #{cr_rb}"
+  puts
   sh "gem push #{cryptic_resolver}"
 
 end

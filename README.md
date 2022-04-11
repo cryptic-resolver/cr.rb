@@ -85,7 +85,7 @@ rather than
 
 ## Implementation
 
-`cr` is written in pure **Ruby**. You can implement this tool in any other language you like(name your projects as `cr_Python` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to.
+`cr` is written in pure **Ruby**. You can implement this tool in any other language you like (name your projects as `cr_Python` or `cr.py` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to.
 
 ## Dictionary layout
 
@@ -154,6 +154,7 @@ full = "Introduced in 1992. A commonly used method of lossy compression for digi
 see = ['MPG','PNG'] # This is a `see also`
 
 [jpg]
+disp = "JPG"  # Show a good name
 same = "jpeg" # We just need to redirect this. No duplicate!
 
 [sth]
@@ -194,12 +195,16 @@ maybe you need `sudo` access
 
 - `rake gen_output`
 - `rake test`
-- `gem build cryptic-resolver`
-- `gem install ./cryptic-resolver-3.x.gem -l`
-- `gem uninstall cryptic-resolver`
-- `gem update cryptic-resolver (--pre)`
-- `gem push cryptic-resolver-x.x.gem`
+- `rake release`
 - `gh release create`
+
+Or
+
+- `gem build cr.rb`
+- `gem install ./cr.rb-3.x.x.gem -l`
+- `gem uninstall cr.rb`
+- `gem update cr.rb (--pre)`
+- `gem push cr.rb-3.x.x.gem`
 
 <br>
 
