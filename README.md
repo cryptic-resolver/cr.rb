@@ -2,7 +2,7 @@
 
 # Cryptic Resolver
 
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1115-brightgreen)](#default-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1152-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cryptic-resolver.svg)](https://rubygems.org/gems/cryptic-resolver) 
 
 ```bash
@@ -23,7 +23,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **1115** keywords explained in our default sheets.
+- Currently we have **1152** keywords explained in our default sheets.
 
 <br>
 
@@ -192,6 +192,8 @@ In one sheet, you should consider adding a category specifier to differ each oth
 
 maybe you need `sudo` access
 
+- `rake gen_output`
+- `rake test`
 - `gem build cryptic-resolver`
 - `gem install ./cryptic-resolver-3.x.gem -l`
 - `gem uninstall cryptic-resolver`
