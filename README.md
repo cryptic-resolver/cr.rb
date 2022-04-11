@@ -85,7 +85,7 @@ rather than
 
 ## Implementation
 
-`cr` is written in pure **Ruby**. You can implement this tool in any other language you like (name your projects as `cr_Python` or `cr.py` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to.
+`cr` is written in **Ruby**. You can implement this tool in any other language you like (name your projects as `cr_Python` or `cr.py` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to.
 
 ## Dictionary layout
 
@@ -190,14 +190,14 @@ In one sheet, you should consider adding a category specifier to differ each oth
 
 ## cr in Ruby development
 
-maybe you need `sudo` access
+Maybe you need `sudo` access
 
 - `rake gen_output`
 - `rake test`
 - `rake release`
 - `gh release create`
 
-Or
+OR
 
 - `gem build cr.rb`
 - `gem install ./cr.rb-3.x.x.gem -l`
