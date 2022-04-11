@@ -42,7 +42,7 @@
 
 ### Enhancements:
 
-- Either `desc` or `full` exists is OK
+- Either `desc` or `more` exists is OK
 
 <br>
 

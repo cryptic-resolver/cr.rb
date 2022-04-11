@@ -120,11 +120,11 @@ In every file(or sheet), your definition format looks like this in pure **toml**
 name = "XDG"
 desc = "Cross Desktop Group"
 
-# If you want to explain more, use 'full'
+# If you want to explain more, use 'more'
 [xxd]
 name = "xxd"
 desc = "hex file dump"
-full = "Why call this 'xxd' rather than 'xd'?? Maybe a historical reason"
+more = "Why call this 'xxd' rather than 'xd'?? Maybe a historical reason"
 
 [xdm]
 name = "XDM"
@@ -149,7 +149,7 @@ More features:
 [jpeg]
 name = "JPEG"
 desc = "Joint Photographic Experts Group"
-full = "Introduced in 1992. A commonly used method of lossy compression for digital images"
+more = "Introduced in 1992. A commonly used method of lossy compression for digital images"
 see = ['MPG','PNG'] # This is a `see also`
 
 [jpg]

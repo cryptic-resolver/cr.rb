@@ -213,7 +213,7 @@ end
 #   emacs = {
 #     name = "Emacs" 
 #     desc = "edit macros"
-#     full = "a feature-rich editor"
+#     more = "a feature-rich editor"
 #     see  = ["Vim"]
 #   }
 #
@@ -223,14 +223,14 @@ def pp_info(info)
   name = info['name'] || red("No name!")  # keyword `or` is invalid here in Ruby
   
   desc = info['desc']
-  full = info['full']
+  more = info['more']
   
   if desc 
     puts "\n  #{name}: #{desc}"
-    print "\n  ",full,"\n" if full
+    print "\n  ",more,"\n" if more
   else
     puts "\n  #{name}"
-    print "\n  ",full,"\n" if full
+    print "\n  ",more,"\n" if more
   end
 
   if see_also = info['see']
@@ -401,14 +401,14 @@ def lookup(dict, file, word)
 
   # normal info print
   # To developer:
-  #   The word should at least has one of `desc` and `full`
+  #   The word should at least has one of `desc` and `more`
   #   But when none exists, this may not be considered wrong,
   #   Because the type2 make the case too. 
   #   
   #   So, just ignore it, even if it's really a mistake(insignificant)
   #   by dictionary maintainers.
   #
-  if !is_jump && (info.has_key?('desc') || info.has_key?('full'))
+  if !is_jump && (info.has_key?('desc') || info.has_key?('more'))
     pp_dict(dict)
     pp_info(info)
     type_1_exist_flag = true
@@ -416,7 +416,7 @@ def lookup(dict, file, word)
 
   # Meanings with category specifier
   # We call this meaning as type 2
-  categories = info.keys - ["name", "desc", "full", "same", "see"]
+  categories = info.keys - ["name", "desc", "more", "same", "see"]
 
   if !categories.empty?
 
