@@ -17,7 +17,7 @@ DESC
 
   s.authors = "ccmywish"
   s.email = "ccmywish@qq.com"
-  s.homepage = "https://github.com/cryptic-resolver/cr"
+  s.homepage = "https://github.com/cryptic-resolver/cr.rb"
 
   s.files = [
   ]
@@ -28,8 +28,8 @@ DESC
   s.add_dependency 'ls_table', '~> 0.1'
 
   s.metadata = {
-    "bug_tracker_uri"   => "https://github.com/cryptic-resolver/cr/issues",
-    "source_code_uri"   => "https://github.com/cryptic-resolver/cr"
+    "bug_tracker_uri"   => "https://github.com/cryptic-resolver/cr.rb/issues",
+    "source_code_uri"   => "https://github.com/cryptic-resolver/cr.rb"
   }
 
 end
