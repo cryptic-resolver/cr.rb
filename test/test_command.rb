@@ -1,8 +1,12 @@
 require 'test/unit'
 
-def cr(arg)
+def cr(arg, display: false)
   # rake will automatically change to root dir
-  `ruby bin/cr #{arg}`
+  unless display
+    `ruby bin/cr #{arg}`
+  else
+    system("ruby bin/cr #{arg}")
+  end
 end
 
 
@@ -177,5 +181,9 @@ class TestCommand < Test::Unit::TestCase
     EOC
   end
 
+
+  def test_count
+    cr("-c", display: true)
+  end
 
 end
