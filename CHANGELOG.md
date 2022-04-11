@@ -2,6 +2,10 @@
 
 ## [Unreleased](#) (2022-04-11)
 
+<br>
+
+## [v3.17.0](#) (2022-04-11)
+
 ### New features:
 
 - Support to show the word's own better name when jumping
