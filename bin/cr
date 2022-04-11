@@ -26,7 +26,7 @@ CRYPTIC_DEFAULT_DICTS = {
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
 
-CR_GEM_VERSION = "3.17.0"
+CR_GEM_VERSION = "3.18.0"
 
 
 ####################
@@ -211,7 +211,7 @@ end
 #
 # A info looks like this
 #   emacs = {
-#     disp = "Emacs" 
+#     name = "Emacs" 
 #     desc = "edit macros"
 #     full = "a feature-rich editor"
 #     see  = ["Vim"]
@@ -220,16 +220,16 @@ end
 # @param info [Hash] the information of the given word (mapped to a keyword in TOML) 
 #
 def pp_info(info)
-  disp = info['disp'] || red("No name!")  # keyword `or` is invalid here in Ruby
+  name = info['name'] || red("No name!")  # keyword `or` is invalid here in Ruby
   
   desc = info['desc']
   full = info['full']
   
   if desc 
-    puts "\n  #{disp}: #{desc}"
+    puts "\n  #{name}: #{desc}"
     print "\n  ",full,"\n" if full
   else
-    puts "\n  #{disp}"
+    puts "\n  #{name}"
     print "\n  ",full,"\n" if full
   end
 
@@ -265,7 +265,7 @@ end
 #   same = "XDG downloader <=>xdg.Download" # this is correct
 #
 #   [blah]
-#   disp = "BlaH" # You may want to display a better name first
+#   name = "BlaH" # You may want to display a better name first
 #   same = "XDG downloader <=>xdg.Download" # this is correct
 #
 #
@@ -342,7 +342,7 @@ def pp_same_info(dict, word, cache_content, same_key, own_name)
     return false
   # double or more jumps
   elsif same_key = info['same']
-    own_name = info['disp']
+    own_name = info['name']
     return pp_same_info(dict, same, cache_content, same_key, own_name)
   else
     pp_info(info)
@@ -391,7 +391,7 @@ def lookup(dict, file, word)
 
   # synonym info print
   if same_key = info['same']
-    own_name = info['disp']
+    own_name = info['name']
     pp_dict(dict)
     pp_same_info(dict, word, sheet_content, same_key, own_name)
     # It's also a type 1
@@ -416,7 +416,7 @@ def lookup(dict, file, word)
 
   # Meanings with category specifier
   # We call this meaning as type 2
-  categories = info.keys - ["disp", "desc", "full", "same", "see"]
+  categories = info.keys - ["name", "desc", "full", "same", "see"]
 
   if !categories.empty?
 
@@ -429,7 +429,7 @@ def lookup(dict, file, word)
     categories.each do |meaning|
       info0 = sheet_content[word][meaning]
       if same_key = info0['same']
-        own_name = info0['disp']
+        own_name = info0['name']
         pp_same_info(dict, word, sheet_content, same_key, own_name)
       else
         pp_info(info0)

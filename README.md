@@ -110,34 +110,34 @@ In every file(or sheet), your definition format looks like this in pure **toml**
 #
 # NOTICE: 
 #   You MUST keep the key in lower case.
-#   Use a key 'disp' to display its original form 
+#   Use a key 'name' to display its original form 
 #   Because the case sometimes contains details to help we understand
 #
-#   And 'disp' && 'desc' is both MUST-HAVE. 
+#   And 'name' && 'desc' is both MUST-HAVE. 
 #   But if you use 'same', all other infos are not needed.   
 #
 [xdg]
-disp = "XDG"
+name = "XDG"
 desc = "Cross Desktop Group"
 
 # If you want to explain more, use 'full'
 [xxd]
-disp = "xxd"
+name = "xxd"
 desc = "hex file dump"
 full = "Why call this 'xxd' rather than 'xd'?? Maybe a historical reason"
 
 [xdm]
-disp = "XDM"
+name = "XDM"
 desc = "xdm without specifier"
 
 # You can add a subkey as a category specifier to differ
 # While the main word must be lower case, the category name can be any case!
 [xdm.Download]
-disp = "XDM"
+name = "XDM"
 desc = "eXtreme Download Manager"
 
 [xdm.Display]
-disp = "XDM"
+name = "XDM"
 desc = "X Display Manager"
 ```
 
@@ -147,13 +147,13 @@ desc = "X Display Manager"
 More features:
 ```toml
 [jpeg]
-disp = "JPEG"
+name = "JPEG"
 desc = "Joint Photographic Experts Group"
 full = "Introduced in 1992. A commonly used method of lossy compression for digital images"
 see = ['MPG','PNG'] # This is a `see also`
 
 [jpg]
-disp = "JPG"  # Show a good name
+name = "JPG"  # Show a good name
 same = "jpeg" # We just need to redirect this. No duplicate!
 
 [sth]
@@ -166,7 +166,7 @@ same = "Extreme Downloader <=>xdm.Download"
 
 # The 'dot' keyword supported using quoted strings
 ["h.265"]
-disp = "H.265"
+name = "H.265"
 desc = "A video compression standard" 
 
 ```
