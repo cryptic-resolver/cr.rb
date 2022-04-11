@@ -33,12 +33,12 @@ class TestCommand < Test::Unit::TestCase
     result = cr("jpg")
     assert_equal(<<~"EOC", result)
     \e[32mFrom: cryptic_computer\e[0m
-    \e[34m\e[1mjpg\e[0m\e[0m redirects to \e[34m\e[1mJPEG\e[0m\e[0m
-    
+    \e[34m\e[1mJPG\e[0m\e[0m redirects to \e[34m\e[1mJPEG\e[0m\e[0m
+
       JPEG: Joint Photographic Experts Group
-    
+
       Introduced in 1992. A commonly used method of lossy compression for digital images
-    
+
     EOC
   end
 
