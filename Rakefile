@@ -50,3 +50,10 @@ desc "Generate gen_output.txt for tests"
 task :gen_output do
   ruby "test/gen_output.rb"
 end
+
+desc "Build two gems"
+task :release do 
+  sh 'gem build cryptic-resolver'
+  puts
+  sh 'gem build cr.rb'
+end
