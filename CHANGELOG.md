@@ -4,6 +4,15 @@
 
 <br>
 
+## [v3.18.0](#) (2022-04-11)
+
+### Deprecations:
+
+- Use 'more' rather than 'full'
+- Use 'name' rather than 'disp'
+
+<br>
+
 ## [v3.17.0](#) (2022-04-11)
 
 ### New features:
