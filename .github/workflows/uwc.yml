@@ -1,9 +1,9 @@
 name: uwc
 
 on:
-  [push]
-  #schedule:
-  #  - cron:  '0 1 * * 1'
+  # [push]
+  schedule:
+    - cron:  '0 1 * * 1'
 
 jobs:
   update-readme:
