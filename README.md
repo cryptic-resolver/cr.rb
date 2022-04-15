@@ -150,7 +150,8 @@ More features:
 name = "JPEG"
 desc = "Joint Photographic Experts Group"
 more = "Introduced in 1992. A commonly used method of lossy compression for digital images"
-see = ['MPG','PNG'] # This is a `see also`
+see = 'MPG' # This is a `see also`
+# see = ['MPG', 'PNG']  # when multiple see also, use array
 
 [jpg]
 name = "JPG"  # Show a good name

@@ -242,7 +242,11 @@ def pp_info(info)
 
   if see_also = info['see']
     print "\n", purple("SEE ALSO ")
-    see_also.each {|x| print underline(x),' '}
+    if see_also.is_a?(Array)
+      see_also.each {|x| print underline(x),' '}
+    else
+      print underline(see_also),' '
+    end
     puts
   end 
   puts
