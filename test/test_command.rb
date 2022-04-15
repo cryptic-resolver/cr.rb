@@ -12,6 +12,11 @@ end
 
 class TestCommand < Test::Unit::TestCase
 
+  def test_ci
+    # empty to let CI pull dictionaries
+    result = cr("")
+  end
+
   #
   # You should really care about the spaces when using heredoc!
   #
