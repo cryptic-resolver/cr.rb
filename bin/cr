@@ -158,6 +158,11 @@ def add_dict(repo)
   # Ensure the cr home dir exists
   FileUtils.mkdir_p(CRYPTIC_RESOLVER_HOME)
 
+  # Simplify adding dictionary
+  if !repo.start_with?("https://") and !repo.start_with?("git@")
+    repo = "https://github.com/#{repo}.git"
+  end
+
   begin
     puts "cr: Adding new dictionary..."
     `git -C #{CRYPTIC_RESOLVER_HOME} clone #{repo} -q`
@@ -582,15 +587,17 @@ def help
 cr: Cryptic Resolver v#{CR_GEM_VERSION} (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
 
 usage:
-  cr -v             => Print version
-  cr -h             => Print this help
+
+  cr emacs          => Edit macros: a feature-rich editor
   cr -c             => Print word count
   cr -l             => List local dictionaries
   cr -u             => Update all dictionaries
   cr -a repo.git    => Add a new dictionary
+  cr -a user/repo   => Add a new dictionary on Github
   cr -d cryptic_xx  => Delete a dictionary
   cr -s pattern     => Search words matched with pattern
-  cr emacs          => Edit macros: a feature-rich editor
+  cr -v             => Print version
+  cr -h             => Print this help
 
 HELP
 
