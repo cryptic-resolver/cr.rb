@@ -24,7 +24,7 @@ jobs:
         git config --local user.email "ccmywish@qq.com"
         git config --local user.name "ccmywish"
         git add README.md
-        git commit -m "Update word counts in README"
+        git commit -m "Update word counts in README" || echo Resist error when nothing to commit
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
