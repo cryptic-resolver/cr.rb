@@ -8,6 +8,7 @@
 # test-dict:
 #
 #   This file test every word in a dictionary.
+#   Notice: only used in CI
 #
 # ------------------------------------------------------
 
@@ -28,11 +29,19 @@ def report_error_msg(msg)
   puts 
   system "cr -l"
   system "cr -c"
+  puts
   $stderr.puts msg
 end
 
 
-def test_every_word(dict_dir)
+def test_every_word(dict_dir, dict_repo)
+
+  # Important!
+  #   
+  # Only add the dict being tested
+  #
+  system("cr -a #{dict_repo}")
+
   Dir.children(dict_dir).each do |entry|
     next unless entry.end_with?('.toml')
     
@@ -61,7 +70,29 @@ NotFound
   end
 end # end def
 
-dir = ARGV[0] || "~/.cryptic-resolver/cryptic_computer/"
-dir = File.expand_path(dir)
+
+# For user who reads this:
+#
+# You are trying to test your own dictionary
+# Just use this:
+#
+#   ruby -e "ARGV<<'user/repo'; 
+#      $(curl -fsSL 
+#      https://raw.githubusercontent.com/cryptic-resolver/cr.rb/main/bin/test-dict)"
+#
+
+# Input your dictionary repo as 'user/repo'
+dict_repo = ARGV[0] || "cryptic-resolver/cryptic_computer"
+
+if dict_repo.start_with('https://github.com')
+  # do nothing
+else
+  dict_repo = "https://github.com/#{dict_repo}.git"
+end
+
+dir = File.expand_path(".")
+# In CI, it's /home/runner/work/cryptic_economy/cryptic_economy (e.g.)
 puts "test-dict: #{dir}"
-test_every_word(dir)
+
+# In fact, the 'dir' and the 'dict_repo' are the same
+test_every_word(dir, dict_repo)
