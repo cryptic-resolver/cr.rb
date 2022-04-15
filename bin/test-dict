@@ -84,7 +84,7 @@ end # end def
 # Input your dictionary repo as 'user/repo'
 dict_repo = ARGV[0] || "cryptic-resolver/cryptic_computer"
 
-if dict_repo.start_with('https://github.com')
+if dict_repo.start_with?('https://github.com')
   # do nothing
 else
   dict_repo = "https://github.com/#{dict_repo}.git"
