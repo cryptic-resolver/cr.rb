@@ -75,7 +75,7 @@ end
 $WordCount = 0
 
 def count_dict_words(dict_dir)
-  Dir.chdir(dict_dir)
+  Dir.chdir(dict_dir) do
   wc = 0
 
   Dir.children(dict_dir).each do |entry|
@@ -93,6 +93,7 @@ def count_dict_words(dict_dir)
     puts "#{dict_dir} words: #{wc}\n\n"
   end
 
+  end
 end
 
 defaults.each do |s|
