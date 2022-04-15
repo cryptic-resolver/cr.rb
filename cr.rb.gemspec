@@ -19,10 +19,9 @@ DESC
   s.email = "ccmywish@qq.com"
   s.homepage = "https://github.com/cryptic-resolver/cr.rb"
 
-  s.files = [
-  ]
-
-  s.executables = ["cr"]
+  s.files = ['lib/cr.rb']
+  s.require_paths = ['lib']
+  s.executables = ['cr']
 
   s.add_dependency 'tomlrb','~> 2.0'
   s.add_dependency 'ls_table', '~> 0.1'
