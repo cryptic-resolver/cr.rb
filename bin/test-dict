@@ -34,13 +34,13 @@ def report_error_msg(msg)
 end
 
 
-def test_every_word(dict_dir, dict_repo)
+def test_every_word(dict_dir)
 
   # Important!
   #   
-  # Only add the dict being tested
+  # Add your dictionary in the CI step! Not here!
   #
-  system("cr -a #{dict_repo}")
+  # system("cr -a #{dict_repo}")
 
   Dir.children(dict_dir).each do |entry|
     next unless entry.end_with?('.toml')
@@ -74,25 +74,16 @@ end # end def
 # For user who reads this:
 #
 # You are trying to test your own dictionary
-# Just use this:
+# 
+# 1. call `cr -a repo` to add your dictionary in CI runner step
+# 2. use this:
 #
-#   ruby -e "ARGV<<'user/repo'; 
-#      $(curl -fsSL 
-#      https://raw.githubusercontent.com/cryptic-resolver/cr.rb/main/bin/test-dict)"
+# ruby -e 
+# "$(curl -fsSL 
+#   https://raw.githubusercontent.com/cryptic-resolver/cr.rb/main/bin/test-dict)"
 #
-
-# Input your dictionary repo as 'user/repo'
-dict_repo = ARGV[0] || "cryptic-resolver/cryptic_computer"
-
-if dict_repo.start_with?('https://github.com')
-  # do nothing
-else
-  dict_repo = "https://github.com/#{dict_repo}.git"
-end
 
 dir = File.expand_path(".")
 # In CI, it's /home/runner/work/cryptic_economy/cryptic_economy (e.g.)
 puts "test-dict: #{dir}"
-
-# In fact, the 'dir' and the 'dict_repo' are the same
-test_every_word(dir, dict_repo)
+test_every_word(dir)
