@@ -18,7 +18,7 @@ jobs:
       run: bundle exec ./bin/cr
     - name: uwc
       run: 
-        bundle exec ./bin/wc
+        bundle exec ./bin/wc --uwc
     - name: Git commit
       run: |
         git config --local user.email "ccmywish@qq.com"
