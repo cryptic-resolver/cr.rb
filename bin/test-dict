@@ -48,5 +48,7 @@ NotFound
   end
 end # end def
 
-dir = ARGV[0] || File.expand_path("~/.cryptic-resolver/cryptic_computer/")
+dir = ARGV[0] || "~/.cryptic-resolver/cryptic_computer/"
+dir = File.expand_path(dir)
+puts "test-dict: #{dir}"
 test_every_word(dir)
