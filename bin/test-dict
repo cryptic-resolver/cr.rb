@@ -21,6 +21,17 @@ def load_sheet(file)
   end
 end
 
+
+# Report what's wrong in CI
+def report_error_msg(msg)
+  system "cr -v"
+  puts 
+  system "cr -l"
+  system "cr -c"
+  $stderr.puts msg
+end
+
+
 def test_every_word(dict_dir)
   Dir.children(dict_dir).each do |entry|
     next unless entry.end_with?('.toml')
@@ -40,7 +51,9 @@ cr: Not found anything.
 You may use `cr -u` to update all dictionaries.
 Or you could contribute to:
 NotFound
-        $stderr.puts "Wrong at #{dict_dir}/#{entry} || word: #{k}"
+
+        err = "Wrong at #{dict_dir}/#{entry} || word: #{k}"
+        report_error_msg(err)
         exit -1
       end
 
