@@ -155,6 +155,9 @@ def add_dict(repo)
     exit -1
   end
 
+  # Ensure the cr home dir exists
+  FileUtils.mkdir_p(CRYPTIC_RESOLVER_HOME)
+
   begin
     puts "cr: Adding new dictionary..."
     `git -C #{CRYPTIC_RESOLVER_HOME} clone #{repo} -q`
