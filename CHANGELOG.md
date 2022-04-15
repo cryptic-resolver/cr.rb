@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](#) (2022-04-11)
+## [Unreleased](#) (2022-04-15)
+
+<br>
+
+## [v3.18.1](#) (2022-04-15)
+
+### Enhancements:
+
+- Add CI test
+
+### Bug fixes:
+
+- Ensure cr home dir exists when adding new dict
 
 <br>
 
