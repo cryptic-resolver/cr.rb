@@ -12,8 +12,8 @@ end
 
 class TestCommand < Test::Unit::TestCase
 
-  def test_ci
-    # empty to let CI pull dictionaries
+  def test_a_the_first_one_test_to_run_for_ci
+    # empty to let CI pull dictionaries first
     result = cr("")
   end
 
