@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+# ------------------------------------------------------
+# File          : test-dict.rb
+# Authors       : ccmywish <ccmywish@qq.com>
+# Created on    : <2022-04-15>
+# Last modified : <2022-04-15>
+#
+# test-dict:
+#
+#   This file test every word in a dictionary.
+#
+# ------------------------------------------------------
+
+require 'tomlrb'
+
+def load_sheet(file)
+  if File.exist? file
+    return Tomlrb.load_file file # gem 'tomlrb'
+  else
+    nil
+  end
+end
+
+def test_every_word(dict_dir)
+  Dir.children(dict_dir).each do |entry|
+    next unless entry.end_with?('.toml')
+    
+    sheet_content = load_sheet(dict_dir + '/' + entry)
+    
+    
+    sheet_content.keys.each do |k|
+      # abc.def will be -> abc
+      p k
+      puts "---------- #{k} ------------"
+      result = `cr #{k}`
+
+      if result.include? <<-NotFound
+cr: Not found anything.
+
+You may use `cr -u` to update all dictionaries.
+Or you could contribute to:
+NotFound
+        $stderr.puts "Wrong at #{dict_dir}/#{entry} || word: #{k}"
+        exit -1
+      end
+
+    end
+  end
+end # end def
+
+dir = ARGV[0] || File.expand_path("~/.cryptic-resolver/cryptic_computer/")
+test_every_word(dir)
