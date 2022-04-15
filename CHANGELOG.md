@@ -2,6 +2,10 @@
 
 ## [Unreleased](#) (2022-04-15)
 
+### New features:
+
+- Simplify adding dictionary with user/repo
+
 <br>
 
 ## [v3.18.2](#) (2022-04-15)
