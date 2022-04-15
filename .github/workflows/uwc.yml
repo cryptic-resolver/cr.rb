@@ -16,8 +16,9 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Install default dictionaries
       run: bundle exec ./bin/cr
-    - name: Rake uwc
-      run: rake uwc
+    - name: uwc
+      run: 
+        bundle exec ./bin/wc
     - name: Git commit
       run: |
         git config --local user.email "ccmywish@qq.com"

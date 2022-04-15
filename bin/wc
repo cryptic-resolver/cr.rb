@@ -12,12 +12,18 @@
 #  Usage:
 #       wc       # Output count in each file
 #       wc --all # Only output the total counts 
+#       wc --uwc # Update word count in README
 #  ---------------------------------------------------
 
 require 'tomlrb'
 
 op = ARGV.shift
-ALL_MODE = op == "--all" ? true : false
+
+if (op == "--all") or (op == "--uwc")
+  ALL_MODE = true
+else
+  ALL_MODE = false
+end
 
 
 defaults = [
@@ -40,6 +46,31 @@ def load_sheet(file)
     nil
   end
 end
+
+
+def update_wc
+  wc = $WordCount
+  badge_url = "https://img.shields.io/badge/Keywords%20Inlcuded-#{wc}-brightgreen"
+
+  file = File.read("./README.md")
+  new_file = ""
+  file.each_line do |l|
+    if l.start_with?("- Currently we have **")
+      new_file = new_file + "- Currently we have **#{wc}** keywords explained in our default sheets.\n"
+    elsif l.start_with?("[![word-count](https://img.shields")
+      new_file = new_file + "[![word-count](#{badge_url})](#default-sheets)\n"
+    else
+      new_file = new_file + l
+    end
+  end
+
+  # puts new_file
+  
+  File.open("README.md","w") do |f|
+    File.write f,new_file
+  end
+end
+
 
 $WordCount = 0
 
@@ -68,6 +99,8 @@ defaults.each do |s|
   count_dict_words(s)
 end
 
-if ALL_MODE
+if op == '--all'
   print $WordCount # must use print, or rake `` will parse to a new line
+elsif op == '--uwc'
+  update_wc
 end
