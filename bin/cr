@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-04-12>
+# Last modified : <2022-04-15>
 #
 # cr:
 #
@@ -14,6 +14,7 @@
 #
 # ------------------------------------------------------
 
+require 'cr'
 require 'tomlrb'
 require 'fileutils'
 
@@ -25,8 +26,6 @@ CRYPTIC_DEFAULT_DICTS = {
   economy:  "https://github.com/cryptic-resolver/cryptic_economy.git",
   medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
 }
-
-CR_GEM_VERSION = "3.18.1"
 
 
 ####################

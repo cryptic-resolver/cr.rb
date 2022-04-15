@@ -1,4 +1,4 @@
-load './bin/cr'
+require_relative 'lib/cr'
 
 Gem::Specification.new do |s|
   s.name = "cr.rb"
