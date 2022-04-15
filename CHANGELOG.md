@@ -2,8 +2,13 @@
 
 ## [Unreleased](#) (2022-04-15)
 
+<br>
+
+## [v3.19.0](#) (2022-04-15)
+
 ### New features:
 
+- Support see_also can be one word
 - Simplify adding dictionary with user/repo
 
 <br>
