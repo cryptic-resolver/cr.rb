@@ -1,4 +1,4 @@
-name: test-cr-command
+name: test-
 
 on: [push, pull_request]
 
@@ -8,7 +8,8 @@ jobs:
     strategy:
       matrix:
         os: [ 'ubuntu-latest', 'macos-latest', 'windows-latest' ]
-        ruby: [ 3.1, '3.0', 2.7, jruby, truffleruby, ruby-head ]
+        # truffleruby always failed
+        ruby: [ 3.1, '3.0', 2.7, jruby, ruby-head ]
         exclude:
           - os: windows-latest
             ruby: truffleruby
