@@ -2,7 +2,7 @@
 
 # Cryptic Resolver
 [![Test](https://github.com/cryptic-resolver/cr.rb/workflows/test-cr-command/badge.svg)](https://github.com/cryptic-resolver/cr.rb/actions/workflows/test.yml)
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1291-brightgreen)](#default-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1305-brightgreen)](#default-sheets)
 [![Gem Version](https://badge.fury.io/rb/cr.rb.svg)](https://rubygems.org/gems/cr.rb) 
 
 ```bash
@@ -23,7 +23,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **1291** keywords explained in our default sheets.
+- Currently we have **1305** keywords explained in our default sheets.
 
 <br>
 
