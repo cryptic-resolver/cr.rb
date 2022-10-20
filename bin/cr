@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-04-15>
+# Last modified : <2022-10-20>
 #
 # cr:
 #
@@ -20,11 +20,10 @@ require 'fileutils'
 
 CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
 CRYPTIC_DEFAULT_DICTS = {
-  computer: "https://github.com/cryptic-resolver/cryptic_computer.git",
-  common:   "https://github.com/cryptic-resolver/cryptic_common.git",
-  science:  "https://github.com/cryptic-resolver/cryptic_science.git",
-  economy:  "https://github.com/cryptic-resolver/cryptic_economy.git",
-  medicine: "https://github.com/cryptic-resolver/cryptic_medicine.git"
+  common:      "https://github.com/cryptic-resolver/cryptic_common.git",
+  computer:    "https://github.com/cryptic-resolver/cryptic_computer.git",
+  windows:     "https://github.com/cryptic-resolver/cryptic_windows.git",
+  electronics: "https://github.com/cryptic-resolver/cryptic_electronics.git"
 }
 
 
@@ -500,14 +499,13 @@ def solve_word(word)
     puts <<-NotFound
 cr: Not found anything.
 
-You may use `cr -u` to update all dictionaries.
-Or you could contribute to:
-
-  1. computer:   #{CRYPTIC_DEFAULT_DICTS[:computer]}
-  2. common:     #{CRYPTIC_DEFAULT_DICTS[:common]}
-  3. science:    #{CRYPTIC_DEFAULT_DICTS[:science]}
-  4. economy:    #{CRYPTIC_DEFAULT_DICTS[:economy]}
-  5. medicine:   #{CRYPTIC_DEFAULT_DICTS[:medicine]}
+You may 
+  1. Use `cr -u` to update all dicts 
+  2. Use `cr -a user/repo` to add more available dicts
+  
+     See: https://github.com/cryptic-resolver
+  
+  3. Contribute to theses dicts
 
 NotFound
 
