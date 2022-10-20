@@ -4,6 +4,7 @@
 
 ### Enhancements:
 
+- CI updates all cryptic_xxx dicts words
 - bin/wc counts all local dicts
 - Choose different default dicts
 

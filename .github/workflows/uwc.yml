@@ -16,6 +16,13 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Install default dictionaries
       run: bundle exec ./bin/cr
+    - name: Install other cryptic_xxx dictionaries
+      run:
+        bundle exec ./bin/cr -a cryptic-resolver/cryptic_economy
+        bundle exec ./bin/cr -a cryptic-resolver/cryptic_medicine
+        bundle exec ./bin/cr -a cryptic-resolver/cryptic_science
+        bundle exec ./bin/cr -a cryptic-resolver/cryptic_mechanical
+        bundle exec ./bin/cr -a cryptic-resolver/cryptic_math
     - name: uwc
       run: 
         bundle exec ./bin/wc --uwc
