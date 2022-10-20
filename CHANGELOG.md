@@ -4,6 +4,7 @@
 
 ### Enhancements:
 
+- bin/wc counts all local dicts
 - Choose different default dicts
 
 <br>
