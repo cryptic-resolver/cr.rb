@@ -228,3 +228,9 @@ Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
 
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat
+
+[cryptic_economy]: https://github.com/cryptic-resolver/cryptic_economy
+[cryptic_medicine]: https://github.com/cryptic-resolver/cryptic_medicine
+[cryptic_science]: https://github.com/cryptic-resolver/cryptic_science
+[cryptic_mechanical]: https://github.com/cryptic-resolver/cryptic_mechanical
+[cryptic_math]: https://github.com/cryptic-resolver/cryptic_math
