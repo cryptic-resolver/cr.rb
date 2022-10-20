@@ -30,7 +30,7 @@ class TestCommand < Test::Unit::TestCase
 
     Emacs: Edit macros
   
-    a feature-rich editor
+    A feature-rich editor
   
   \e[35mSEE ALSO \e[0m\e[4mVim\e[0m 
 
@@ -158,7 +158,7 @@ class TestCommand < Test::Unit::TestCase
     EOC
   end
 
-
+=begin
   def test_mri
     result = cr("mri")
     assert_equal(<<~EOC, result)
@@ -172,6 +172,26 @@ class TestCommand < Test::Unit::TestCase
     
     EOC
   end
+=end
+
+  # Use this test to replace old test: test_mri
+  # Because the cryptic_medicine is no loner in default dictionaries
+  def test_smt
+    result = cr("smt")
+    assert_equal(<<~EOC, result)
+    \e[32mFrom: cryptic_computer\e[0m
+
+      SMT: Simultaneous Multithreaded
+    
+    \e[32mFrom: cryptic_electronics\e[0m
+    
+      SMT: Surface-Mount Technology
+    
+    \e[35mSEE ALSO \e[0m\e[4mTHT\e[0m 
+    
+    EOC
+  end
+
 
 
   def test_gdm

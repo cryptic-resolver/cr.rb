@@ -37,7 +37,7 @@ cr xdm
 cr ide
 
 # Test cross sheet
-cr mri
+cr smt
 
 # should add a new sheet
 cr -u https://github.com/cryptic-resolver/cryptic_test
