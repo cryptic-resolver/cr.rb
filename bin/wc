@@ -1,19 +1,21 @@
 #!/usr/bin/env ruby
 # coding: utf-8
-#  ---------------------------------------------------
-#  File          : wc.rb
-#  Authors       : ccmywish <ccmywish@qq.com>
-#  Created on    : <2021-7-16>
-#  Last modified : <2022-3-6>
+# ---------------------------------------------------
+# File          : wc.rb
+# Authors       : ccmywish <ccmywish@qq.com>
+# Created on    : <2021-07-16>
+# Last modified : <2022-10-20>
 #
-#  This file is used to count the key words in default 
-#  sheet: cryptic_computer
+# This file is used to count the key words in all
+# our local dictionaries (rather than only default 
+# dicts)
 #
-#  Usage:
-#       wc       # Output count in each file
-#       wc --all # Only output the total counts 
-#       wc --uwc # Update word count in README
-#  ---------------------------------------------------
+# Usage:
+#      wc       # Output count in each file
+#      wc --all # Only output the total counts 
+#      wc --uwc # Update word count in README
+#
+# ---------------------------------------------------
 
 require 'tomlrb'
 
@@ -25,14 +27,13 @@ else
   ALL_MODE = false
 end
 
-
-defaults = [
-  "~/.cryptic-resolver/cryptic_computer/",
-  "~/.cryptic-resolver/cryptic_common/",
-  "~/.cryptic-resolver/cryptic_science/",
-  "~/.cryptic-resolver/cryptic_economy/",
-  "~/.cryptic-resolver/cryptic_medicine/",
-].map {|path| File.expand_path(path)}
+local_dicts = Dir.children File.expand_path("~/.cryptic-resolver/")
+local_dicts = local_dicts.map do |path| 
+  File.join(
+    File.expand_path("~/.cryptic-resolver/"), 
+    path
+  )
+end
 
 
 # A file is like 
@@ -56,9 +57,9 @@ def update_wc
   new_file = ""
   file.each_line do |l|
     if l.start_with?("- Currently we have **")
-      new_file = new_file + "- Currently we have **#{wc}** keywords explained in our default sheets.\n"
+      new_file = new_file + "- Currently we have **#{wc}** keywords explained in all of our ***cryptic_xxx*** sheets.\n"
     elsif l.start_with?("[![word-count](https://img.shields")
-      new_file = new_file + "[![word-count](#{badge_url})](#default-sheets)\n"
+      new_file = new_file + "[![word-count](#{badge_url})](#cryptic-sheets)\n"
     else
       new_file = new_file + l
     end
@@ -96,7 +97,7 @@ def count_dict_words(dict_dir)
   end
 end
 
-defaults.each do |s|
+local_dicts.each do |s|
   count_dict_words(s)
 end
 

@@ -2,7 +2,7 @@
 
 # Cryptic Resolver
 [![Test](https://github.com/cryptic-resolver/cr.rb/workflows/test-cr-command/badge.svg)](https://github.com/cryptic-resolver/cr.rb/actions/workflows/test.yml)
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1419-brightgreen)](#default-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1419-brightgreen)](#cryptic-sheets)
 [![Gem Version](https://badge.fury.io/rb/cr.rb.svg)](https://rubygems.org/gems/cr.rb) 
 
 ```bash
@@ -23,7 +23,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **1419** keywords explained in our default sheets.
+- Currently we have **1419** keywords explained in all of our ***cryptic_xxx*** sheets.
 
 <br>
 
@@ -74,14 +74,22 @@ rather than
 <a name="default-dictionaries"></a> 
 ## Default Dictionaries
 
-- [![cryptic_computer](https://github.com/cryptic-resolver/cryptic_computer/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_computer/actions/workflows/test.yml) [cryptic_computer]
 - [![cryptic_common](https://github.com/cryptic-resolver/cryptic_common/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_common/actions/workflows/test.yml) [cryptic_common]
-- [![cryptic_science](https://github.com/cryptic-resolver/cryptic_science/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_science/actions/workflows/test.yml) [cryptic_science]
-- [![cryptic_economy](https://github.com/cryptic-resolver/cryptic_economy/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_economy/actions/workflows/test.yml) [cryptic_economy]
-- [![cryptic_medicine](https://github.com/cryptic-resolver/cryptic_medicine/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_medicine/actions/workflows/test.yml) [cryptic_medicine]
+- [![cryptic_computer](https://github.com/cryptic-resolver/cryptic_computer/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_computer/actions/workflows/test.yml) [cryptic_computer]
+- [![cryptic_windows](https://github.com/cryptic-resolver/cryptic_windows/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_windows/actions/workflows/test.yml) [cryptic_windows]
+- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
 
 <br>
 
+## Other cryptic sheets
+
+- [![cryptic_economy](https://github.com/cryptic-resolver/cryptic_economy/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_economy/actions/workflows/test.yml) [cryptic_economy]
+- [![cryptic_medicine](https://github.com/cryptic-resolver/cryptic_medicine/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_medicine/actions/workflows/test.yml) [cryptic_medicine]
+- [![cryptic_science](https://github.com/cryptic-resolver/cryptic_science/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_science/actions/workflows/test.yml) [cryptic_science]
+- [![cryptic_mechanical](https://github.com/cryptic-resolver/cryptic_mechanical/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_mechanical/actions/workflows/test.yml) [cryptic_mechanical]
+- [![cryptic_math](https://github.com/cryptic-resolver/cryptic_math/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_math/actions/workflows/test.yml) [cryptic_math]
+
+<br>
 
 ## Implementation
 
@@ -213,11 +221,10 @@ OR
 
 Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
 
-
-[cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
 [cryptic_common]: https://github.com/cryptic-resolver/cryptic_common
-[cryptic_science]: https://github.com/cryptic-resolver/cryptic_science
-[cryptic_economy]: https://github.com/cryptic-resolver/cryptic_economy
-[cryptic_medicine]: https://github.com/cryptic-resolver/cryptic_medicine
+[cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
+[cryptic_windows]: https://github.com/cryptic-resolver/cryptic_windows
+[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
+
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat
