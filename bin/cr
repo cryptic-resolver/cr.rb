@@ -669,7 +669,7 @@ def word_count(p:)
   defaults &= locals
 
   unless defaults.empty?
-    puts(bold(green("Default dict: "))) if p
+    puts(bold(green("Default dicts: "))) if p
     defaults.each do |s|
       wc = count_dict_words(s)
       $DefaultWordCount += wc

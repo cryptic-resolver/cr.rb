@@ -2,8 +2,13 @@
 
 ## [Unreleased](#) (2022-10-20)
 
+<br>
+
+## [v3.20.0](#) (2022-10-20)
+
 ### Enhancements:
 
+- Update tests
 - CI updates all cryptic_xxx dicts words
 - bin/wc counts all local dicts
 - Choose different default dicts
