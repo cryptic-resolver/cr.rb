@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased](#) (2022-10-20)
+## [Unreleased](#) (2022-10-30)
+
+### Enhancements:
+
+- Add cryptic_linux to default dicts
 
 <br>
 
