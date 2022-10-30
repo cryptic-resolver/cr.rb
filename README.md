@@ -77,6 +77,7 @@ rather than
 - [![cryptic_common](https://github.com/cryptic-resolver/cryptic_common/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_common/actions/workflows/test.yml) [cryptic_common]
 - [![cryptic_computer](https://github.com/cryptic-resolver/cryptic_computer/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_computer/actions/workflows/test.yml) [cryptic_computer]
 - [![cryptic_windows](https://github.com/cryptic-resolver/cryptic_windows/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_windows/actions/workflows/test.yml) [cryptic_windows]
+- [![cryptic_linux](https://github.com/cryptic-resolver/cryptic_linux/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_linux/actions/workflows/test.yml) [cryptic_linux]
 - [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
 
 <br>
@@ -224,6 +225,7 @@ Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
 [cryptic_common]: https://github.com/cryptic-resolver/cryptic_common
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
 [cryptic_windows]: https://github.com/cryptic-resolver/cryptic_windows
+[cryptic_linux]: https://github.com/cryptic-resolver/cryptic_linux
 [cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
 
 [tldr]: https://github.com/tldr-pages/tldr
