@@ -2,6 +2,10 @@
 
 ## [Unreleased](#) (2022-10-30)
 
+<br>
+
+## [v3.21.0](#) (2022-10-30)
+
 ### Enhancements:
 
 - Add cryptic_linux to default dicts
