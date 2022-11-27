@@ -49,9 +49,12 @@ $ cr -a https://github.com/ccmywish/ruby_knowledge
 $ cr -a ccmywish/git_knowledge
 # -> Add a user's dict from Github by username and repo 
 
+$ cr -l
+# All cryptic-resolver official dicts can be listed (local dicts listed also)
+
 $ cr -a x86
-# -> Add 'cryptic-resolver/cryptic_x86'
-# All cryptic-resolver official dicts can be listed
+# -> Add official dict 'cryptic-resolver/cryptic_x86', no need to specify the prefix!
+
 
 $ cr -c
 # -> word count
@@ -92,8 +95,10 @@ You can override the default dicts by using a [config file](#config-file).
 ## Other official dictionaries
 
 ```bash
-# Easy to add official dicts!
+# List all official dicts (and local dicts)
+$ cr -l
 
+# Easy to add!
 $ cr -a economy
 
 $ cr -a medicine
