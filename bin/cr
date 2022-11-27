@@ -54,6 +54,15 @@ else
 end
 
 
+# Prevent runtime error
+if not CR_EXTRA_LIBRARY.nil?
+  if ! test('d', CR_EXTRA_LIBRARY)
+    puts "FATAL: Your CRYPTIC_RESOLVER_CONFIG's option 'EXTRA_LIBRARY' is NOT a legal directory!"
+    exit 1
+  end
+end
+
+
 # This is used to display what you are pulling when adding dicts
 CR_DEFAULT_DICTS_USER_AND_NAMES = CR_DEFAULT_DICTS.map do |e|
   user, repo = e.split('/').last(2)
@@ -728,7 +737,7 @@ def word_count(p:)
     end
   end
 
-  
+
   if CR_EXTRA_LIBRARY
     extra_lib = Dir.children(CR_EXTRA_LIBRARY)
     # Count extra library

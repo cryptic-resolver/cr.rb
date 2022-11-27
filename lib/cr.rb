@@ -10,7 +10,7 @@
 #
 # ------------------------------------------------------
 
-CR_GEM_VERSION = "4.0.0.alpha.2"
+CR_GEM_VERSION = "4.0.0"
 
 
 CR_OFFICIAL_DICTS = <<-EOF
