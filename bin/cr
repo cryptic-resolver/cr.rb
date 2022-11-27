@@ -19,12 +19,29 @@ require 'tomlrb'
 require 'fileutils'
 
 CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
-CRYPTIC_DEFAULT_DICTS = [
-  "https://github.com/cryptic-resolver/cryptic_common.git",
-  "https://github.com/cryptic-resolver/cryptic_computer.git",
-  "https://github.com/cryptic-resolver/cryptic_windows.git",
-  "https://github.com/cryptic-resolver/cryptic_linux.git"
-]
+
+# The config file will override the default dictionaries, but not default dictionaries home!
+if ENV['CRYPTIC_RESOLVER_CONFIG'] 
+  file = ENV['CRYPTIC_RESOLVER_CONFIG']
+  if test('f', file)
+    config = Tomlrb.load_file file 
+    CRYPTIC_RESOLVER_EXTRA_HOME ||= config['EXTRA_DICTS_HOME']
+    CRYPTIC_DEFAULT_DICTS       ||= config['DEFAULT_DICTS']
+  else
+    puts "FATAL: Your CRYPTIC_RESOLVER_CONFIG is NOT a file!"
+    exit 1
+  end
+
+else
+  # if user doesn't specify, we use the hard-coded defaults
+  CRYPTIC_RESOLVER_EXTRA_HOME = nil
+  CRYPTIC_DEFAULT_DICTS = [
+    "https://github.com/cryptic-resolver/cryptic_common.git",
+    "https://github.com/cryptic-resolver/cryptic_computer.git",
+    "https://github.com/cryptic-resolver/cryptic_windows.git",
+    "https://github.com/cryptic-resolver/cryptic_linux.git"
+  ]
+end
 
 # This is used to display what you are pulling when adding dictionaries
 CRYPTIC_DEFAULT_DICTS_USER_AND_NAMES = CRYPTIC_DEFAULT_DICTS.map do |e|
@@ -692,7 +709,7 @@ def word_count(p:)
   user_words = 0
   unless users.empty?
     wc = 0
-    puts(bold(blue("\nUser's dict:"))) if p
+    puts(bold(blue("\nUser added dicts:"))) if p
     users.each do |s|
       wc = count_dict_words(s)
       # no need to add to $WordCount，
