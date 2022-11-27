@@ -716,7 +716,6 @@ def word_count(p:)
   is_there_any_dict?
 
   default_lib = Dir.children(CR_DEFAULT_LIBRARY)
-  extra_lib   = Dir.children(CR_EXTRA_LIBRARY)
 
   # Count default library
   unless default_lib.empty?
@@ -729,17 +728,21 @@ def word_count(p:)
     end
   end
 
-  # Count extra library
-  unless extra_lib.empty?
-    wc = 0
-    puts(bold(blue("\nExtra library:"))) if p
-    extra_lib.each do |s|
-      wc = count_dict_words(CR_EXTRA_LIBRARY,s)
-      $ExtraLibWordCount += wc
-      puts("  #{s.ljust(17)}: #{wc}") if p
+  
+  if CR_EXTRA_LIBRARY
+    extra_lib = Dir.children(CR_EXTRA_LIBRARY)
+    # Count extra library
+    unless extra_lib.empty?
+      wc = 0
+      puts(bold(blue("\nExtra library:"))) if p
+      extra_lib.each do |s|
+        wc = count_dict_words(CR_EXTRA_LIBRARY,s)
+        $ExtraLibWordCount += wc
+        puts("  #{s.ljust(17)}: #{wc}") if p
+      end
     end
-    $TwoLibWordCount = $DefaultLibWordCount + $ExtraLibWordCount
   end
+  $TwoLibWordCount = $DefaultLibWordCount + $ExtraLibWordCount
 
   if p 
   puts
