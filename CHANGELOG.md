@@ -2,6 +2,10 @@
 
 ## [Unreleased](#) (2022-11-27)
 
+<br>
+
+## [v4.0.0](#) (2022-11-27)
+
 ### Enhancements:
 
 - Use new index 0-9.toml
