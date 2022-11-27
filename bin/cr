@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-10-30>
+# Last modified : <2022-11-27>
 #
 # cr:
 #
@@ -19,13 +19,24 @@ require 'tomlrb'
 require 'fileutils'
 
 CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
-CRYPTIC_DEFAULT_DICTS = {
-  common:      "https://github.com/cryptic-resolver/cryptic_common.git",
-  computer:    "https://github.com/cryptic-resolver/cryptic_computer.git",
-  windows:     "https://github.com/cryptic-resolver/cryptic_windows.git",
-  linux:       "https://github.com/cryptic-resolver/cryptic_linux.git",
-  electronics: "https://github.com/cryptic-resolver/cryptic_electronics.git"
-}
+CRYPTIC_DEFAULT_DICTS = [
+  "https://github.com/cryptic-resolver/cryptic_common.git",
+  "https://github.com/cryptic-resolver/cryptic_computer.git",
+  "https://github.com/cryptic-resolver/cryptic_windows.git",
+  "https://github.com/cryptic-resolver/cryptic_linux.git"
+]
+
+# This is used to display what you are pulling when adding dictionaries
+CRYPTIC_DEFAULT_DICTS_USER_AND_NAMES = CRYPTIC_DEFAULT_DICTS.map do |e|
+  user, repo = e.split('/').last(2)
+  repo = repo.split('.').first
+  user + '/' + repo
+end
+
+# Same with the pulled repo dirs' names in CRYPTIC_RESOLVER_HOME
+CRYPTIC_DEFAULT_DICTS_NAMES = CRYPTIC_DEFAULT_DICTS.map do |e|
+  e.split('/').last.split('.').first
+end
 
 
 ####################
@@ -62,16 +73,16 @@ def add_default_dicts_if_none_exists
     begin
     if RUBY_PLATFORM.include? "mingw"
       # Windows doesn't have fork
-      CRYPTIC_DEFAULT_DICTS.each do |key, dict|
-        puts "cr: Pulling cryptic_#{key}..."
-        `git -C #{CRYPTIC_RESOLVER_HOME} clone #{dict} -q`
+      CRYPTIC_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
+        puts "cr: Pulling #{name}..."
+        `git -C #{CRYPTIC_RESOLVER_HOME} clone #{CRYPTIC_DEFAULT_DICTS[i]} -q`
       end
     else
-      # *nix
-      CRYPTIC_DEFAULT_DICTS.each do |key, dict|
+      # *nix-like
+      CRYPTIC_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
         fork do 
-          puts "cr: Pulling cryptic_#{key}..."
-          `git -C #{CRYPTIC_RESOLVER_HOME} clone #{dict} -q`
+          puts "cr: Pulling #{name}..."
+          `git -C #{CRYPTIC_RESOLVER_HOME} clone #{CRYPTIC_DEFAULT_DICTS[i]} -q`
         end
       end
       Process.waitall      
@@ -481,7 +492,7 @@ def solve_word(word)
   end
   
   # Default's first should be 1st to consider
-  first_dict = "cryptic_" + CRYPTIC_DEFAULT_DICTS.keys[0].to_s # When Ruby3, We can use DICTS.key(0)
+  first_dict = CRYPTIC_DEFAULT_DICTS_NAMES[0] # When Ruby3, We can use Hash#key(0)
 
   # cache lookup results
   results = []
@@ -662,11 +673,9 @@ def word_count(p:)
   end
 
   # pre-defined default
-  defaults = CRYPTIC_DEFAULT_DICTS.keys.map do |s|
-    "cryptic_#{s}"
-  end
+  defaults = CRYPTIC_DEFAULT_DICTS_NAMES
 
-  # user may delete some default dicts
+  # user may delete some default dicts, so we get the intersection
   defaults &= locals
 
   unless defaults.empty?
