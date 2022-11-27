@@ -570,18 +570,35 @@ NotFound
 end
 
 
+#
+# Delegate to `search_word_internal`
+#
+def search_word(pattern)
+  found_or_not1 = false
+  found_or_not2 = false
+
+  found_or_not1 = search_word_internal(pattern, CR_DEFAULT_LIBRARY)
+  if CR_EXTRA_LIBRARY
+    found_or_not2 = search_word_internal(pattern, CR_EXTRA_LIBRARY)
+  end
+
+  if (found_or_not1 == false) && (found_or_not2 == false)
+    puts red("cr: No words match with #{pattern.inspect}")
+    puts
+  end
+end
 
 #
-# This `search_word` routine is quite like `resolve_word`
+# This `search_word_internal` routine is quite like `resolve_word`
 # Notice:
 #   We handle two cases
 #   
 #   1. the 'pattern' is the regexp itself
-#   2. the 'pattern' is like '/blahblah/'
+#   2. the 'pattern' is like '/blah/'
 #                       
 #  The second is what Ruby and Perl users like to do, handle it!
 #
-def search_word(pattern)
+def search_word_internal(pattern, library)
 
   if pattern.nil? 
     puts bold(red("cr: Need an argument!"))
@@ -596,24 +613,24 @@ def search_word(pattern)
     regexp = %r[#{pattern}]
   end
   
-  found = false
+  found_or_not = false
 
   #
   # Try to match every word in all dicts
   #
-  Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
-    sheets = Dir.children(File.join(CR_DEFAULT_LIBRARY, dict)).select do
+  Dir.children(library).each do |dict|
+    sheets = Dir.children(File.join(library, dict)).select do
       _1.end_with?('.toml')
     end
 
     similar_words_in_a_dict = []
 
     sheets.each do |sheet|
-      sheet_content = load_sheet(dict, File.basename(sheet,'.toml'))
+      sheet_content = load_sheet(library, dict, File.basename(sheet,'.toml'))
 
       sheet_content.keys.each do 
         if _1 =~ regexp
-          found = true
+          found_or_not = true
           similar_words_in_a_dict << _1
         end
       end
@@ -629,10 +646,7 @@ def search_word(pattern)
       puts 
     end
   end
-  if !found
-    puts red("cr: No words match with #{regexp.inspect}")
-    puts
-  end
+  return found_or_not
 end
 
 
