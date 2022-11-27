@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](#) (2022-10-30)
+## [Unreleased](#) (2022-11-27)
+
+### Enhancements:
+
+- Add support for user config
+- List official dicts
+- Word count different libraries
 
 <br>
 
