@@ -46,6 +46,13 @@ $ cr -u
 $ cr -a https://github.com/ccmywish/ruby_knowledge
 # -> Add your own knowledge base! 
 
+$ cr -a ccmywish/git_knowledge
+# -> Add a user's dict from Github by username and repo 
+
+$ cr -a x86
+# -> Add 'cryptic-resolver/cryptic_x86'
+# All cryptic-resolver official dicts can be listed
+
 $ cr -c
 # -> word count
 
@@ -65,44 +72,100 @@ The aim of this project is to:
 
 rather than
 
-1. record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
+- record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
 
 <br>
 
 
-
 <a name="default-dictionaries"></a> 
-## Default Dictionaries
+## Default dictionaries
+
+You can override the default dicts by using a [config file](#config-file).
 
 - [![cryptic_common](https://github.com/cryptic-resolver/cryptic_common/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_common/actions/workflows/test.yml) [cryptic_common]
 - [![cryptic_computer](https://github.com/cryptic-resolver/cryptic_computer/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_computer/actions/workflows/test.yml) [cryptic_computer]
 - [![cryptic_windows](https://github.com/cryptic-resolver/cryptic_windows/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_windows/actions/workflows/test.yml) [cryptic_windows]
 - [![cryptic_linux](https://github.com/cryptic-resolver/cryptic_linux/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_linux/actions/workflows/test.yml) [cryptic_linux]
-- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
 
 <br>
 
-## Other cryptic sheets
+## Other official dictionaries
+
+```bash
+# Easy to add official dicts!
+
+$ cr -a economy
+
+$ cr -a medicine
+
+$ cr -a electronics
+
+...
+```
 
 - [![cryptic_economy](https://github.com/cryptic-resolver/cryptic_economy/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_economy/actions/workflows/test.yml) [cryptic_economy]
 - [![cryptic_medicine](https://github.com/cryptic-resolver/cryptic_medicine/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_medicine/actions/workflows/test.yml) [cryptic_medicine]
 - [![cryptic_science](https://github.com/cryptic-resolver/cryptic_science/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_science/actions/workflows/test.yml) [cryptic_science]
 - [![cryptic_mechanical](https://github.com/cryptic-resolver/cryptic_mechanical/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_mechanical/actions/workflows/test.yml) [cryptic_mechanical]
 - [![cryptic_math](https://github.com/cryptic-resolver/cryptic_math/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_math/actions/workflows/test.yml) [cryptic_math]
+- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
 
 <br>
 
 ## Implementation
 
-`cr` is written in **Ruby**. You can implement this tool in any other language you like (name your projects as `cr_Python` or `cr.py` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to.
+`cr` is written in **Ruby**. You can implement this tool in any other language you like (name your projects as `cr_Python` or `cr.py` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to. See [doc/dev.md](doc/dev.md) to help develop && maintain this tool.
+
+<br>
+
+## Library layout
+
+A library is a folder which contain many dictionaries (which are just `git` repos). By default, dictionaries will be downloaded in `~/.cryptic-resolver` folder, this can't be configured. But, the user can specify an extra library using a config file.
+
+```
+Library
+.
+├── cryptic_common
+├── cryptic_computer
+├── cryptic_linux
+├── cryptic_windows
+├── ...
+├── cryptic_economy
+├── cryptic_x86
+└── user_exam_dictionary
+```
+
+<br>
+
+<a name="config-file"></a> 
+## Config file
+
+You can use a config file (in `TOML` format) which is specified by the environment variable `CRYPTIC_RESOLVER_CONFIG`. You can control two options in this config file:
+
+1. Override the default dicts
+2. Add an extra library for yourself, this way, you can manage multiple knowledge bases of your own, without the hassle of maintaining multiple git repos.
+
+```toml
+# cryptic-resolver.toml example
+
+DEFAULT_DICTS = [
+  "https://github.com/cryptic-resolver/cryptic_dos",
+  "https://github.com/cryptic-resolver/cryptic_x86",
+  "https://github.com/cryptic-resolver/cryptic_electronics"
+]
+
+EXTRA_LIBRARY = "C:\\MyData\\cr"
+```
+
+<br>
 
 ## Dictionary layout
 
-`Dictionary` is a knowledge base. Every dictionary should be a `git` repository, and each consists of many files(we call these `sheets`):
+`Dictionary` is a knowledge base. Every dictionary should be a `git` repository, and each consists of many files (we call these `sheets`):
 ```
 Dictionary
 .
-├── 0123456789.toml
+├── 0-9.toml
 ├── a.toml
 ├── b.toml
 ├── c.toml
@@ -111,7 +174,7 @@ Dictionary
 └── z.toml
 ```
 
-## Sheet format(File format)
+## Sheet format (File format)
 
 In every file(or sheet), your definition format looks like this in pure **toml**:
 ```toml
@@ -168,10 +231,10 @@ same = "jpeg" # We just need to redirect this. No duplicate!
 
 [sth]
 # You must point to a exact position, not just xdm
-# And we use '<=>' symbol to split it into two parts
+# And we use '=>' symbol to split it into two parts
 #   the first will output to user
 #   the second is for internal jump
-same = "Extreme Downloader <=>xdm.Download" 
+same = "Extreme Downloader =>xdm.Download" 
 
 
 # The 'dot' keyword supported using quoted strings
@@ -195,30 +258,11 @@ In one sheet, you should consider adding a category specifier to differ each oth
 > 1. Use a better lint for example: [VSCode's Even Better TOML](https://github.com/tamasfe/taplo)
 > 2. Watch the fail message, you may notice 'override path xxx', the xxx is the collision, you may correct it back manually.
 
-
-<br>
-
-## cr in Ruby development
-
-Maybe you need `sudo` access
-
-- `rake gen_output`
-- `rake test`
-- `rake release`
-- `gh release create`
-
-OR
-
-- `gem build cr.rb`
-- `gem install ./cr.rb-3.x.x.gem -l`
-- `gem uninstall cr.rb`
-- `gem update cr.rb (--pre)`
-- `gem push cr.rb-3.x.x.gem`
-
 <br>
 
 ## LICENSE
-`cr` itself is under MIT
+
+`cr.rb` itself is under MIT
 
 Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
 
@@ -226,7 +270,6 @@ Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
 [cryptic_windows]: https://github.com/cryptic-resolver/cryptic_windows
 [cryptic_linux]: https://github.com/cryptic-resolver/cryptic_linux
-[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
 
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat
@@ -236,3 +279,5 @@ Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
 [cryptic_science]: https://github.com/cryptic-resolver/cryptic_science
 [cryptic_mechanical]: https://github.com/cryptic-resolver/cryptic_mechanical
 [cryptic_math]: https://github.com/cryptic-resolver/cryptic_math
+
+[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
