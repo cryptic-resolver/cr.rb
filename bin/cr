@@ -229,8 +229,8 @@ def del_dict(repo)
 end
 
 
-def load_sheet(dict, sheet_name)
-  file = CR_DEFAULT_LIBRARY + "/#{dict}/#{sheet_name}.toml" 
+def load_sheet(library, dict, sheet_name)
+  file = library + "/#{dict}/#{sheet_name}.toml" 
   
   if File.exist? file
     return Tomlrb.load_file file # gem 'tomlrb'
@@ -404,8 +404,8 @@ end
 #   2.2 with category specifier
 #       [abcd.tYPe]
 #
-def lookup(dict, file, word)
-  sheet_content = load_sheet(dict, file) 
+def lookup(library, dict, file, word)
+  sheet_content = load_sheet(library, dict, file) 
   return false if sheet_content.nil?
 
   info = sheet_content[word]
@@ -418,7 +418,6 @@ def lookup(dict, file, word)
       Please consider fixing this in the dict `#{dict}`")
     exit 
   end
-
 
 
   # Word with no category specifier
@@ -512,17 +511,17 @@ def resolve_word(word)
   # cache lookup's results
   results = []
   
-  # Firts consider default HOME
-  home = Dir.children(CR_DEFAULT_LIBRARY)
-  home.each do |dict|
-    results << lookup(dict,index,word)
+  # First consider the default library
+  default = Dir.children(CR_DEFAULT_LIBRARY)
+  default.each do |dict|
+    results << lookup(CR_DEFAULT_LIBRARY,dict,index,word)
   end
   
-  # Then is the EXTRA HOME
+  # Then is the extra library
   if CR_EXTRA_LIBRARY
-    home = Dir.children(CR_EXTRA_LIBRARY)
-    home.each do |dict|
-      results << lookup(dict,index,word)
+    extra = Dir.children(CR_EXTRA_LIBRARY)
+    extra.each do |dict|
+      results << lookup(CR_EXTRA_LIBRARY,dict,index,word)
     end
   end
 
