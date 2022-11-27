@@ -322,11 +322,11 @@ end
 #                 # category
 #
 #   [blah]
-#   same = "XDG downloader <=>xdg.Download" # this is correct
+#   same = "XDG downloader =>xdg.Download" # this is correct
 #
 #   [blah]
 #   name = "BlaH" # You may want to display a better name first
-#   same = "XDG downloader <=>xdg.Download" # this is correct
+#   same = "XDG downloader =>xdg.Download" # this is correct
 #
 #
 def pp_same_info(library, dict, word, cache_content, same_key, own_name)
@@ -348,13 +348,13 @@ def pp_same_info(library, dict, word, cache_content, same_key, own_name)
   # 
   # 'jump to' will output to user, so this is important not only inside our sheet.
   #   
-  #     same = "XDM downloader<=>xdm.Download"
+  #     same = "XDM downloader=>xdm.Download"
   #
-  # We split 'same' key into two parts via spaceship symbol <=>, first part will
+  # We split 'same' key into two parts via spaceship symbol `=>`, first part will
   # output to user, the second part is for internal jump.
   #
     
-  jump_to, same = same_key.split("<=>")
+  jump_to, same = same_key.split("=>")
   same =  jump_to if same.nil?
 
   unless own_name

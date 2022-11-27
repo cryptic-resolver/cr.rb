@@ -4,6 +4,7 @@
 
 ### Enhancements:
 
+- Use new jump symbol '=>'
 - Add support for user config
 - List official dicts
 - Word count different libraries
