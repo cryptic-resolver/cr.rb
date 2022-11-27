@@ -552,9 +552,12 @@ cr: Not found anything.
 
 You may 
   1. Use `cr -u` to update all dicts 
-  2. Use `cr -a user/repo` to add more available dicts
-  
-     See: https://github.com/cryptic-resolver
+
+  2. Use 
+      
+    `cr -l`  to list available official dicts
+    
+    `cr -a repo`  to add some dicts
   
   3. Contribute to theses dicts
 
@@ -643,11 +646,11 @@ Usage:
   cr emacs          => Edit macros: A feature-rich editor
   cr -c             => Print word count
   cr -l             => List local dicts and official dicts
-  cr -u             => Update all dicts in default library
+  cr -u             => Update all dicts in Default library
   
   cr -a repo.git    => Add a new dict
   cr -a user/repo   => Add a new dict from Github
-  cr -a  reponame   => Add an official dict from Github
+  cr -a  repo       => Add an official dict from Github
 
   cr -d cryptic_xx  => Delete a dict
   cr -s pattern     => Search words matched with pattern

@@ -167,7 +167,7 @@
 ### New features:
 
 - Support dotted words [\#5](https://github.com/cryptic-resolver/cr/issues/5)
-- Warn to imcomplete explanation [\#4](https://github.com/cryptic-resolver/cr/issues/4)
+- Warn to incomplete explanation [\#4](https://github.com/cryptic-resolver/cr/issues/4)
 - Add original keyword to print [\#3](https://github.com/cryptic-resolver/cr/issues/3)
 - Add 'see' keyword [\#2](https://github.com/cryptic-resolver/cr/issues/2)
 - Add 'same' keyword  [\#1](https://github.com/cryptic-resolver/cr/issues/1)
