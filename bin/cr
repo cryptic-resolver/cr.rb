@@ -18,15 +18,15 @@ require 'cr'
 require 'tomlrb'
 require 'fileutils'
 
-CRYPTIC_RESOLVER_HOME = File.expand_path("~/.cryptic-resolver")
+CR_DEFAULT_LIBRARY = File.expand_path("~/.cryptic-resolver")
 
-# The config file will override the default dictionaries, but not default dictionaries home!
+# The config file will override the default dicts, but not default library!
 if ENV['CRYPTIC_RESOLVER_CONFIG'] 
   file = ENV['CRYPTIC_RESOLVER_CONFIG']
   if test('f', file)
     config = Tomlrb.load_file file 
-    CRYPTIC_RESOLVER_EXTRA_HOME ||= config['EXTRA_DICTS_HOME']
-    CRYPTIC_DEFAULT_DICTS       ||= config['DEFAULT_DICTS']
+    CR_EXTRA_LIBRARY ||= config['EXTRA_LIBRARY']
+    CR_DEFAULT_DICTS ||= config['DEFAULT_DICTS']
   else
     puts "FATAL: Your CRYPTIC_RESOLVER_CONFIG is NOT a file!"
     exit 1
@@ -34,8 +34,8 @@ if ENV['CRYPTIC_RESOLVER_CONFIG']
 
 else
   # if user doesn't specify, we use the hard-coded defaults
-  CRYPTIC_RESOLVER_EXTRA_HOME = nil
-  CRYPTIC_DEFAULT_DICTS = [
+  CR_EXTRA_LIBRARY = nil
+  CR_DEFAULT_DICTS = [
     "https://github.com/cryptic-resolver/cryptic_common.git",
     "https://github.com/cryptic-resolver/cryptic_computer.git",
     "https://github.com/cryptic-resolver/cryptic_windows.git",
@@ -44,14 +44,14 @@ else
 end
 
 # This is used to display what you are pulling when adding dictionaries
-CRYPTIC_DEFAULT_DICTS_USER_AND_NAMES = CRYPTIC_DEFAULT_DICTS.map do |e|
+CR_DEFAULT_DICTS_USER_AND_NAMES = CR_DEFAULT_DICTS.map do |e|
   user, repo = e.split('/').last(2)
   repo = repo.split('.').first
   user + '/' + repo
 end
 
-# Same with the pulled repo dirs' names in CRYPTIC_RESOLVER_HOME
-CRYPTIC_DEFAULT_DICTS_NAMES = CRYPTIC_DEFAULT_DICTS.map do |e|
+# Same with the pulled repo dirs' names in CR_DEFAULT_LIBRARY
+CR_DEFAULT_DICTS_NAMES = CR_DEFAULT_DICTS.map do |e|
   e.split('/').last.split('.').first
 end
 
@@ -75,11 +75,11 @@ def cyan(str)       "\e[36m#{str}\e[0m" end
 ####################
 
 def is_there_any_dict?
-  unless Dir.exist? CRYPTIC_RESOLVER_HOME
-    Dir.mkdir CRYPTIC_RESOLVER_HOME
+  unless Dir.exist? CR_DEFAULT_LIBRARY
+    Dir.mkdir CR_DEFAULT_LIBRARY
   end
 
-  !Dir.empty? CRYPTIC_RESOLVER_HOME 
+  !Dir.empty? CR_DEFAULT_LIBRARY 
 end
 
 
@@ -90,16 +90,16 @@ def add_default_dicts_if_none_exists
     begin
     if RUBY_PLATFORM.include? "mingw"
       # Windows doesn't have fork
-      CRYPTIC_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
+      CR_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
         puts "cr: Pulling #{name}..."
-        `git -C #{CRYPTIC_RESOLVER_HOME} clone #{CRYPTIC_DEFAULT_DICTS[i]} -q`
+        `git -C #{CR_DEFAULT_LIBRARY} clone #{CR_DEFAULT_DICTS[i]} -q`
       end
     else
       # *nix-like
-      CRYPTIC_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
+      CR_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
         fork do 
           puts "cr: Pulling #{name}..."
-          `git -C #{CRYPTIC_RESOLVER_HOME} clone #{CRYPTIC_DEFAULT_DICTS[i]} -q`
+          `git -C #{CR_DEFAULT_LIBRARY} clone #{CR_DEFAULT_DICTS[i]} -q`
         end
       end
       Process.waitall      
@@ -132,17 +132,17 @@ def update_dicts()
   puts "cr: Updating all dictionaries..."
 
   begin
-  Dir.chdir CRYPTIC_RESOLVER_HOME do 
+  Dir.chdir CR_DEFAULT_LIBRARY do 
     
     if RUBY_PLATFORM.include? "mingw"
       # Windows doesn't have fork
-      Dir.children(CRYPTIC_RESOLVER_HOME).each do |dict|
+      Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
         puts "cr: Wait to update #{dict}..."
         `git -C ./#{dict} pull -q`
       end
     else
       # *nix
-      Dir.children(CRYPTIC_RESOLVER_HOME).each do |dict|
+      Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
         fork do 
           puts "cr: Wait to update #{dict}..."
          `git -C ./#{dict} pull -q`
@@ -184,7 +184,7 @@ def add_dict(repo)
   end
 
   # Ensure the cr home dir exists
-  FileUtils.mkdir_p(CRYPTIC_RESOLVER_HOME)
+  FileUtils.mkdir_p(CR_DEFAULT_LIBRARY)
 
   # Simplify adding dictionary
   if !repo.start_with?("https://") and !repo.start_with?("git@")
@@ -193,7 +193,7 @@ def add_dict(repo)
 
   begin
     puts "cr: Adding new dictionary..."
-    `git -C #{CRYPTIC_RESOLVER_HOME} clone #{repo} -q`
+    `git -C #{CR_DEFAULT_LIBRARY} clone #{repo} -q`
   rescue Interrupt
     puts "cr: Cancel add dict"
     exit 1
@@ -215,7 +215,7 @@ def del_dict(repo)
     puts bold(red("cr: Need an argument!"))
     exit -1
   end
-  Dir.chdir CRYPTIC_RESOLVER_HOME do 
+  Dir.chdir CR_DEFAULT_LIBRARY do 
     begin 
       # Dir.rmdir repo        # Can't rm a filled dir
       # FileUtils.rmdir repo  # Can't rm a filled dir
@@ -230,7 +230,7 @@ end
 
 
 def load_sheet(dict, sheet_name)
-  file = CRYPTIC_RESOLVER_HOME + "/#{dict}/#{sheet_name}.toml" 
+  file = CR_DEFAULT_LIBRARY + "/#{dict}/#{sheet_name}.toml" 
   
   if File.exist? file
     return Tomlrb.load_file file # gem 'tomlrb'
@@ -488,15 +488,16 @@ end
 
 #
 # The main procedure of `cr`
-#   1. Search the default's first dict first
-#   2. Search the rest dictionaries in the cryptic dictionaries default dir
+#
+#   1. Search the default library first
+#   2. Search the extra library if it does exist
 # 
 # The `search` is done via the `lookup` function. It will print
 # the info while finding. If `lookup` always return false then
 # means lacking of this word in our dictionaries. So a welcomed
 # contribution is printed on the screen.
 #
-def solve_word(word)
+def resolve_word(word)
   
   add_default_dicts_if_none_exists
 
@@ -507,21 +508,22 @@ def solve_word(word)
   when '0'..'9' 
     index = '0123456789'
   end
-  
-  # Default's first should be 1st to consider
-  first_dict = CRYPTIC_DEFAULT_DICTS_NAMES[0] # When Ruby3, We can use Hash#key(0)
 
-  # cache lookup results
+  # cache lookup's results
   results = []
-  results << lookup(first_dict,index,word)
-  # return if result == true # We should consider all dicts
-
-  # Then else
-  rest = Dir.children(CRYPTIC_RESOLVER_HOME)
-  rest.delete first_dict
-  rest.each do |dict|
+  
+  # Firts consider default HOME
+  home = Dir.children(CR_DEFAULT_LIBRARY)
+  home.each do |dict|
     results << lookup(dict,index,word)
-    # continue if result == false # We should consider all dicts
+  end
+  
+  # Then is the EXTRA HOME
+  if CR_EXTRA_LIBRARY
+    home = Dir.children(CR_EXTRA_LIBRARY)
+    home.each do |dict|
+      results << lookup(dict,index,word)
+    end
   end
 
   unless results.include? true
@@ -547,7 +549,7 @@ end
 
 
 #
-# The search word process is quite like `solve_word``
+# This `search_word` routine is quite like `resolve_word`
 # Notice:
 #   We handle two cases
 #   
@@ -576,8 +578,8 @@ def search_word(pattern)
   #
   # Try to match every word in all dictionaries
   #
-  Dir.children(CRYPTIC_RESOLVER_HOME).each do |dict|
-    sheets = Dir.children(File.join(CRYPTIC_RESOLVER_HOME, dict)).select do
+  Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
+    sheets = Dir.children(File.join(CR_DEFAULT_LIBRARY, dict)).select do
       _1.end_with?('.toml')
     end
 
@@ -643,8 +645,8 @@ end
 
 
 def list_dictionaries
-  Dir.chdir CRYPTIC_RESOLVER_HOME do 
-    Dir.children(CRYPTIC_RESOLVER_HOME).each_with_index do |dict,i|
+  Dir.chdir CR_DEFAULT_LIBRARY do 
+    Dir.children(CR_DEFAULT_LIBRARY).each_with_index do |dict,i|
       puts "#{blue(i+1)}. #{bold(green(dict))}"
     end
   end
@@ -658,7 +660,7 @@ $DefaultWordCount = 0
 
 def count_dict_words(dict)
   
-  dict_dir = CRYPTIC_RESOLVER_HOME + "/#{dict}"
+  dict_dir = CR_DEFAULT_LIBRARY + "/#{dict}"
   
   wc = 0
 
@@ -685,12 +687,12 @@ def word_count(p:)
 
   # real dicts in user's directory
   locals = []
-  Dir.children(CRYPTIC_RESOLVER_HOME).each do |dict|
+  Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
     locals << dict
   end
 
   # pre-defined default
-  defaults = CRYPTIC_DEFAULT_DICTS_NAMES
+  defaults = CR_DEFAULT_DICTS_NAMES
 
   # user may delete some default dicts, so we get the intersection
   defaults &= locals
@@ -747,6 +749,6 @@ when '-d'   then del_dict ARGV.shift
 when '--help' 
   help
 else
-  solve_word arg
+  resolve_word arg
 end
  
