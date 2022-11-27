@@ -1,4 +1,4 @@
-## cr in Ruby development
+# cr in Ruby development
 
 Maybe you need `sudo` access
 

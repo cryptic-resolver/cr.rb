@@ -309,7 +309,7 @@ end
 #   same = "XDG downloader <=>xdg.Download" # this is correct
 #
 #
-def pp_same_info(dict, word, cache_content, same_key, own_name)
+def pp_same_info(library, dict, word, cache_content, same_key, own_name)
 
   # If it's a synonym for anther word,
   # we should lookup into this dict again, but maybe with a different file
@@ -366,7 +366,7 @@ def pp_same_info(dict, word, cache_content, same_key, own_name)
     # No need to load another dictionary if match
     sheet_content = cache_content
   else
-    sheet_content = load_sheet(dict, same.chr.downcase)
+    sheet_content = load_sheet(library, dict, same.chr.downcase)
   end
 
   if category.nil?
@@ -383,7 +383,7 @@ def pp_same_info(dict, word, cache_content, same_key, own_name)
   # double or more jumps
   elsif same_key = info['same']
     own_name = info['name']
-    return pp_same_info(dict, same, cache_content, same_key, own_name)
+    return pp_same_info(library, dict, same, cache_content, same_key, own_name)
   else
     pp_info(info)
     return true
@@ -432,7 +432,7 @@ def lookup(library, dict, file, word)
   if same_key = info['same']
     own_name = info['name']
     pp_dict(dict)
-    pp_same_info(dict, word, sheet_content, same_key, own_name)
+    pp_same_info(library, dict, word, sheet_content, same_key, own_name)
     # It's also a type 1
     type_1_exist_flag = true
     is_jump = true
@@ -469,7 +469,7 @@ def lookup(library, dict, file, word)
       info0 = sheet_content[word][meaning]
       if same_key = info0['same']
         own_name = info0['name']
-        pp_same_info(dict, word, sheet_content, same_key, own_name)
+        pp_same_info(library, dict, word, sheet_content, same_key, own_name)
       else
         pp_info(info0)
       end
