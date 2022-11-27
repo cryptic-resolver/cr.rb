@@ -526,7 +526,7 @@ def resolve_word(word)
   index = word.chr
   case index 
   when '0'..'9' 
-    index = '0123456789'
+    index = '0-9'
   end
 
   # cache lookup's results

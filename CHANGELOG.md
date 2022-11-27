@@ -4,10 +4,16 @@
 
 ### Enhancements:
 
+- Use new index 0-9.toml
 - Use new jump symbol '=>'
 - Add support for user config
 - List official dicts
 - Word count different libraries
+
+### Deprecations:
+
+- Not use old index 0123456789.toml
+- Not use old jump symbol '<=>'
 
 <br>
 
