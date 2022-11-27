@@ -10,7 +10,7 @@
 #
 # ------------------------------------------------------
 
-CR_GEM_VERSION = "4.0.0.alpha.4"
+CR_GEM_VERSION = "4.0.0.alpha.5"
 
 
 CR_OFFICIAL_DICTS = <<-EOF
@@ -24,5 +24,4 @@ Field:
 
 Specific:
     dos         x86        signal
-
 EOF

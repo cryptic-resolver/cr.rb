@@ -224,7 +224,7 @@ def add_dict(repo)
 
   # github/com/ccmywish/ruby_knowledge(.git)
   dict = repo.split('/')[-1].delete_suffix('.git')
-  count_dict_words(dict)
+  count_dict_words(CR_DEFAULT_LIBRARY ,dict)
   puts
   puts "#$TwoLibWordCount words added"
 
@@ -799,4 +799,3 @@ when '--help'
 else
   resolve_word arg
 end
- 
