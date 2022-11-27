@@ -43,7 +43,7 @@ else
   ]
 end
 
-# This is used to display what you are pulling when adding dictionaries
+# This is used to display what you are pulling when adding dicts
 CR_DEFAULT_DICTS_USER_AND_NAMES = CR_DEFAULT_DICTS.map do |e|
   user, repo = e.split('/').last(2)
   repo = repo.split('.').first
@@ -85,7 +85,7 @@ end
 
 def add_default_dicts_if_none_exists
   unless is_there_any_dict?
-    puts "cr: Adding default dictionaries..."
+    puts "cr: Adding default dicts..."
 
     begin
     if RUBY_PLATFORM.include? "mingw"
@@ -113,7 +113,7 @@ def add_default_dicts_if_none_exists
     puts "cr: Add done"
     word_count(p: false)
     puts 
-    puts "#{$WordCount} words added"
+    puts "#{$TwoLibWordCount} words added"
     
     # Really added
     return true
@@ -123,13 +123,14 @@ def add_default_dicts_if_none_exists
 end
 
 
+# Notice that we only update the Default library, not Extra library
 def update_dicts()
   return if add_default_dicts_if_none_exists
 
   word_count(p: false)
-  old_wc = [$DefaultWordCount, $WordCount-$DefaultWordCount, $WordCount]
+  old_wc = $DefaultLibWordCount
 
-  puts "cr: Updating all dictionaries..."
+  puts "cr: Updating all dicts in Default library..."
 
   begin
   Dir.chdir CR_DEFAULT_LIBRARY do 
@@ -158,21 +159,17 @@ def update_dicts()
     exit 1
   end
 
-
   puts "cr: Update done"
 
   # clear
-  $DefaultWordCount, $WordCount = 0, 0
+  $DefaultLibWordCount = 0
   # recount
   word_count(p: false)
-  new_wc = [$DefaultWordCount, $WordCount-$DefaultWordCount, $WordCount]
-  diff = []
-  new_wc.each_with_index do 
-    diff[_2] = _1 - old_wc[_2]
-  end
+
+  new_wc = $DefaultLibWordCount
 
   puts
-  puts "#{diff.[]2} words added: default/#{diff.[]0} user/#{diff.[]1}"
+  puts "#{new_wc - old_wc} words added in Default library"
 
 end
 
@@ -188,7 +185,11 @@ def add_dict(repo)
 
   # Simplify adding dictionary
   if !repo.start_with?("https://") and !repo.start_with?("git@")
-    repo = "https://github.com/#{repo}.git"
+    if repo.include?('/')
+      repo = "https://github.com/#{repo}.git"
+    else
+      repo = "https://github.com/cryptic-resolver/cryptic_#{repo}.git"
+    end
   end
 
   begin
@@ -205,7 +206,7 @@ def add_dict(repo)
   dict = repo.split('/')[-1].delete_suffix('.git')
   count_dict_words(dict)
   puts
-  puts "#$WordCount words added"
+  puts "#$TwoLibWordCount words added"
 
 end
 
@@ -223,7 +224,7 @@ def del_dict(repo)
       puts "cr: Delete dictionary #{bold(green(repo))} done"
     rescue Exception => e
       puts bold(red("cr: #{e}"))
-      list_dictionaries
+      list_dicts
     end
   end
 end
@@ -280,7 +281,7 @@ def pp_info(info)
   puts
 end
 
-# Print default cryptic_ dictionaries
+# Print default cryptic_ dicts
 def pp_dict(dict)
     puts green("From: #{dict}")
 end
@@ -493,7 +494,7 @@ end
 # 
 # The `search` is done via the `lookup` function. It will print
 # the info while finding. If `lookup` always return false then
-# means lacking of this word in our dictionaries. So a welcomed
+# means lacking of this word in our dicts. So a welcomed
 # contribution is printed on the screen.
 #
 def resolve_word(word)
@@ -575,7 +576,7 @@ def search_word(pattern)
   found = false
 
   #
-  # Try to match every word in all dictionaries
+  # Try to match every word in all dicts
   #
   Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
     sheets = Dir.children(File.join(CR_DEFAULT_LIBRARY, dict)).select do
@@ -614,19 +615,21 @@ end
 
 def help
   word_count(p: false)
-  user_words = $WordCount - $DefaultWordCount
   puts <<-HELP
-cr: Cryptic Resolver v#{CR_GEM_VERSION} (#{$WordCount} words: default/#{$DefaultWordCount} user/#{user_words})
+cr: Cryptic Resolver v#{CR_GEM_VERSION} (#{$TwoLibWordCount} words: Default lib/#{$DefaultLibWordCount} && Extra lib/#{$ExtraLibWordCount})
 
-usage:
+Usage:
 
-  cr emacs          => Edit macros: a feature-rich editor
+  cr emacs          => Edit macros: A feature-rich editor
   cr -c             => Print word count
-  cr -l             => List local dictionaries
-  cr -u             => Update all dictionaries
-  cr -a repo.git    => Add a new dictionary
-  cr -a user/repo   => Add a new dictionary on Github
-  cr -d cryptic_xx  => Delete a dictionary
+  cr -l             => List local dicts and official dicts
+  cr -u             => Update all dicts in default library
+  
+  cr -a repo.git    => Add a new dict
+  cr -a user/repo   => Add a new dict from Github
+  cr -a  reponame   => Add an official dict from Github
+
+  cr -d cryptic_xx  => Delete a dict
   cr -s pattern     => Search words matched with pattern
   cr -v             => Print version
   cr -h             => Print this help
@@ -643,39 +646,57 @@ def print_version
 end
 
 
-def list_dictionaries
+#
+# 1. List Default library's dicts
+# 2. List Extra   library's dicts
+# 3. List official dicts
+# 
+def list_dicts
   Dir.chdir CR_DEFAULT_LIBRARY do 
+    puts blue("=> Default library: #{CR_DEFAULT_LIBRARY}")
     Dir.children(CR_DEFAULT_LIBRARY).each_with_index do |dict,i|
       puts "#{blue(i+1)}. #{bold(green(dict))}"
     end
   end
+
+  if CR_EXTRA_LIBRARY 
+    puts
+    Dir.chdir CR_EXTRA_LIBRARY do 
+      puts blue("=> Extra library: #{CR_EXTRA_LIBRARY}")
+      Dir.children(CR_EXTRA_LIBRARY).each_with_index do |dict,i|
+        puts "#{blue(i+1)}. #{bold(green(dict))}"
+      end
+    end
+  end
+
+  puts
+  puts blue("=> Official dicts: (Add it by 'cr -a xxx')")
+  puts CR_OFFICIAL_DICTS
+
 end
 
 
-# All dictionaries word count
-$WordCount = 0
-# Default dictionaries word count
-$DefaultWordCount = 0
+# Two libraries word count (Default library + Extra library)
+$TwoLibWordCount = 0
+# Default library word count
+$DefaultLibWordCount = 0
+#  Extra  library word count
+$ExtraLibWordCount   = 0
 
-def count_dict_words(dict)
+def count_dict_words(library, dict)
   
-  dict_dir = CR_DEFAULT_LIBRARY + "/#{dict}"
+  dict_dir = library + "/#{dict}"
   
   wc = 0
 
   Dir.children(dict_dir).each do |entry|
     next unless entry.end_with?('.toml')
-    sheet_content = load_sheet(dict, entry.delete_suffix('.toml'))
+    sheet_content = load_sheet(library, dict, entry.delete_suffix('.toml'))
     count = sheet_content.keys.count
-  
-    # puts "#{entry}: #{count}"
+
     wc = wc + count
   end
-
-  $WordCount += wc
-
   return wc
-
 end
 
 
@@ -684,48 +705,37 @@ def word_count(p:)
   # Always check before Dir.children (this method creates dir if not exists)
   is_there_any_dict?
 
-  # real dicts in user's directory
-  locals = []
-  Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
-    locals << dict
-  end
+  default_lib = Dir.children(CR_DEFAULT_LIBRARY)
+  extra_lib   = Dir.children(CR_EXTRA_LIBRARY)
 
-  # pre-defined default
-  defaults = CR_DEFAULT_DICTS_NAMES
-
-  # user may delete some default dicts, so we get the intersection
-  defaults &= locals
-
-  unless defaults.empty?
-    puts(bold(green("Default dicts: "))) if p
-    defaults.each do |s|
-      wc = count_dict_words(s)
-      $DefaultWordCount += wc
+  # Count default library
+  unless default_lib.empty?
+    puts(bold(green("Default library: "))) if p
+    default_lib.each do |s|
+      wc = count_dict_words(CR_DEFAULT_LIBRARY,s)
+      $DefaultLibWordCount += wc
       # With color, ljust not works, so we disable color
       puts("  #{s.ljust(17)}: #{wc}") if p
     end
   end
 
-  users = locals - defaults
-  user_words = 0
-  unless users.empty?
+  # Count extra library
+  unless extra_lib.empty?
     wc = 0
-    puts(bold(blue("\nUser added dicts:"))) if p
-    users.each do |s|
-      wc = count_dict_words(s)
-      # no need to add to $WordCount，
-      # because it's done in `count_dict_words` func
+    puts(bold(blue("\nExtra library:"))) if p
+    extra_lib.each do |s|
+      wc = count_dict_words(CR_EXTRA_LIBRARY,s)
+      $ExtraLibWordCount += wc
       puts("  #{s.ljust(17)}: #{wc}") if p
     end
-
-    user_words = $WordCount - $DefaultWordCount
+    $TwoLibWordCount = $DefaultLibWordCount + $ExtraLibWordCount
   end
 
   if p 
   puts
-  puts "#{$DefaultWordCount.to_s.rjust(4)} words in default dictionaries"
-  puts "#{user_words.to_s.rjust(4)} words in user's  dictionaries"
-  puts "#{$WordCount.to_s.rjust(4)} words altogether"
+  puts "#{$DefaultLibWordCount.to_s.rjust(4)} words in Default library"
+  puts "#{$ExtraLibWordCount.to_s.rjust(4)  } words in  Extra  library"
+  puts "#{$TwoLibWordCount.to_s.rjust(4)    } words altogether"
   end
 end
 
@@ -739,7 +749,7 @@ case arg
 when nil    then help
 when '-v'   then print_version
 when '-h'   then help
-when '-l'   then list_dictionaries
+when '-l'   then list_dicts
 when '-c'   then word_count(p: true)
 when '-u'   then update_dicts   
 when '-s'   then search_word ARGV.shift
