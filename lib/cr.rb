@@ -6,7 +6,7 @@
 #
 # cr:
 #
-#   This file is just a lib
+#   This file is the lib of `cr.rb``
 #
 # ------------------------------------------------------
 
@@ -15,14 +15,14 @@ CR_GEM_VERSION = "4.0.0.alpha.1"
 
 CR_OFFICIAL_DICTS = <<-EOF
 Default:
-  common      computer     windows
-  linux
+  common       computer    windows
+  linux       electronics
 
 Field:
-  economy      medicine    math 
-  electronics  mechanical  science
+   economy     medicine     math 
+  mechanical   science
 
 Specific:
-    dos        x86         signal
+    dos         x86        signal
 
 EOF

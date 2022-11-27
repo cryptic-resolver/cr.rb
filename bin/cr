@@ -20,13 +20,28 @@ require 'fileutils'
 
 CR_DEFAULT_LIBRARY = File.expand_path("~/.cryptic-resolver")
 
+$CR_DEFAULT_DICTS = [
+  "https://github.com/cryptic-resolver/cryptic_common.git",
+  "https://github.com/cryptic-resolver/cryptic_computer.git",
+  "https://github.com/cryptic-resolver/cryptic_windows.git",
+  "https://github.com/cryptic-resolver/cryptic_linux.git",
+  "https://github.com/cryptic-resolver/cryptic_electronics"
+]
+
 # The config file will override the default dicts, but not default library!
 if ENV['CRYPTIC_RESOLVER_CONFIG'] 
   file = ENV['CRYPTIC_RESOLVER_CONFIG']
   if test('f', file)
     config = Tomlrb.load_file file 
+    
     CR_EXTRA_LIBRARY ||= config['EXTRA_LIBRARY']
-    CR_DEFAULT_DICTS ||= config['DEFAULT_DICTS']
+
+    if config['DEFAULT_DICTS']
+      CR_DEFAULT_DICTS = config['DEFAULT_DICTS']
+    else
+      CR_DEFAULT_DICTS = $CR_DEFAULT_DICTS
+    end
+
   else
     puts "FATAL: Your CRYPTIC_RESOLVER_CONFIG is NOT a file!"
     exit 1
@@ -35,13 +50,9 @@ if ENV['CRYPTIC_RESOLVER_CONFIG']
 else
   # if user doesn't specify, we use the hard-coded defaults
   CR_EXTRA_LIBRARY = nil
-  CR_DEFAULT_DICTS = [
-    "https://github.com/cryptic-resolver/cryptic_common.git",
-    "https://github.com/cryptic-resolver/cryptic_computer.git",
-    "https://github.com/cryptic-resolver/cryptic_windows.git",
-    "https://github.com/cryptic-resolver/cryptic_linux.git"
-  ]
+  CR_DEFAULT_DICTS = $CR_DEFAULT_DICTS
 end
+
 
 # This is used to display what you are pulling when adding dicts
 CR_DEFAULT_DICTS_USER_AND_NAMES = CR_DEFAULT_DICTS.map do |e|
@@ -701,7 +712,6 @@ end
 
 
 def word_count(p:)
-
   # Always check before Dir.children (this method creates dir if not exists)
   is_there_any_dict?
 
