@@ -14,6 +14,8 @@ def test_cmd
   assert_equal(<<~EOC, result)
   EOC
 
+  # Notice: The space here is very easy to get wrong, try to adjust it!!
+  #
   # Always write heredoc-end: EOC first, then copy 'gen_output.txt' to the middle
   # This way, your editor can help you handle the space automatically
 end
