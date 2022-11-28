@@ -1,7 +1,7 @@
-name: Uptdae-WordCount
+name: Update-WordCount
 
 on:
-  push:
+  # push:
   schedule:
     - cron:  '0 1 * * 1'
 
@@ -14,9 +14,9 @@ jobs:
       with:
         ruby-version: 3.1
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Install default dictionaries
+    - name: Install default dicts
       run: bundle exec ./bin/cr
-    - name: Install other cryptic_xxx dictionaries
+    - name: Install all official dicts
       run: |
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_economy
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_medicine
@@ -26,7 +26,7 @@ jobs:
         bundle exec ./bin/cr -a dos 
         bundle exec ./bin/cr -a x86 
         bundle exec ./bin/cr -a https://github.com/cryptic-resolver/cryptic_signal
-    - name: uwc
+    - name: Update word count using ./bin/wc
       run: 
         bundle exec ./bin/wc --uwc
     - name: Git commit

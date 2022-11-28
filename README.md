@@ -1,7 +1,7 @@
 <div align="center">
 
 # Cryptic Resolver
-[![Test](https://github.com/cryptic-resolver/cr.rb/workflows/test-cr-command/badge.svg)](https://github.com/cryptic-resolver/cr.rb/actions/workflows/test.yml)
+[![Test](https://github.com/cryptic-resolver/cr.rb/workflows/Test-Behavior/badge.svg)](https://github.com/cryptic-resolver/cr.rb/actions/workflows/test.yml)
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1568-brightgreen)](#cryptic-sheets)
 [![Gem Version](https://badge.fury.io/rb/cr.rb.svg)](https://rubygems.org/gems/cr.rb) 
 
