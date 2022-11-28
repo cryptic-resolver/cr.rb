@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2022-11-27)
+## [Unreleased](#) (2022-11-28)
+
+<br>
+
+## [v4.0.1](#) (2022-11-28)
+
+### Bug fixes:
+
+- Fix word count in adding new dict and pulling default dicts
 
 <br>
 
