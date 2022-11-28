@@ -7,4 +7,4 @@ vendor
 cryptic_computer
 
 # Generate test's expected result
-gen_output.txt
+gen_test_output.txt

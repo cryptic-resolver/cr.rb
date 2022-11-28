@@ -25,4 +25,4 @@ end
 # convert the ESC to real \e
 output.gsub!("\e", '\e')
 
-File.write('gen_output.txt', output)
+File.write('gen_test_output.txt', output)

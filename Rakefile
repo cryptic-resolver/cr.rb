@@ -29,9 +29,9 @@ task :run do
 end
 
 
-desc "Generate gen_output.txt for tests"
-task :gen_output do
-  ruby "test/gen_output.rb"
+desc "Generate gen_test_output.txt for tests"
+task :gen_test_output do
+  ruby "test/gen_test_output.rb"
 end
 
 
