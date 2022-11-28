@@ -23,10 +23,8 @@ jobs:
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_science
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_mechanical
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_math
-
         bundle exec ./bin/cr -a dos
         bundle exec ./bin/cr -a x86
-
         bundle exec ./bin/cr -a https://github.com/cryptic-resolver/cryptic_signal
     - name: uwc
       run: 
