@@ -117,6 +117,12 @@ $ cr -a electronics
 
 <br>
 
+- [![cryptic_dos](https://github.com/cryptic-resolver/cryptic_dos/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_dos/actions/workflows/test.yml) [cryptic_dos]
+- [![cryptic_x86](https://github.com/cryptic-resolver/cryptic_x86/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_x86/actions/workflows/test.yml) [cryptic_x86]
+- [![cryptic_signal](https://github.com/cryptic-resolver/cryptic_signal/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_signal/actions/workflows/test.yml) [cryptic_signal]
+
+<br>
+
 ## Implementation
 
 `cr` is written in **Ruby**. You can implement this tool in any other language you like (name your projects as `cr_Python` or `cr.py` for example), just remember to reuse [cryptic_computer] and other dictionaries which are the core parts anyone can contribute to. See [doc/dev.md](doc/dev.md) to help develop && maintain this tool.
@@ -275,6 +281,7 @@ Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
 [cryptic_windows]: https://github.com/cryptic-resolver/cryptic_windows
 [cryptic_linux]: https://github.com/cryptic-resolver/cryptic_linux
+[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
 
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat
@@ -285,4 +292,6 @@ Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
 [cryptic_mechanical]: https://github.com/cryptic-resolver/cryptic_mechanical
 [cryptic_math]: https://github.com/cryptic-resolver/cryptic_math
 
-[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
+[cryptic_dos]: https://github.com/cryptic-resolver/cryptic_dos
+[cryptic_x86]: https://github.com/cryptic-resolver/cryptic_x86
+[cryptic_signal]: https://github.com/cryptic-resolver/cryptic_signal
