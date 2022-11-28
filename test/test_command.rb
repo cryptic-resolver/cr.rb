@@ -179,15 +179,15 @@ class TestCommand < Test::Unit::TestCase
   def test_smt
     result = cr("smt")
     assert_equal(<<~EOC, result)
-    \e[32mFrom: cryptic_computer\e[0m
-
-      SMT: Simultaneous Multithreaded
-    
     \e[32mFrom: cryptic_electronics\e[0m
-    
+
       SMT: Surface-Mount Technology
     
     \e[35mSEE ALSO \e[0m\e[4mTHT\e[0m 
+    
+    \e[32mFrom: cryptic_computer\e[0m
+    
+      SMT: Simultaneous Multithreaded
     
     EOC
   end
