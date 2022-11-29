@@ -4,9 +4,10 @@
 [![Test](https://github.com/cryptic-resolver/cr.rb/workflows/Test-Behavior/badge.svg)](https://github.com/cryptic-resolver/cr.rb/actions/workflows/test.yml)
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1568-brightgreen)](#cryptic-sheets)
 [![Gem Version](https://badge.fury.io/rb/cr.rb.svg)](https://rubygems.org/gems/cr.rb) 
+[![Gitter](https://badges.gitter.im/cryptic-resolver/community.svg)](https://gitter.im/cryptic-resolver/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ```bash
-gem install cr.rb
+$ gem install cr.rb
 ```
 
 Tested well on `Ubuntu` and `Windows 11`
@@ -23,7 +24,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **1568** keywords explained in all of our ***cryptic_xxx*** sheets.
+- Currently we have **1568** keywords explained in all of our official ***cryptic_xxx*** sheets.
 
 <br>
 
@@ -55,7 +56,6 @@ $ cr -l
 $ cr -a x86
 # -> Add official dict 'cryptic-resolver/cryptic_x86', no need to specify the prefix!
 
-
 $ cr -c
 # -> word count
 
@@ -70,17 +70,17 @@ $ cr -h
 
 The aim of this project is to:
 
-1. make cryptic things clear
-2. help maintain your own personal knowledge base
+1. Make cryptic things clear
+2. Help maintain your own personal knowledge base
 
 rather than
 
-- record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
+- Record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
 
 <br>
 
 
-<a name="default-dictionaries"></a> 
+<a name="official-dictionaries"></a> 
 ## Default dictionaries
 
 You can override the default dicts by using a [config file](#config-file).
@@ -275,7 +275,7 @@ In one sheet, you should consider adding a category specifier to differ each oth
 
 `cr.rb` itself is under MIT
 
-Official [default dictionaries](#default-dictionaries) are all under CC-BY-4.0
+[Official dictionaries](#official-dictionaries) are all under CC-BY-4.0
 
 [cryptic_common]: https://github.com/cryptic-resolver/cryptic_common
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer

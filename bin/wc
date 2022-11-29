@@ -57,7 +57,7 @@ def update_wc
   new_file = ""
   file.each_line do |l|
     if l.start_with?("- Currently we have **")
-      new_file = new_file + "- Currently we have **#{wc}** keywords explained in all of our ***cryptic_xxx*** sheets.\n"
+      new_file = new_file + "- Currently we have **#{wc}** keywords explained in all of our official ***cryptic_xxx*** sheets.\n"
     elsif l.start_with?("[![word-count](https://img.shields")
       new_file = new_file + "[![word-count](#{badge_url})](#cryptic-sheets)\n"
     else
