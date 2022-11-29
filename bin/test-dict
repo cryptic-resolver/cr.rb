@@ -3,12 +3,14 @@
 # File          : test-dict.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2022-04-15>
+# Last modified : <2022-11-29>
 #
 # test-dict:
 #
-#   This file test every word in a dictionary.
-#   Notice: only used in CI
+#   Notice: only used in CI!!!
+#
+#   This file uses `cr.rb` published gem to test 
+#   every word in a dictionary.
 #
 # ------------------------------------------------------
 
@@ -47,6 +49,7 @@ def test_every_word(dict_dir)
     
     sheet_content = load_sheet(dict_dir + '/' + entry)
     
+    error = false
     
     sheet_content.keys.each do |k|
       # abc.def will be -> abc
@@ -56,18 +59,23 @@ def test_every_word(dict_dir)
 
       if result.include? <<-NotFound
 cr: Not found anything.
-
-You may use `cr -u` to update all dictionaries.
-Or you could contribute to:
 NotFound
+        error = true
+      end
 
-        err = "Wrong at #{dict_dir}/#{entry} || word: #{k}"
-        report_error_msg(err)
+      if result.include?("WARN") && result.include?("Please consider fixing")
+        error = true
+      end
+
+
+      if error 
+        err_msg = "Wrong at #{dict_dir}/#{entry} || word: #{k}"
+        report_error_msg(err_msg)
         exit -1
       end
 
-    end
-  end
+    end # end traverse words in a sheet
+  end # end traverse dir
 end # end def
 
 
@@ -85,5 +93,5 @@ end # end def
 
 dir = File.expand_path(".")
 # In CI, it's /home/runner/work/cryptic_economy/cryptic_economy (e.g.)
-puts "test-dict: #{dir}"
+puts "Test-Dict: #{dir}"
 test_every_word(dir)

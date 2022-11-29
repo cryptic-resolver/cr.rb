@@ -85,11 +85,11 @@ rather than
 
 You can override the default dicts by using a [config file](#config-file).
 
-- [![cryptic_common](https://github.com/cryptic-resolver/cryptic_common/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_common/actions/workflows/test.yml) [cryptic_common]
-- [![cryptic_computer](https://github.com/cryptic-resolver/cryptic_computer/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_computer/actions/workflows/test.yml) [cryptic_computer]
-- [![cryptic_windows](https://github.com/cryptic-resolver/cryptic_windows/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_windows/actions/workflows/test.yml) [cryptic_windows]
-- [![cryptic_linux](https://github.com/cryptic-resolver/cryptic_linux/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_linux/actions/workflows/test.yml) [cryptic_linux]
-- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
+- [![cryptic_common](https://github.com/cryptic-resolver/cryptic_common/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_common/actions/workflows/test.yml) [cryptic_common]
+- [![cryptic_computer](https://github.com/cryptic-resolver/cryptic_computer/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_computer/actions/workflows/test.yml) [cryptic_computer]
+- [![cryptic_windows](https://github.com/cryptic-resolver/cryptic_windows/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_windows/actions/workflows/test.yml) [cryptic_windows]
+- [![cryptic_linux](https://github.com/cryptic-resolver/cryptic_linux/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_linux/actions/workflows/test.yml) [cryptic_linux]
+- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
 
 <br>
 
@@ -109,17 +109,17 @@ $ cr -a electronics
 ...
 ```
 
-- [![cryptic_economy](https://github.com/cryptic-resolver/cryptic_economy/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_economy/actions/workflows/test.yml) [cryptic_economy]
-- [![cryptic_medicine](https://github.com/cryptic-resolver/cryptic_medicine/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_medicine/actions/workflows/test.yml) [cryptic_medicine]
-- [![cryptic_science](https://github.com/cryptic-resolver/cryptic_science/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_science/actions/workflows/test.yml) [cryptic_science]
-- [![cryptic_mechanical](https://github.com/cryptic-resolver/cryptic_mechanical/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_mechanical/actions/workflows/test.yml) [cryptic_mechanical]
-- [![cryptic_math](https://github.com/cryptic-resolver/cryptic_math/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_math/actions/workflows/test.yml) [cryptic_math]
+- [![cryptic_economy](https://github.com/cryptic-resolver/cryptic_economy/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_economy/actions/workflows/test.yml) [cryptic_economy]
+- [![cryptic_medicine](https://github.com/cryptic-resolver/cryptic_medicine/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_medicine/actions/workflows/test.yml) [cryptic_medicine]
+- [![cryptic_science](https://github.com/cryptic-resolver/cryptic_science/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_science/actions/workflows/test.yml) [cryptic_science]
+- [![cryptic_mechanical](https://github.com/cryptic-resolver/cryptic_mechanical/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_mechanical/actions/workflows/test.yml) [cryptic_mechanical]
+- [![cryptic_math](https://github.com/cryptic-resolver/cryptic_math/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_math/actions/workflows/test.yml) [cryptic_math]
 
 <br>
 
-- [![cryptic_dos](https://github.com/cryptic-resolver/cryptic_dos/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_dos/actions/workflows/test.yml) [cryptic_dos]
-- [![cryptic_x86](https://github.com/cryptic-resolver/cryptic_x86/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_x86/actions/workflows/test.yml) [cryptic_x86]
-- [![cryptic_signal](https://github.com/cryptic-resolver/cryptic_signal/workflows/test-dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_signal/actions/workflows/test.yml) [cryptic_signal]
+- [![cryptic_dos](https://github.com/cryptic-resolver/cryptic_dos/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_dos/actions/workflows/test.yml) [cryptic_dos]
+- [![cryptic_x86](https://github.com/cryptic-resolver/cryptic_x86/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_x86/actions/workflows/test.yml) [cryptic_x86]
+- [![cryptic_signal](https://github.com/cryptic-resolver/cryptic_signal/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_signal/actions/workflows/test.yml) [cryptic_signal]
 
 <br>
 
