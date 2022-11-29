@@ -4,7 +4,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-11-28>
+# Last modified : <2022-11-29>
 #
 # cr:
 #
@@ -396,7 +396,7 @@ def pp_same_info(library, dict, word, cache_content, same_key, own_name)
   end
 
   if info.nil?
-    puts red("Warn: Synonym jumps to the wrong place `#{same}`,
+    puts red("WARN: Synonym jumps to the wrong place `#{same}`,
       Please consider fixing this in `#{x}.toml` of the dictionary `#{dict}`")
     # exit
     return false
