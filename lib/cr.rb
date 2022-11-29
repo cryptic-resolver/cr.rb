@@ -2,7 +2,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2022-11-28>
+# Last modified : <2022-11-29>
 #
 # cr:
 #
@@ -10,7 +10,7 @@
 #
 # ------------------------------------------------------
 
-CR_GEM_VERSION = "4.0.1"
+CR_GEM_VERSION = "4.0.2"
 
 
 CR_OFFICIAL_DICTS = <<-EOF
