@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2022-11-28)
+## [Unreleased](#) (2022-11-29)
+
+<br>
+
+## [v4.0.2](#) (2022-11-29)
+
+### Enhancements:
+
+- Use 'WARN' to make CI test more accurate
 
 <br>
 
