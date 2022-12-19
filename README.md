@@ -7,12 +7,10 @@
 [![Gitter](https://badges.gitter.im/cryptic-resolver/community.svg)](https://gitter.im/cryptic-resolver/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ```bash
+# Install
+
 $ gem install cr.rb
 ```
-
-Tested well on `Ubuntu` and `Windows 11`
-
-<br>
 
 ![screenshot](./images/screenshot.png)
 
@@ -24,7 +22,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **1638** keywords explained in all of our official ***cryptic_xxx*** sheets.
+- Currently we have **1638** keywords explained in all of our official ***cryptic_xxx*** dictionaries.
 
 <br>
 

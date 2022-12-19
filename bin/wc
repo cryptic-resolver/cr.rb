@@ -4,7 +4,7 @@
 # File          : wc.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-16>
-# Last modified : <2022-10-20>
+# Last modified : <2022-12-19>
 #
 # This file is used to count the key words in all
 # our local dictionaries (rather than only default 
@@ -57,7 +57,7 @@ def update_wc
   new_file = ""
   file.each_line do |l|
     if l.start_with?("- Currently we have **")
-      new_file = new_file + "- Currently we have **#{wc}** keywords explained in all of our official ***cryptic_xxx*** sheets.\n"
+      new_file = new_file + "- Currently we have **#{wc}** keywords explained in all of our official ***cryptic_xxx*** dictionaries.\n"
     elsif l.start_with?("[![word-count](https://img.shields")
       new_file = new_file + "[![word-count](#{badge_url})](#cryptic-sheets)\n"
     else
