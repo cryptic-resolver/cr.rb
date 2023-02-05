@@ -1,4 +1,4 @@
-require_relative 'basic.rb'
+require_relative 'basic_test_sample.rb'
 
 commands = %w[
   emacs
