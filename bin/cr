@@ -1,16 +1,15 @@
 #!/usr/bin/env ruby
-# coding: utf-8
 # ------------------------------------------------------
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2022-11-29>
+# Last modified : <2023-02-05>
 #
 # cr:
 #
 #   This file is used to explain a CRyptic command
-# or an acronym's real meaning in computer world or 
-# other fields.  
+# or an acronym's real meaning in computer world or
+# other fields.
 #
 # ------------------------------------------------------
 
@@ -29,11 +28,11 @@ $CR_DEFAULT_DICTS = [
 ]
 
 # The config file will override the default dicts, but not default library!
-if ENV['CRYPTIC_RESOLVER_CONFIG'] 
+if ENV['CRYPTIC_RESOLVER_CONFIG']
   file = ENV['CRYPTIC_RESOLVER_CONFIG']
   if test('f', file)
-    config = Tomlrb.load_file file 
-    
+    config = Tomlrb.load_file file
+
     CR_EXTRA_LIBRARY ||= config['EXTRA_LIBRARY']
 
     if config['DEFAULT_DICTS']
@@ -99,7 +98,7 @@ def is_there_any_dict?
     Dir.mkdir CR_DEFAULT_LIBRARY
   end
 
-  !Dir.empty? CR_DEFAULT_LIBRARY 
+  !Dir.empty? CR_DEFAULT_LIBRARY
 end
 
 
@@ -117,24 +116,24 @@ def add_default_dicts_if_none_exists
     else
       # *nix-like
       CR_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
-        fork do 
+        fork do
           puts "cr: Pulling #{name}..."
           `git -C #{CR_DEFAULT_LIBRARY} clone #{CR_DEFAULT_DICTS[i]} -q`
         end
       end
-      Process.waitall      
+      Process.waitall
     end
 
     rescue Interrupt
       puts "cr: Cancel add default dicts"
       exit 1
     end
-    
+
     puts "cr: Add done"
     word_count(p: false)
-    puts 
+    puts
     puts "#{$DefaultLibWordCount} words added"
-    
+
     # Really added
     return true
   end
@@ -153,8 +152,8 @@ def update_dicts()
   puts "cr: Updating all dicts in Default library..."
 
   begin
-  Dir.chdir CR_DEFAULT_LIBRARY do 
-    
+  Dir.chdir CR_DEFAULT_LIBRARY do
+
     if RUBY_PLATFORM.include? "mingw"
       # Windows doesn't have fork
       Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
@@ -164,7 +163,7 @@ def update_dicts()
     else
       # *nix
       Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
-        fork do 
+        fork do
           puts "cr: Wait to update #{dict}..."
          `git -C ./#{dict} pull -q`
         end
@@ -195,7 +194,7 @@ end
 
 
 def add_dict(repo)
-  if repo.nil? 
+  if repo.nil?
     puts bold(red("cr: Need an argument!"))
     exit -1
   end
@@ -232,12 +231,12 @@ end
 
 
 def del_dict(repo)
-  if repo.nil? 
+  if repo.nil?
     puts bold(red("cr: Need an argument!"))
     exit -1
   end
-  Dir.chdir CR_DEFAULT_LIBRARY do 
-    begin 
+  Dir.chdir CR_DEFAULT_LIBRARY do
+    begin
       # Dir.rmdir repo        # Can't rm a filled dir
       # FileUtils.rmdir repo  # Can't rm a filled dir
       FileUtils.rm_rf repo
@@ -251,8 +250,8 @@ end
 
 
 def load_sheet(library, dict, sheet_name)
-  file = library + "/#{dict}/#{sheet_name}.toml" 
-  
+  file = library + "/#{dict}/#{sheet_name}.toml"
+
   if File.exist? file
     return Tomlrb.load_file file # gem 'tomlrb'
     # return TOML.load_file file # gem 'toml'
@@ -267,21 +266,21 @@ end
 #
 # A info looks like this
 #   emacs = {
-#     name = "Emacs" 
+#     name = "Emacs"
 #     desc = "edit macros"
 #     more = "a feature-rich editor"
 #     see  = ["Vim"]
 #   }
 #
-# @param info [Hash] the information of the given word (mapped to a keyword in TOML) 
+# @param info [Hash] the information of the given word (mapped to a keyword in TOML)
 #
 def pp_info(info)
   name = info['name'] || red("No name!")  # keyword `or` is invalid here in Ruby
-  
+
   desc = info['desc']
   more = info['more']
-  
-  if desc 
+
+  if desc
     puts "\n  #{name}: #{desc}"
     print "\n  ",more,"\n" if more
   else
@@ -297,7 +296,7 @@ def pp_info(info)
       print underline(see_also),' '
     end
     puts
-  end 
+  end
   puts
 end
 
@@ -313,9 +312,9 @@ end
 # So we can directly lookup to it
 #
 # Notice that, we must jump to a specific word definition
-# So in the toml file, you must specify the precise word. 
+# So in the toml file, you must specify the precise word.
 # If it has multiple meanings, for example
-# 
+#
 #   [blah]
 #   same = "xdg"  # this is wrong, because xdg has multiple
 #                 # definitions, and all of them specify a
@@ -333,27 +332,27 @@ def pp_same_info(library, dict, word, cache_content, same_key, own_name)
 
   # If it's a synonym for anther word,
   # we should lookup into this dict again, but maybe with a different file
-  
+
   # file name
   x = word.chr.downcase
-    
-  # 
+
+  #
   # dictionary maintainer must obey the rule for xxx.yyy word:
   #   xxx should be lower case
   #   yyy can be any case
-  # 
+  #
   # Because yyy should clearly explain the category info, IBM is better than ibm
   # Implementation should not be too simple if we want to stress the function we
-  # expect. 
-  # 
+  # expect.
+  #
   # 'jump to' will output to user, so this is important not only inside our sheet.
-  #   
+  #
   #     same = "XDM downloader=>xdm.Download"
   #
   # We split 'same' key into two parts via spaceship symbol `=>`, first part will
   # output to user, the second part is for internal jump.
   #
-    
+
   jump_to, same = same_key.split("=>")
   same =  jump_to if same.nil?
 
@@ -363,17 +362,17 @@ def pp_same_info(library, dict, word, cache_content, same_key, own_name)
   puts blue(bold(own_name)) + ' redirects to ' + blue(bold(jump_to))
 
   #
-  # As '.' is used to delimit a word and a category, what if 
+  # As '.' is used to delimit a word and a category, what if
   # we jump to a dotted word?
-  # 
+  #
   #   [eg]
-  #   same = "e.g." # this must lead to a wrong resolution to 
-  #                 # word 'e', category 'g' 
+  #   same = "e.g." # this must lead to a wrong resolution to
+  #                 # word 'e', category 'g'
   #
   # All you need is to be like this:
-  #   
+  #
   #   [eg]
-  #   same = "'e.g.'" # cr will notice the single quote 
+  #   same = "'e.g.'" # cr will notice the single quote
   #
 
   if same =~ /^'(.*)'$/
@@ -381,7 +380,7 @@ def pp_same_info(library, dict, word, cache_content, same_key, own_name)
   else
     same, category = same.split('.')
   end
-  
+
   if same.chr == x
     # No need to load another dictionary if match
     sheet_content = cache_content
@@ -416,7 +415,7 @@ end
 # Lookup the given word in a sheet (a toml file) and also print.
 # The core idea is that:
 #
-# 1. if the word is `same` with another synonym, it will directly jump to 
+# 1. if the word is `same` with another synonym, it will directly jump to
 #   a word in this dictionary, but maybe a different sheet.
 #
 # 2. load the toml file and check the given word
@@ -426,7 +425,7 @@ end
 #       [abcd.tYPe]
 #
 def lookup(library, dict, file, word)
-  sheet_content = load_sheet(library, dict, file) 
+  sheet_content = load_sheet(library, dict, file)
   return false if sheet_content.nil?
 
   info = sheet_content[word]
@@ -435,9 +434,9 @@ def lookup(library, dict, file, word)
   # Warn if the info is empty. For example:
   #   emacs = { }
   if info.size == 0
-    puts red("WARN: Lack of everything of the given word 
+    puts red("WARN: Lack of everything of the given word
       Please consider fixing this in the dict `#{dict}`")
-    exit 
+    exit
   end
 
 
@@ -446,7 +445,7 @@ def lookup(library, dict, file, word)
   type_1_exist_flag = false
 
   # if already jump, don't check the word itself
-  is_jump = false 
+  is_jump = false
 
   # synonym info print
   if same_key = info['same']
@@ -462,8 +461,8 @@ def lookup(library, dict, file, word)
   # To developer:
   #   The word should at least has one of `desc` and `more`
   #   But when none exists, this may not be considered wrong,
-  #   Because the type2 make the case too. 
-  #   
+  #   Because the type2 make the case too.
+  #
   #   So, just ignore it, even if it's really a mistake(insignificant)
   #   by dictionary maintainers.
   #
@@ -493,7 +492,7 @@ def lookup(library, dict, file, word)
       else
         pp_info(info0)
       end
-      
+
       # last meaning doesn't show this separate line
       print  blue(bold("OR")),"\n" unless categories.last == meaning
     end
@@ -511,33 +510,33 @@ end
 #
 #   1. Search the default library first
 #   2. Search the extra library if it does exist
-# 
+#
 # The `search` is done via the `lookup` function. It will print
 # the info while finding. If `lookup` always return false then
 # means lacking of this word in our dicts. So a welcomed
 # contribution is printed on the screen.
 #
 def resolve_word(word)
-  
+
   add_default_dicts_if_none_exists
 
   word = word.downcase # downcase! would lead to frozen error in Ruby 2.7.2
   # The index is the toml file we'll look into
   index = word.chr
-  case index 
-  when '0'..'9' 
+  case index
+  when '0'..'9'
     index = '0-9'
   end
 
   # cache lookup's results
   results = []
-  
+
   # First consider the default library
   default = Dir.children(CR_DEFAULT_LIBRARY)
   default.each do |dict|
     results << lookup(CR_DEFAULT_LIBRARY,dict,index,word)
   end
-  
+
   # Then is the extra library
   if CR_EXTRA_LIBRARY
     extra = Dir.children(CR_EXTRA_LIBRARY)
@@ -550,15 +549,15 @@ def resolve_word(word)
     puts <<-NotFound
 cr: Not found anything.
 
-You may 
-  1. Use `cr -u` to update all dicts 
+You may
+  1. Use `cr -u` to update all dicts
 
-  2. Use 
-      
+  2. Use
+
     `cr -l`  to list available official dicts
-    
+
     `cr -a repo`  to add some dicts
-  
+
   3. Contribute to theses dicts
 
 NotFound
@@ -566,7 +565,7 @@ NotFound
   else
     return
   end
-  
+
 end
 
 
@@ -592,15 +591,15 @@ end
 # This `search_word_internal` routine is quite like `resolve_word`
 # Notice:
 #   We handle two cases
-#   
+#
 #   1. the 'pattern' is the regexp itself
 #   2. the 'pattern' is like '/blah/'
-#                       
+#
 #  The second is what Ruby and Perl users like to do, handle it!
 #
 def search_word_internal(pattern, library)
 
-  if pattern.nil? 
+  if pattern.nil?
     puts bold(red("cr: Need an argument!"))
     exit -1
   end
@@ -612,7 +611,7 @@ def search_word_internal(pattern, library)
   else
     regexp = %r[#{pattern}]
   end
-  
+
   found_or_not = false
 
   #
@@ -628,7 +627,7 @@ def search_word_internal(pattern, library)
     sheets.each do |sheet|
       sheet_content = load_sheet(library, dict, File.basename(sheet,'.toml'))
 
-      sheet_content.keys.each do 
+      sheet_content.keys.each do
         if _1 =~ regexp
           found_or_not = true
           similar_words_in_a_dict << _1
@@ -643,7 +642,7 @@ def search_word_internal(pattern, library)
       LsTable.ls(similar_words_in_a_dict) do |e|
         puts blue(e)
       end
-      puts 
+      puts
     end
   end
   return found_or_not
@@ -661,7 +660,7 @@ Usage:
   cr -c             => Print word count
   cr -l             => List local dicts and official dicts
   cr -u             => Update all dicts in Default library
-  
+
   cr -a repo.git    => Add a new dict
   cr -a user/repo   => Add a new dict from Github
   cr -a  repo       => Add an official dict from Github
@@ -687,18 +686,18 @@ end
 # 1. List Default library's dicts
 # 2. List Extra   library's dicts
 # 3. List official dicts
-# 
+#
 def list_dicts
-  Dir.chdir CR_DEFAULT_LIBRARY do 
+  Dir.chdir CR_DEFAULT_LIBRARY do
     puts blue("=> Default library: #{CR_DEFAULT_LIBRARY}")
     Dir.children(CR_DEFAULT_LIBRARY).each_with_index do |dict,i|
       puts "#{blue(i+1)}. #{bold(green(dict))}"
     end
   end
 
-  if CR_EXTRA_LIBRARY 
+  if CR_EXTRA_LIBRARY
     puts
-    Dir.chdir CR_EXTRA_LIBRARY do 
+    Dir.chdir CR_EXTRA_LIBRARY do
       puts blue("=> Extra library: #{CR_EXTRA_LIBRARY}")
       Dir.children(CR_EXTRA_LIBRARY).each_with_index do |dict,i|
         puts "#{blue(i+1)}. #{bold(green(dict))}"
@@ -721,9 +720,9 @@ $DefaultLibWordCount = 0
 $ExtraLibWordCount   = 0
 
 def count_dict_words(library, dict)
-  
+
   dict_dir = library + "/#{dict}"
-  
+
   wc = 0
 
   Dir.children(dict_dir).each do |entry|
@@ -770,7 +769,7 @@ def word_count(p:)
   end
   $TwoLibWordCount = $DefaultLibWordCount + $ExtraLibWordCount
 
-  if p 
+  if p
   puts
   puts "#{$DefaultLibWordCount.to_s.rjust(4)} words in Default library"
   puts "#{$ExtraLibWordCount.to_s.rjust(4)  } words in  Extra  library"
@@ -790,11 +789,11 @@ when '-v'   then print_version
 when '-h'   then help
 when '-l'   then list_dicts
 when '-c'   then word_count(p: true)
-when '-u'   then update_dicts   
+when '-u'   then update_dicts
 when '-s'   then search_word ARGV.shift
 when '-a'   then add_dict ARGV.shift
-when '-d'   then del_dict ARGV.shift   
-when '--help' 
+when '-d'   then del_dict ARGV.shift
+when '--help'
   help
 else
   resolve_word arg

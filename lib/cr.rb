@@ -2,7 +2,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2022-11-29>
+# Last modified : <2023-02-05>
 #
 # cr:
 #
@@ -19,7 +19,7 @@ Default:
   linux       electronics
 
 Field:
-   economy     medicine     math 
+   economy     medicine     math
   mechanical   science
 
 Specific:
