@@ -11,7 +11,7 @@ commands = %w[
   xdm
   ide
   mri
-  smt
+  apm
   gdm
 ]
 
