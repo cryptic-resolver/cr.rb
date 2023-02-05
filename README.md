@@ -3,14 +3,8 @@
 # Cryptic Resolver
 [![Test](https://github.com/cryptic-resolver/cr.rb/workflows/Test-Behavior/badge.svg)](https://github.com/cryptic-resolver/cr.rb/actions/workflows/test.yml)
 [![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1666-brightgreen)](#cryptic-sheets)
-[![Gem Version](https://badge.fury.io/rb/cr.rb.svg)](https://rubygems.org/gems/cr.rb) 
+[![Gem Version](https://badge.fury.io/rb/cr.rb.svg)](https://rubygems.org/gems/cr.rb)
 [![Gitter](https://badges.gitter.im/cryptic-resolver/community.svg)](https://gitter.im/cryptic-resolver/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
-```bash
-# Install
-
-$ gem install cr.rb
-```
 
 ![screenshot](./images/screenshot.png)
 
@@ -28,25 +22,31 @@ Not only can it be used in the computer filed, but also you can use this to mana
 
 ## Usage
 
+**Install**
+
+> $ gem install cr.rb
+
+**Use it in the command line**
+
 ```bash
 $ cr emacs
 # -> Emacs: Edit macros
 # ->
-# ->   a feature-rich editor
+# ->   A feature-rich editor
 # ->
-# -> SEE ALSO Vim 
+# -> SEE ALSO Vim
 
 $ cr -s pattern
 # -> search words matched with pattern
 
-$ cr -u 
+$ cr -u
 # -> update all dictionaries
 
-$ cr -a https://github.com/ccmywish/ruby_knowledge
-# -> Add your own knowledge base! 
+$ cr -a https://github.com/ccmywish/common_zh-Hans.cr
+# -> Add your own knowledge base!
 
-$ cr -a ccmywish/git_knowledge
-# -> Add a user's dict from Github by username and repo 
+$ cr -a ccmywish/CRuby-Source-Code-Dictionary
+# -> Add a user's dict from Github by username and repo
 
 $ cr -l
 # All cryptic-resolver official dicts can be listed (local dicts listed also)
@@ -73,12 +73,12 @@ The aim of this project is to:
 
 rather than
 
-- Record the use of a command, for this you can refer to [tldr], [cheat] and so on. 
+- Record the use of a command, for this you can refer to [tldr], [cheat] and so on.
 
 <br>
 
 
-<a name="official-dictionaries"></a> 
+<a name="official-dictionaries"></a>
 ## Default dictionaries
 
 You can override the default dicts by using a [config file](#config-file).
@@ -87,7 +87,7 @@ You can override the default dicts by using a [config file](#config-file).
 - [![cryptic_computer](https://github.com/cryptic-resolver/cryptic_computer/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_computer/actions/workflows/test.yml) [cryptic_computer]
 - [![cryptic_windows](https://github.com/cryptic-resolver/cryptic_windows/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_windows/actions/workflows/test.yml) [cryptic_windows]
 - [![cryptic_linux](https://github.com/cryptic-resolver/cryptic_linux/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_linux/actions/workflows/test.yml) [cryptic_linux]
-- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
+- [![cryptic_technology](https://github.com/cryptic-resolver/cryptic_technology/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_technology/actions/workflows/test.yml) [cryptic_technology]
 
 <br>
 
@@ -107,6 +107,7 @@ $ cr -a electronics
 ...
 ```
 
+- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
 - [![cryptic_economy](https://github.com/cryptic-resolver/cryptic_economy/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_economy/actions/workflows/test.yml) [cryptic_economy]
 - [![cryptic_medicine](https://github.com/cryptic-resolver/cryptic_medicine/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_medicine/actions/workflows/test.yml) [cryptic_medicine]
 - [![cryptic_science](https://github.com/cryptic-resolver/cryptic_science/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_science/actions/workflows/test.yml) [cryptic_science]
@@ -115,9 +116,17 @@ $ cr -a electronics
 
 <br>
 
+**Specific dicts:**
+
 - [![cryptic_dos](https://github.com/cryptic-resolver/cryptic_dos/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_dos/actions/workflows/test.yml) [cryptic_dos]
 - [![cryptic_x86](https://github.com/cryptic-resolver/cryptic_x86/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_x86/actions/workflows/test.yml) [cryptic_x86]
 - [![cryptic_signal](https://github.com/cryptic-resolver/cryptic_signal/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_signal/actions/workflows/test.yml) [cryptic_signal]
+
+<br>
+
+**Feature dicts:**
+
+- [ccmywish/CRuby-Source-Code-Dictionary](https://github.com/ccmywish/CRuby-Source-Code-Dictionary)
 
 <br>
 
@@ -146,7 +155,7 @@ Library
 
 <br>
 
-<a name="config-file"></a> 
+<a name="config-file"></a>
 ## Config file
 
 You can use a config file (in `TOML` format) which is specified by the environment variable `CRYPTIC_RESOLVER_CONFIG`. You can control two options in this config file:
@@ -189,13 +198,13 @@ In every file(or sheet), your definition format looks like this in pure **toml**
 ```toml
 # A normal definition
 #
-# NOTICE: 
+# NOTICE:
 #   You MUST keep the key in lower case.
-#   Use a key 'name' to display its original form 
+#   Use a key 'name' to display its original form
 #   Because the case sometimes contains details to help we understand
 #
-#   And 'name' && 'desc' is both MUST-HAVE. 
-#   But if you use 'same', all other infos are not needed.   
+#   And 'name' && 'desc' is both MUST-HAVE.
+#   But if you use 'same', all other infos are not needed.
 #
 [xdg]
 name = "XDG"
@@ -243,13 +252,13 @@ same = "jpeg" # We just need to redirect this. No duplicate!
 # And we use '=>' symbol to split it into two parts
 #   the first will output to user
 #   the second is for internal jump
-same = "Extreme Downloader =>xdm.Download" 
+same = "Extreme Downloader =>xdm.Download"
 
 
 # The 'dot' keyword supported using quoted strings
 ["h.265"]
 name = "H.265"
-desc = "A video compression standard" 
+desc = "A video compression standard"
 
 ```
 
@@ -261,7 +270,7 @@ In one sheet, you should consider adding a category specifier to differ each oth
 
 > cr can handle this.
 
-*But what if a sheet has two 'gdm'?* 
+*But what if a sheet has two 'gdm'?*
 
 > This will lead to toml's parser library fail. You have these solutions
 > 1. Use a better lint for example: [VSCode's Even Better TOML](https://github.com/tamasfe/taplo)
