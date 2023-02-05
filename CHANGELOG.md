@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2022-11-29)
+## [Unreleased](#) (2023-02-05)
+
+### Enhancements:
+
+- Colorize NOT FOUND info
+
+### Bug fixes:
+
+- Fix bug of '$cr' help messages, see [5d8399c](https://github.com/cryptic-resolver/cr.rb/commit/5d8399c6a523001478202a90c90c81f76bd694cb)
 
 <br>
 
