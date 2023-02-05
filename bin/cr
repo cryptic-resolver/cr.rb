@@ -291,9 +291,16 @@ def pp_info(info)
   if see_also = info['see']
     print "\n", purple("SEE ALSO ")
     if see_also.is_a?(Array)
-      see_also.each {|x| print underline(x),' '}
+      last_ndx = see_also.size - 1
+      see_also.each_with_index do |x,i|
+        if last_ndx == i
+          print underline(x)  # Last word doesn't show space
+        else
+          print underline(x),' '
+        end
+      end
     else
-      print underline(see_also),' '
+      print underline(see_also)
     end
     puts
   end

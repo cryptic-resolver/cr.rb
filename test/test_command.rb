@@ -179,7 +179,7 @@ class TestCommand < Test::Unit::TestCase
   def test_apm
     result = cr("apm")
     assert_equal(<<~EOC, result)
-    \e[32mFrom: cryptic_computer\e[0m
+  \e[32mFrom: cryptic_computer\e[0m
 
     APM: Application performance management
 
