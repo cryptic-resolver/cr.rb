@@ -549,16 +549,21 @@ def resolve_word(word)
     puts <<-NotFound
 cr: Not found anything.
 
-You may
-  1. Use `cr -u` to update all dicts
+You could
 
-  2. Use
+  #{blue("case 1: Update all dicts")}
 
-    `cr -l`  to list available official dicts
+    #{yellow("$cr -u")}
 
-    `cr -a repo`  to add some dicts
+  #{blue("case 2: List available official and feature dicts")}
 
-  3. Contribute to theses dicts
+    #{yellow("$cr -l")}
+
+    #{yellow("$cr -a repo")} (Add a specific dict to default lib)
+
+  #{blue("case 3: Contribute to theses dicts")}
+
+    Visit: https://github.com/cryptic-resolver
 
 NotFound
 
