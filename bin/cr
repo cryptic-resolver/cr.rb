@@ -756,6 +756,9 @@ def word_count(p:)
 
   if CR_EXTRA_LIBRARY
     extra_lib = Dir.children(CR_EXTRA_LIBRARY)
+    extra_lib.reject! do |f|
+      File.file? f
+    end
     # Count extra library
     unless extra_lib.empty?
       wc = 0
