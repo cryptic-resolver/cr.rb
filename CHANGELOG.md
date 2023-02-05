@@ -2,8 +2,13 @@
 
 ## [Unreleased](#) (2023-02-05)
 
+<br>
+
+## [v4.0.3](#) (2023-02-05)
+
 ### Enhancements:
 
+- Remove command line see also print trailing space
 - Colorize NOT FOUND info
 
 ### Bug fixes:
