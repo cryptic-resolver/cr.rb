@@ -24,7 +24,7 @@ $CR_DEFAULT_DICTS = [
   "https://github.com/cryptic-resolver/cryptic_computer.git",
   "https://github.com/cryptic-resolver/cryptic_windows.git",
   "https://github.com/cryptic-resolver/cryptic_linux.git",
-  "https://github.com/cryptic-resolver/cryptic_electronics"
+  "https://github.com/cryptic-resolver/cryptic_technology"
 ]
 
 # The config file will override the default dicts, but not default library!

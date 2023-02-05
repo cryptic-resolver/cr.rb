@@ -10,18 +10,22 @@
 #
 # ------------------------------------------------------
 
-CR_GEM_VERSION = "4.0.2"
+CR_GEM_VERSION = "4.0.3"
 
 
 CR_OFFICIAL_DICTS = <<-EOF
 Default:
   common       computer    windows
-  linux       electronics
+  linux       technology
 
 Field:
-   economy     medicine     math
-  mechanical   science
+ electronics   economy     medicine
+  mechanical   science       math
 
 Specific:
     dos         x86        signal
+
+Feature:
+  ccmywish/CRuby-Source-Code-Dictionary
+
 EOF
