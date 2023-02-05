@@ -288,11 +288,12 @@ In one sheet, you should consider adding a category specifier to differ each oth
 [cryptic_computer]: https://github.com/cryptic-resolver/cryptic_computer
 [cryptic_windows]: https://github.com/cryptic-resolver/cryptic_windows
 [cryptic_linux]: https://github.com/cryptic-resolver/cryptic_linux
-[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
+[cryptic_technology]: https://github.com/cryptic-resolver/cryptic_technology
 
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat
 
+[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
 [cryptic_economy]: https://github.com/cryptic-resolver/cryptic_economy
 [cryptic_medicine]: https://github.com/cryptic-resolver/cryptic_medicine
 [cryptic_science]: https://github.com/cryptic-resolver/cryptic_science
