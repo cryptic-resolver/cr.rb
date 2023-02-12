@@ -66,14 +66,12 @@ class CrypticResolver::Resolver
 
 
 
+  attr_accessor :def_dicts,        # default dictionaries lists
+                :extra_lib_path,   # Extra library path
+                :counter           # word counter
+
   def initialize
-
-    attr_accessor :def_dicts,        # default dictionaries lists
-                  :extra_lib_path,   # Extra library path
-
-                  :def_dicts_user_and_names,
-                  :def_dicts_names,
-
+    @counter =  Counter.new
 
     # if user doesn't specify, we use the hard-coded defaults
     @def_dicts = ORIGINAL_DEFAULT_DICTS
@@ -87,7 +85,9 @@ class CrypticResolver::Resolver
 
       config = Tomlrb.load_file file
 
-      @def_dicts = ret if ret = config['DEFAULT_DICTS']
+      if ret = config['DEFAULT_DICTS']
+        @def_dicts = ret
+      end
 
       @extra_lib_path ||= config['EXTRA_LIBRARY']
       # Prevent runtime error
@@ -98,18 +98,11 @@ class CrypticResolver::Resolver
       @extra_lib_path = nil
     end
 
-
-    # This is used to display what you are pulling when adding dicts
-    @def_dicts_user_and_names = @def_dicts.map do |e|
-      user, repo = e.split('/').last(2)
-      repo = repo.split('.').first
-      user + '/' + repo
-    end
-
     # Same with the pulled repo dirs' names in DEFAULT_LIB_PATH
-    @def_dicts_names = @def_dicts.map do |e|
-      e.split('/').last.split('.').first
-    end
+    # @def_dicts_names = @def_dicts.map do |e|
+    #  e.split('/').last.split('.').first
+    # end
+
 
   end
 
@@ -126,16 +119,23 @@ class CrypticResolver::Resolver
     unless is_there_any_dict?
       puts "cr: Adding default dicts..."
 
+      # This is used to display what you are pulling when adding dicts
+      dicts_user_and_names = @def_dicts.map do |e|
+        user, repo = e.split('/').last(2)
+        repo = repo.split('.').first
+        user + '/' + repo
+      end
+
       begin
       if Gem.win_platform?
         # Windows doesn't have fork
-        @def_dicts_user_and_names.each_with_index do |name, i|
+        dicts_user_and_names.each_with_index do |name, i|
           puts "cr: Pulling #{name}..."
           `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
         end
       else
         # *nix-like
-        @def_dicts_user_and_names.each_with_index do |name, i|
+        dicts_user_and_names.each_with_index do |name, i|
           fork do
             puts "cr: Pulling #{name}..."
             `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
@@ -161,3 +161,32 @@ class CrypticResolver::Resolver
 
 end
 
+
+class CrypticResolver::Resolver::Counter
+
+  attr_accessor :word_count_of_two_libs,  # def_lib + extra_lib
+                :word_count_of_def_lib,
+                :word_count_of_extra_lib
+
+
+  def initialize
+    @word_count_of_two_libs = 0
+    @word_count_of_def_lib = 0
+    @word_count_of_extra_lib = 0
+  end
+
+
+  def count_dict_words(library, dict)
+    dict_dir = library + "/#{dict}"
+    wc = 0
+    Dir.children(dict_dir).each do |entry|
+      next unless entry.end_with?('.toml')
+      sheet_content = load_sheet(library, dict, entry.delete_suffix('.toml'))
+      count = sheet_content.keys.count
+
+      wc = wc + count
+    end
+    return wc
+  end
+
+end

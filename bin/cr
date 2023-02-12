@@ -24,6 +24,8 @@ class CrypticResolver::CliHandler
 
     reslvr = CrypticResolver::Resolver.new
 
+    reslvr.add_default_dicts_if_none_exists
+
     case option
     when '-l'   then reslvr.list_dicts
     when '-c'   then reslvr.word_count
@@ -32,6 +34,31 @@ class CrypticResolver::CliHandler
     when '-a'   then reslvr.add_dict argv.shift
     when '-d'   then reslvr.del_dict argv.shift
     else reslvr.resolve_word option end
+  end
+
+
+  def help
+    puts <<~HELP
+    cr: Cryptic Resolver v#{CrypticResolver::GEM_VERSION}
+
+    Usage:
+      cr <keyword>   Search the keyword
+      cr emacs       => Edit macros: A feature-rich editor
+
+    Options:
+      -c             Print word count
+      -s pattern     Search words matched with pattern
+      -h             Print this help
+
+    Dictionaries:
+      -l                      List local dicts and official dicts
+      -u                      Update all dicts in Default library
+      -a <https://repo[.git]> Add a new dict
+      -a <user/repo>          Add a new dict from Github
+      -a <dict_name>          Add an official dict, use -l to see
+      -d <dict_name>          Delete a dict
+
+    HELP
   end
 
 end
@@ -43,10 +70,9 @@ class CrypticResolver::Resolver
 
   # Notice that we only update the Default library, not Extra library
   def update_dicts
-    return if add_default_dicts_if_none_exists
 
-    word_count(p: false)
-    old_wc = $DefaultLibWordCount
+    word_count
+    old_wc = @word_count_of_def_lib
 
     puts "cr: Updating all dicts in Default library..."
 
@@ -79,11 +105,11 @@ class CrypticResolver::Resolver
     puts "cr: Update done"
 
     # clear
-    $DefaultLibWordCount = 0
+    @word_count_of_def_lib = 0
     # recount
-    word_count(p: false)
+    word_count
 
-    new_wc = $DefaultLibWordCount
+    new_wc = @word_count_of_def_lib
 
     puts ; puts "#{new_wc - old_wc} words added in Default library"
 
@@ -118,7 +144,7 @@ class CrypticResolver::Resolver
 
     # github/com/ccmywish/ruby_knowledge(.git)
     dict = repo.split('/')[-1].delete_suffix('.git')
-    wc = count_dict_words(DEFAULT_LIB_PATH ,dict)
+    wc = @counter.count_dict_words(DEFAULT_LIB_PATH ,dict)
     puts ; puts "#{wc} words added"
   end
 
@@ -407,8 +433,6 @@ A info looks like this
   #
   def resolve_word(word)
 
-    add_default_dicts_if_none_exists
-
     word = word.downcase # downcase! would lead to frozen error in Ruby 2.7.2
     # The index is the toml file we'll look into
     index = word.chr
@@ -427,10 +451,10 @@ A info looks like this
     end
 
     # Then is the extra library
-    if EXTRA_LIB_PATH
-      extra = Dir.children(EXTRA_LIB_PATH)
+    if @extra_lib_path
+      extra = Dir.children(@extra_lib_path)
       extra.each do |dict|
-        results << lookup(EXTRA_LIB_PATH,dict,index,word)
+        results << lookup(@extra_lib_path,dict,index,word)
       end
     end
 
@@ -467,8 +491,8 @@ A info looks like this
     found_or_not2 = false
 
     found_or_not1 = search_word_internal(pattern, DEFAULT_LIB_PATH)
-    if EXTRA_LIB_PATH
-      found_or_not2 = search_word_internal(pattern, EXTRA_LIB_PATH)
+    if @extra_lib_path
+      found_or_not2 = search_word_internal(pattern, @extra_lib_path)
     end
 
     if (found_or_not1 == false) && (found_or_not2 == false)
@@ -491,8 +515,6 @@ A info looks like this
     if pattern.nil?
       abort bold(red("cr: Need an argument!"))
     end
-
-    add_default_dicts_if_none_exists
 
     if pattern =~ /^\/(.*)\/$/
       regexp = %r[#$1]
@@ -535,40 +557,9 @@ A info looks like this
   end
 
 
-  def help
-    word_count(p: false)
-    puts <<~HELP
-    cr: Cryptic Resolver v#{CR_GEM_VERSION} (#{$TwoLibWordCount} words: Default lib/#{$DefaultLibWordCount} && Extra lib/#{$ExtraLibWordCount})
-
-    Usage:
-
-    Query:
-      cr <keyword>   Search the keyword
-      cr emacs       => Edit macros: A feature-rich editor
-
-    Options:
-      -c             Print word count
-      -s pattern     Search words matched with pattern
-      -h             Print this help
-
-    Dictionaries:
-      -l                      List local dicts and official dicts
-      -u                      Update all dicts in Default library
-      -a <https://repo[.git]> Add a new dict
-      -a <user/repo>          Add a new dict from Github
-      -a <dict_name>          Add an official dict, use -l to see
-      -d <dict_name>          Delete a dict
-
-    HELP
-    add_default_dicts_if_none_exists
-  end
-
-
-  #
   # 1. List Default library's dicts
   # 2. List Extra   library's dicts
   # 3. List official dicts
-  #
   def list_dicts
     Dir.chdir DEFAULT_LIB_PATH do
       puts blue("=> Default library: #{DEFAULT_LIB_PATH}")
@@ -577,11 +568,11 @@ A info looks like this
       end
     end
 
-    if EXTRA_LIB_PATH
+    if @extra_lib_path
       puts
-      Dir.chdir EXTRA_LIB_PATH do
-        puts blue("=> Extra library: #{EXTRA_LIB_PATH}")
-        Dir.children(EXTRA_LIB_PATH).each_with_index do |dict,i|
+      Dir.chdir @extra_lib_path do
+        puts blue("=> Extra library: #{@extra_lib_path}")
+        Dir.children(@extra_lib_path).each_with_index do |dict,i|
           puts "#{blue(i+1)}. #{bold(green(dict))}"
         end
       end
@@ -592,50 +583,23 @@ A info looks like this
   end
 
 
-# Two libraries word count (Default library + Extra library)
-$TwoLibWordCount = 0
-# Default library word count
-$DefaultLibWordCount = 0
-#  Extra  library word count
-$ExtraLibWordCount   = 0
-
-
-  def count_dict_words(library, dict)
-
-    dict_dir = library + "/#{dict}"
-
-    wc = 0
-
-    Dir.children(dict_dir).each do |entry|
-      next unless entry.end_with?('.toml')
-      sheet_content = load_sheet(library, dict, entry.delete_suffix('.toml'))
-      count = sheet_content.keys.count
-
-      wc = wc + count
-    end
-    return wc
-  end
 
 
   def word_count
-    # Always check before Dir.children (this method creates dir if not exists)
-    is_there_any_dict?
-
     default_lib = Dir.children(DEFAULT_LIB_PATH)
-
     # Count default library
     unless default_lib.empty?
-      puts(bold(green("Default library: ")))
+      puts bold(green("Default library: "))
       default_lib.each do |s|
-        wc = count_dict_words(DEFAULT_LIB_PATH,s)
-        $DefaultLibWordCount += wc
+        wc = @counter.count_dict_words(DEFAULT_LIB_PATH,s)
+        @word_count_of_def_lib += wc
         # With color, ljust not works, so we disable color
         puts("  #{s.ljust(17)}: #{wc}")
       end
     end
 
-    if EXTRA_LIB_PATH
-      extra_lib = Dir.children(EXTRA_LIB_PATH)
+    if @extra_lib_path
+      extra_lib = Dir.children(@extra_lib_path)
       extra_lib.reject! do |f|
         File.file? f
       end
@@ -644,18 +608,18 @@ $ExtraLibWordCount   = 0
         wc = 0
         puts(bold(blue("\nExtra library:")))
         extra_lib.each do |s|
-          wc = count_dict_words(EXTRA_LIB_PATH,s)
-          $ExtraLibWordCount += wc
+          wc = @counter.count_dict_words(@extra_lib_path,s)
+          @word_count_of_extra_lib += wc
           puts("  #{s.ljust(17)}: #{wc}")
         end
       end
     end
-    $TwoLibWordCount = $DefaultLibWordCount + $ExtraLibWordCount
+    @word_count_of_two_libs = @word_count_of_def_lib + @word_count_of_extra_lib
 
     puts
-    puts "#{$DefaultLibWordCount.to_s.rjust(4)} words in Default library"
-    puts "#{$ExtraLibWordCount.to_s.rjust(4)  } words in  Extra  library"
-    puts "#{$TwoLibWordCount.to_s.rjust(4)    } words altogether"
+    puts "#{@word_count_of_def_lib.to_s.rjust(4)} words in Default library"
+    puts "#{@word_count_of_extra_lib.to_s.rjust(4)  } words in  Extra  library"
+    puts "#{@word_count_of_two_libs.to_s.rjust(4)    } words altogether"
   end
 
 end
