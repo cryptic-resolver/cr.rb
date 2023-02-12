@@ -186,13 +186,15 @@ class CrypticResolver::Resolver::Counter
     @resolver = resolver
   end
 
-
+  # a.toml
+  # b.toml
+  # ...
   def count_dict_words(library, dict)
     dict_dir = library + "/#{dict}"
     wc = 0
     Dir.children(dict_dir).each do |entry|
-      next if File.file? entry
       next unless entry.end_with?('.toml')
+      next if File.directory? dict_dir + "/#{entry}"
       sheet_content = @resolver.load_sheet(library, dict, entry.delete_suffix('.toml'))
       count = sheet_content.keys.count
 
@@ -204,12 +206,13 @@ class CrypticResolver::Resolver::Counter
 
   # Count default library
   def count_def_lib(display: )
-    default_lib = Dir.children(CrypticResolver::Resolver::DEFAULT_LIB_PATH)
+    path = CrypticResolver::Resolver::DEFAULT_LIB_PATH
+    default_lib = Dir.children path
     unless default_lib.empty?
       puts bold(green("Default library: "))  if display
       default_lib.each do |s|
-        next if File.file? s
-        wc = count_dict_words(CrypticResolver::Resolver::DEFAULT_LIB_PATH,s)
+        next if File.file? path + "/#{s}"
+        wc = count_dict_words(path,s)
         @word_count_of_def_lib += wc
         # With color, ljust not works, so we disable color
         puts("#{wc.to_s.rjust(5)}  #{s}")   if display
@@ -222,12 +225,11 @@ class CrypticResolver::Resolver::Counter
   # Count extra library
   def count_extra_lib(display: )
     if path = @resolver.extra_lib_path
-      extra_lib = Dir.children(path)
+      extra_lib = Dir.children path
       unless extra_lib.empty?
-        wc = 0
-        puts(bold(green("\nExtra library:")))  if display
+        puts bold(green("\nExtra library:"))  if display
         extra_lib.each do |s|
-          next if File.file? s
+          next if File.file? path + "/#{s}"
           wc = count_dict_words(path,s)
           @word_count_of_extra_lib += wc
           puts("#{wc.to_s.rjust(5)}  #{s}")  if display
