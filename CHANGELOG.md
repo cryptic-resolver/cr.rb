@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2023-02-05)
+## [Unreleased](#) (2023-02-12)
+
+### New features:
+
+- Add new feature dictionary: mruby source code dictionary
+
+### Enhancements:
+
+- Huge refactor
 
 <br>
 

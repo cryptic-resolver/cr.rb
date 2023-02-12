@@ -62,6 +62,7 @@ class CrypticResolver::Resolver
 
   #{yellow("Feature:")}
     ccmywish/CRuby-Source-Code-Dictionary
+    ccmywish/mruby-Source-Code-Dictionary
 
   EOF
 

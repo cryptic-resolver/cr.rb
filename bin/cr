@@ -30,9 +30,9 @@ class CrypticResolver::CliHandler
     when '-l'   then reslvr.list_dicts
     when '-c'   then reslvr.word_count
     when '-u'   then reslvr.update_dicts
-    when '-s'   then reslvr.search_word argv.shift
-    when '-a'   then reslvr.add_dict argv.shift
-    when '-d'   then reslvr.del_dict argv.shift
+    when '-s'   then reslvr.search_word args.shift
+    when '-a'   then reslvr.add_dict args.shift
+    when '-d'   then reslvr.del_dict args.shift
     else reslvr.resolve_word option end
   end
 
