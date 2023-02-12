@@ -14,65 +14,7 @@
 # ------------------------------------------------------
 
 require 'cr'
-require 'tomlrb'
 require 'fileutils'
-
-CR_DEFAULT_LIBRARY = File.expand_path("~/.cryptic-resolver")
-
-$CR_DEFAULT_DICTS = [
-  "https://github.com/cryptic-resolver/cryptic_common.git",
-  "https://github.com/cryptic-resolver/cryptic_computer.git",
-  "https://github.com/cryptic-resolver/cryptic_windows.git",
-  "https://github.com/cryptic-resolver/cryptic_linux.git",
-  "https://github.com/cryptic-resolver/cryptic_technology"
-]
-
-# The config file will override the default dicts, but not default library!
-if ENV['CRYPTIC_RESOLVER_CONFIG']
-  file = ENV['CRYPTIC_RESOLVER_CONFIG']
-  if test('f', file)
-    config = Tomlrb.load_file file
-
-    CR_EXTRA_LIBRARY ||= config['EXTRA_LIBRARY']
-
-    if config['DEFAULT_DICTS']
-      CR_DEFAULT_DICTS = config['DEFAULT_DICTS']
-    else
-      CR_DEFAULT_DICTS = $CR_DEFAULT_DICTS
-    end
-
-  else
-    puts "FATAL: Your CRYPTIC_RESOLVER_CONFIG is NOT a file!"
-    exit 1
-  end
-
-else
-  # if user doesn't specify, we use the hard-coded defaults
-  CR_EXTRA_LIBRARY = nil
-  CR_DEFAULT_DICTS = $CR_DEFAULT_DICTS
-end
-
-
-# Prevent runtime error
-if not CR_EXTRA_LIBRARY.nil?
-  if ! test('d', CR_EXTRA_LIBRARY)
-    puts "FATAL: Your CRYPTIC_RESOLVER_CONFIG's option 'EXTRA_LIBRARY' is NOT a legal directory!"
-    exit 1
-  end
-end
-
-
-# This is used to display what you are pulling when adding dicts
-CR_DEFAULT_DICTS_USER_AND_NAMES = CR_DEFAULT_DICTS.map do |e|
-  user, repo = e.split('/').last(2)
-  repo = repo.split('.').first
-  user + '/' + repo
-end
-
-# Same with the pulled repo dirs' names in CR_DEFAULT_LIBRARY
-CR_DEFAULT_DICTS_NAMES = CR_DEFAULT_DICTS.map do |e|
-  e.split('/').last.split('.').first
-end
 
 
 ####################
@@ -94,11 +36,11 @@ def cyan(str)       "\e[36m#{str}\e[0m" end
 ####################
 
 def is_there_any_dict?
-  unless Dir.exist? CR_DEFAULT_LIBRARY
-    Dir.mkdir CR_DEFAULT_LIBRARY
+  unless Dir.exist? DEFAULT_LIB_PATH
+    Dir.mkdir DEFAULT_LIB_PATH
   end
 
-  !Dir.empty? CR_DEFAULT_LIBRARY
+  !Dir.empty? DEFAULT_LIB_PATH
 end
 
 
@@ -107,32 +49,29 @@ def add_default_dicts_if_none_exists
     puts "cr: Adding default dicts..."
 
     begin
-    if RUBY_PLATFORM.include? "mingw"
+    if Gem.win_platform?
       # Windows doesn't have fork
-      CR_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
+      DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
         puts "cr: Pulling #{name}..."
-        `git -C #{CR_DEFAULT_LIBRARY} clone #{CR_DEFAULT_DICTS[i]} -q`
+        `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
       end
     else
       # *nix-like
-      CR_DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
+      DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
         fork do
           puts "cr: Pulling #{name}..."
-          `git -C #{CR_DEFAULT_LIBRARY} clone #{CR_DEFAULT_DICTS[i]} -q`
+          `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
         end
       end
       Process.waitall
     end
 
     rescue Interrupt
-      puts "cr: Cancel add default dicts"
-      exit 1
+      abort "cr: Cancel add default dicts"
     end
 
-    puts "cr: Add done"
-    word_count(p: false)
-    puts
-    puts "#{$DefaultLibWordCount} words added"
+    puts "cr: Add done" ; word_count(p: false)
+    puts ; puts "#{$DefaultLibWordCount} words added"
 
     # Really added
     return true
@@ -152,17 +91,17 @@ def update_dicts()
   puts "cr: Updating all dicts in Default library..."
 
   begin
-  Dir.chdir CR_DEFAULT_LIBRARY do
+  Dir.chdir DEFAULT_LIB_PATH do
 
     if RUBY_PLATFORM.include? "mingw"
       # Windows doesn't have fork
-      Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
+      Dir.children(DEFAULT_LIB_PATH).each do |dict|
         puts "cr: Wait to update #{dict}..."
         `git -C ./#{dict} pull -q`
       end
     else
       # *nix
-      Dir.children(CR_DEFAULT_LIBRARY).each do |dict|
+      Dir.children(DEFAULT_LIB_PATH).each do |dict|
         fork do
           puts "cr: Wait to update #{dict}..."
          `git -C ./#{dict} pull -q`
@@ -200,7 +139,7 @@ def add_dict(repo)
   end
 
   # Ensure the cr home dir exists
-  FileUtils.mkdir_p(CR_DEFAULT_LIBRARY)
+  FileUtils.mkdir_p(DEFAULT_LIB_PATH)
 
   # Simplify adding dictionary
   if !repo.start_with?("https://") and !repo.start_with?("git@")
@@ -213,7 +152,7 @@ def add_dict(repo)
 
   begin
     puts "cr: Adding new dictionary..."
-    `git -C #{CR_DEFAULT_LIBRARY} clone #{repo} -q`
+    `git -C #{DEFAULT_LIB_PATH} clone #{repo} -q`
   rescue Interrupt
     puts "cr: Cancel add dict"
     exit 1
@@ -223,7 +162,7 @@ def add_dict(repo)
 
   # github/com/ccmywish/ruby_knowledge(.git)
   dict = repo.split('/')[-1].delete_suffix('.git')
-  wc = count_dict_words(CR_DEFAULT_LIBRARY ,dict)
+  wc = count_dict_words(DEFAULT_LIB_PATH ,dict)
   puts
   puts "#{wc} words added"
 
@@ -235,7 +174,7 @@ def del_dict(repo)
     puts bold(red("cr: Need an argument!"))
     exit -1
   end
-  Dir.chdir CR_DEFAULT_LIBRARY do
+  Dir.chdir DEFAULT_LIB_PATH do
     begin
       # Dir.rmdir repo        # Can't rm a filled dir
       # FileUtils.rmdir repo  # Can't rm a filled dir
@@ -539,16 +478,16 @@ def resolve_word(word)
   results = []
 
   # First consider the default library
-  default = Dir.children(CR_DEFAULT_LIBRARY)
+  default = Dir.children(DEFAULT_LIB_PATH)
   default.each do |dict|
-    results << lookup(CR_DEFAULT_LIBRARY,dict,index,word)
+    results << lookup(DEFAULT_LIB_PATH,dict,index,word)
   end
 
   # Then is the extra library
-  if CR_EXTRA_LIBRARY
-    extra = Dir.children(CR_EXTRA_LIBRARY)
+  if EXTRA_LIB_PATH
+    extra = Dir.children(EXTRA_LIB_PATH)
     extra.each do |dict|
-      results << lookup(CR_EXTRA_LIBRARY,dict,index,word)
+      results << lookup(EXTRA_LIB_PATH,dict,index,word)
     end
   end
 
@@ -588,9 +527,9 @@ def search_word(pattern)
   found_or_not1 = false
   found_or_not2 = false
 
-  found_or_not1 = search_word_internal(pattern, CR_DEFAULT_LIBRARY)
-  if CR_EXTRA_LIBRARY
-    found_or_not2 = search_word_internal(pattern, CR_EXTRA_LIBRARY)
+  found_or_not1 = search_word_internal(pattern, DEFAULT_LIB_PATH)
+  if EXTRA_LIB_PATH
+    found_or_not2 = search_word_internal(pattern, EXTRA_LIB_PATH)
   end
 
   if (found_or_not1 == false) && (found_or_not2 == false)
@@ -703,18 +642,18 @@ end
 # 3. List official dicts
 #
 def list_dicts
-  Dir.chdir CR_DEFAULT_LIBRARY do
-    puts blue("=> Default library: #{CR_DEFAULT_LIBRARY}")
-    Dir.children(CR_DEFAULT_LIBRARY).each_with_index do |dict,i|
+  Dir.chdir DEFAULT_LIB_PATH do
+    puts blue("=> Default library: #{DEFAULT_LIB_PATH}")
+    Dir.children(DEFAULT_LIB_PATH).each_with_index do |dict,i|
       puts "#{blue(i+1)}. #{bold(green(dict))}"
     end
   end
 
-  if CR_EXTRA_LIBRARY
+  if EXTRA_LIB_PATH
     puts
-    Dir.chdir CR_EXTRA_LIBRARY do
-      puts blue("=> Extra library: #{CR_EXTRA_LIBRARY}")
-      Dir.children(CR_EXTRA_LIBRARY).each_with_index do |dict,i|
+    Dir.chdir EXTRA_LIB_PATH do
+      puts blue("=> Extra library: #{EXTRA_LIB_PATH}")
+      Dir.children(EXTRA_LIB_PATH).each_with_index do |dict,i|
         puts "#{blue(i+1)}. #{bold(green(dict))}"
       end
     end
@@ -755,13 +694,13 @@ def word_count(p:)
   # Always check before Dir.children (this method creates dir if not exists)
   is_there_any_dict?
 
-  default_lib = Dir.children(CR_DEFAULT_LIBRARY)
+  default_lib = Dir.children(DEFAULT_LIB_PATH)
 
   # Count default library
   unless default_lib.empty?
     puts(bold(green("Default library: "))) if p
     default_lib.each do |s|
-      wc = count_dict_words(CR_DEFAULT_LIBRARY,s)
+      wc = count_dict_words(DEFAULT_LIB_PATH,s)
       $DefaultLibWordCount += wc
       # With color, ljust not works, so we disable color
       puts("  #{s.ljust(17)}: #{wc}") if p
@@ -769,8 +708,8 @@ def word_count(p:)
   end
 
 
-  if CR_EXTRA_LIBRARY
-    extra_lib = Dir.children(CR_EXTRA_LIBRARY)
+  if EXTRA_LIB_PATH
+    extra_lib = Dir.children(EXTRA_LIB_PATH)
     extra_lib.reject! do |f|
       File.file? f
     end
@@ -779,7 +718,7 @@ def word_count(p:)
       wc = 0
       puts(bold(blue("\nExtra library:"))) if p
       extra_lib.each do |s|
-        wc = count_dict_words(CR_EXTRA_LIBRARY,s)
+        wc = count_dict_words(EXTRA_LIB_PATH,s)
         $ExtraLibWordCount += wc
         puts("  #{s.ljust(17)}: #{wc}") if p
       end
