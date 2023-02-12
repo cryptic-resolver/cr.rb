@@ -153,8 +153,10 @@ class CrypticResolver::Resolver
       abort "cr: Cancel add default dicts"
       end
 
-      puts "cr: Add done" ; word_count
-      puts ; puts "#{$DefaultLibWordCount} words added"
+      puts "cr: Add done" ;
+      @counter.count_def_lib(display: false)
+      puts ; puts "#{@counter.word_count_of_def_lib} words added"
+      @counter.reset!
 
       # Really added
       return true
@@ -247,6 +249,13 @@ class CrypticResolver::Resolver::Counter
     puts "#{@word_count_of_extra_lib.to_s.rjust(4)  } words in  Extra  library"
     puts "#{@word_count_of_two_libs.to_s.rjust(4)    } words altogether"
     end
+  end
+
+
+  def reset!
+    @word_count_of_two_libs = 0
+    @word_count_of_def_lib = 0
+    @word_count_of_extra_lib = 0
   end
 
 end
