@@ -19,12 +19,12 @@ require 'rake/testtask'
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList['test/test*.rb']
-  t.verbose = true  
+  t.verbose = true
 end
 
 
 desc "Test if rake works"
-task :run do 
+task :run do
   ruby "-Ilib ./bin/cr emacs"
 end
 
@@ -36,13 +36,20 @@ end
 
 
 desc "Build and release gem"
-task :release do 
+task :release do
 
   sh 'gem build cr.rb'
 
-  cr_rb = Dir.children('.').select { 
-    /cr.rb-(\d)+\.(\d)+(.)*\.gem/.match? _1 
+  cr_rb = Dir.children('.').select {
+    /cr.rb-(\d)+\.(\d)+(.)*\.gem/.match? _1
   }.sort.last
 
   sh "gem push #{cr_rb}"
+end
+
+
+desc "Generate signatures"
+task :sig do
+  system 'typeprof -I .\lib .\bin\cr    -o sig\bin\cr.rbs'
+  system 'typeprof -I .\lib .\lib\cr.rb -o sig\lib\cr.rbs'
 end
