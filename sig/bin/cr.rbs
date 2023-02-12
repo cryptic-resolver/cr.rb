@@ -1,0 +1,8 @@
+# TypeProf 0.21.3
+
+# Global variables
+$TwoLibWordCount: Integer
+$DefaultLibWordCount: Integer
+$ExtraLibWordCount: Integer
+
+# Classes

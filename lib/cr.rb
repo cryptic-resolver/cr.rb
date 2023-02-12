@@ -65,9 +65,18 @@ class CrypticResolver::Resolver
   EOF
 
 
+
   def initialize
+
+    attr_accessor :def_dicts,        # default dictionaries lists
+                  :extra_lib_path,   # Extra library path
+
+                  :def_dicts_user_and_names,
+                  :def_dicts_names,
+
+
     # if user doesn't specify, we use the hard-coded defaults
-    DEFAULT_DICTS = ORIGINAL_DEFAULT_DICTS
+    @def_dicts = ORIGINAL_DEFAULT_DICTS
 
     # The config file will override the default dicts, but not default library!
     if file = ENV['CRYPTIC_RESOLVER_CONFIG']
@@ -78,34 +87,77 @@ class CrypticResolver::Resolver
 
       config = Tomlrb.load_file file
 
-      DEFAULT_DICTS = ret if ret = config['DEFAULT_DICTS']
+      @def_dicts = ret if ret = config['DEFAULT_DICTS']
 
-      EXTRA_LIB_PATH ||= config['EXTRA_LIBRARY']
+      @extra_lib_path ||= config['EXTRA_LIBRARY']
       # Prevent runtime error
-      if ! test('d', EXTRA_LIB_PATH)
+      if ! test('d', @extra_lib_path)
         abort "FATAL: Your CRYPTIC_RESOLVER_CONFIG's option 'EXTRA_LIBRARY' is NOT a legal directory!"
       end
-
     else
-      EXTRA_LIB_PATH = nil
+      @extra_lib_path = nil
     end
 
 
     # This is used to display what you are pulling when adding dicts
-    DEFAULT_DICTS_USER_AND_NAMES = DEFAULT_DICTS.map do |e|
+    @def_dicts_user_and_names = @def_dicts.map do |e|
       user, repo = e.split('/').last(2)
       repo = repo.split('.').first
       user + '/' + repo
     end
 
     # Same with the pulled repo dirs' names in DEFAULT_LIB_PATH
-    DEFAULT_DICTS_NAMES = DEFAULT_DICTS.map do |e|
+    @def_dicts_names = @def_dicts.map do |e|
       e.split('/').last.split('.').first
     end
 
-
-
   end
+
+
+  def is_there_any_dict?
+    unless Dir.exist? DEFAULT_LIB_PATH
+      Dir.mkdir DEFAULT_LIB_PATH
+    end
+    !Dir.empty? DEFAULT_LIB_PATH
+  end
+
+
+  def add_default_dicts_if_none_exists
+    unless is_there_any_dict?
+      puts "cr: Adding default dicts..."
+
+      begin
+      if Gem.win_platform?
+        # Windows doesn't have fork
+        @def_dicts_user_and_names.each_with_index do |name, i|
+          puts "cr: Pulling #{name}..."
+          `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
+        end
+      else
+        # *nix-like
+        @def_dicts_user_and_names.each_with_index do |name, i|
+          fork do
+            puts "cr: Pulling #{name}..."
+            `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
+          end
+        end
+        Process.waitall
+      end
+
+      rescue Interrupt
+      abort "cr: Cancel add default dicts"
+      end
+
+      puts "cr: Add done" ; word_count(p: false)
+      puts ; puts "#{$DefaultLibWordCount} words added"
+
+      # Really added
+      return true
+    end
+    # Not added
+    return false
+  end
+
 
 end
 

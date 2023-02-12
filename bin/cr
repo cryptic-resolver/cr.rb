@@ -41,51 +41,6 @@ class CrypticResolver::Resolver
 
   require 'fileutils'
 
-  def is_there_any_dict?
-    unless Dir.exist? DEFAULT_LIB_PATH
-      Dir.mkdir DEFAULT_LIB_PATH
-    end
-    !Dir.empty? DEFAULT_LIB_PATH
-  end
-
-
-  def add_default_dicts_if_none_exists
-    unless is_there_any_dict?
-      puts "cr: Adding default dicts..."
-
-      begin
-      if Gem.win_platform?
-        # Windows doesn't have fork
-        DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
-          puts "cr: Pulling #{name}..."
-          `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
-        end
-      else
-        # *nix-like
-        DEFAULT_DICTS_USER_AND_NAMES.each_with_index do |name, i|
-          fork do
-            puts "cr: Pulling #{name}..."
-            `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
-          end
-        end
-        Process.waitall
-      end
-
-      rescue Interrupt
-      abort "cr: Cancel add default dicts"
-      end
-
-      puts "cr: Add done" ; word_count(p: false)
-      puts ; puts "#{$DefaultLibWordCount} words added"
-
-      # Really added
-      return true
-    end
-    # Not added
-    return false
-  end
-
-
   # Notice that we only update the Default library, not Extra library
   def update_dicts
     return if add_default_dicts_if_none_exists
