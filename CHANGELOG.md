@@ -4,6 +4,14 @@
 
 <br>
 
+## [v4.1.3](#) (2023-02-13)
+
+### Bug fixes:
+
+- Fix bug: read unrelated files in dictionary
+
+<br>
+
 ## [v4.1.2](#) (2023-02-13)
 
 ### Bug fixes:

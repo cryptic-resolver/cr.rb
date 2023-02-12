@@ -3,7 +3,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2023-02-12>
+# Last modified : <2023-02-13>
 #
 # cr:
 #
@@ -518,7 +518,10 @@ A info looks like this
 
     # Try to match every word in all dicts
     Dir.children(library).each do |dict|
-      sheets = Dir.children(File.join(library, dict)).select do
+
+      path = File.join(library, dict)
+      next if File.file? path
+      sheets = Dir.children(path).select do
         _1.end_with?('.toml')
       end
 
