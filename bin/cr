@@ -10,7 +10,6 @@
 #   This file is used to explain a CRyptic command
 # or an acronym's real meaning in computer world or
 # other fields.
-#
 # ------------------------------------------------------
 
 require 'cr'
@@ -21,16 +20,18 @@ class CrypticResolver::CliHandler
   def initialize(args)
     option = args.shift
 
-    case option when nil, '-h','--help' then help end
+    case option when nil, '-h','--help' then help or exit end
+
+    reslvr = CrypticResolver::Resolver.new
 
     case option
-    when '-l'   then list_dicts
-    when '-c'   then word_count(p: true)
-    when '-u'   then update_dicts
-    when '-s'   then search_word argv.shift
-    when '-a'   then add_dict argv.shift
-    when '-d'   then del_dict argv.shift
-    else resolve_word arg end
+    when '-l'   then reslvr.list_dicts
+    when '-c'   then reslvr.word_count
+    when '-u'   then reslvr.update_dicts
+    when '-s'   then reslvr.search_word argv.shift
+    when '-a'   then reslvr.add_dict argv.shift
+    when '-d'   then reslvr.del_dict argv.shift
+    else reslvr.resolve_word option end
   end
 
 end
@@ -661,7 +662,7 @@ $ExtraLibWordCount   = 0
   end
 
 
-  def word_count(p:)
+  def word_count
     # Always check before Dir.children (this method creates dir if not exists)
     is_there_any_dict?
 
@@ -669,12 +670,12 @@ $ExtraLibWordCount   = 0
 
     # Count default library
     unless default_lib.empty?
-      puts(bold(green("Default library: "))) if p
+      puts(bold(green("Default library: ")))
       default_lib.each do |s|
         wc = count_dict_words(DEFAULT_LIB_PATH,s)
         $DefaultLibWordCount += wc
         # With color, ljust not works, so we disable color
-        puts("  #{s.ljust(17)}: #{wc}") if p
+        puts("  #{s.ljust(17)}: #{wc}")
       end
     end
 
@@ -686,22 +687,20 @@ $ExtraLibWordCount   = 0
       # Count extra library
       unless extra_lib.empty?
         wc = 0
-        puts(bold(blue("\nExtra library:"))) if p
+        puts(bold(blue("\nExtra library:")))
         extra_lib.each do |s|
           wc = count_dict_words(EXTRA_LIB_PATH,s)
           $ExtraLibWordCount += wc
-          puts("  #{s.ljust(17)}: #{wc}") if p
+          puts("  #{s.ljust(17)}: #{wc}")
         end
       end
     end
     $TwoLibWordCount = $DefaultLibWordCount + $ExtraLibWordCount
 
-    if p
     puts
     puts "#{$DefaultLibWordCount.to_s.rjust(4)} words in Default library"
     puts "#{$ExtraLibWordCount.to_s.rjust(4)  } words in  Extra  library"
     puts "#{$TwoLibWordCount.to_s.rjust(4)    } words altogether"
-    end
   end
 
 end
