@@ -16,8 +16,7 @@ module CrypticResolver
 end
 
 
-class CrypticResolver::Resolver
-
+module CrypticResolver::Color
   def bold(str)       "\e[1m#{str}\e[0m" end
   def underline(str)  "\e[4m#{str}\e[0m" end
   def red(str)        "\e[31m#{str}\e[0m" end
@@ -26,14 +25,16 @@ class CrypticResolver::Resolver
   def blue(str)       "\e[34m#{str}\e[0m" end
   def purple(str)     "\e[35m#{str}\e[0m" end
   def cyan(str)       "\e[36m#{str}\e[0m" end
-
 end
 
 
 
 class CrypticResolver::Resolver
 
+  include CrypticResolver::Color
+
   require 'tomlrb'
+  require 'fileutils'
 
   # attr_accessor   :default_dicts  # Default dictionaries lists
 
@@ -71,7 +72,7 @@ class CrypticResolver::Resolver
                 :counter           # word counter
 
   def initialize
-    @counter =  Counter.new
+    @counter =  Counter.new(self)
 
     # if user doesn't specify, we use the hard-coded defaults
     @def_dicts = ORIGINAL_DEFAULT_DICTS
@@ -108,9 +109,11 @@ class CrypticResolver::Resolver
 
 
   def is_there_any_dict?
-    unless Dir.exist? DEFAULT_LIB_PATH
-      Dir.mkdir DEFAULT_LIB_PATH
-    end
+    # Ensure the cr home dir exists
+    FileUtils.mkdir_p(DEFAULT_LIB_PATH)
+    #unless Dir.exist? DEFAULT_LIB_PATH
+    # Dir.mkdir DEFAULT_LIB_PATH
+    #end
     !Dir.empty? DEFAULT_LIB_PATH
   end
 
@@ -164,15 +167,19 @@ end
 
 class CrypticResolver::Resolver::Counter
 
+  include CrypticResolver::Color
+
   attr_accessor :word_count_of_two_libs,  # def_lib + extra_lib
                 :word_count_of_def_lib,
-                :word_count_of_extra_lib
+                :word_count_of_extra_lib,
 
+                :resolver
 
-  def initialize
+  def initialize(resolver)
     @word_count_of_two_libs = 0
     @word_count_of_def_lib = 0
     @word_count_of_extra_lib = 0
+    @resolver = resolver
   end
 
 
@@ -180,13 +187,64 @@ class CrypticResolver::Resolver::Counter
     dict_dir = library + "/#{dict}"
     wc = 0
     Dir.children(dict_dir).each do |entry|
+      next if File.file? entry
       next unless entry.end_with?('.toml')
-      sheet_content = load_sheet(library, dict, entry.delete_suffix('.toml'))
+      sheet_content = @resolver.load_sheet(library, dict, entry.delete_suffix('.toml'))
       count = sheet_content.keys.count
 
       wc = wc + count
     end
     return wc
+  end
+
+
+  # Count default library
+  def count_def_lib(display: )
+    default_lib = Dir.children(CrypticResolver::Resolver::DEFAULT_LIB_PATH)
+    unless default_lib.empty?
+      puts bold(green("Default library: "))  if display
+      default_lib.each do |s|
+        next if File.file? s
+        wc = count_dict_words(CrypticResolver::Resolver::DEFAULT_LIB_PATH,s)
+        @word_count_of_def_lib += wc
+        # With color, ljust not works, so we disable color
+        puts("#{wc.to_s.rjust(5)}  #{s}")   if display
+      end
+    end
+    return @word_count_of_def_lib
+  end
+
+
+  # Count extra library
+  def count_extra_lib(display: )
+    if path = @resolver.extra_lib_path
+      extra_lib = Dir.children(path)
+      unless extra_lib.empty?
+        wc = 0
+        puts(bold(green("\nExtra library:")))  if display
+        extra_lib.each do |s|
+          next if File.file? s
+          wc = count_dict_words(path,s)
+          @word_count_of_extra_lib += wc
+          puts("#{wc.to_s.rjust(5)}  #{s}")  if display
+        end
+      end
+    end
+    return @word_count_of_extra_lib
+  end
+
+
+  def count!(display: )
+    count_def_lib(display: display)
+    count_extra_lib(display: display)
+    @word_count_of_two_libs = @word_count_of_def_lib + @word_count_of_extra_lib
+
+    if display
+    puts
+    puts "#{@word_count_of_def_lib.to_s.rjust(4)} words in Default library"
+    puts "#{@word_count_of_extra_lib.to_s.rjust(4)  } words in  Extra  library"
+    puts "#{@word_count_of_two_libs.to_s.rjust(4)    } words altogether"
+    end
   end
 
 end

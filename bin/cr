@@ -66,35 +66,33 @@ end
 
 class CrypticResolver::Resolver
 
-  require 'fileutils'
-
   # Notice that we only update the Default library, not Extra library
   def update_dicts
 
-    word_count
-    old_wc = @word_count_of_def_lib
+    @counter.count_def_lib(display: false)
+    old_wc = @counter.word_count_of_def_lib
 
     puts "cr: Updating all dicts in Default library..."
 
     begin
     Dir.chdir DEFAULT_LIB_PATH do
-
-      if RUBY_PLATFORM.include? "mingw"
+      if Gem.win_platform?
         # Windows doesn't have fork
         Dir.children(DEFAULT_LIB_PATH).each do |dict|
+          next if File.file? dict
           puts "cr: Wait to update #{dict}..."
           `git -C ./#{dict} pull -q`
         end
       else
         # *nix
         Dir.children(DEFAULT_LIB_PATH).each do |dict|
+          next if File.file? dict
           fork do
             puts "cr: Wait to update #{dict}..."
           `git -C ./#{dict} pull -q`
           end
         end
         Process.waitall
-
       end # end if/else
     end
 
@@ -105,14 +103,12 @@ class CrypticResolver::Resolver
     puts "cr: Update done"
 
     # clear
-    @word_count_of_def_lib = 0
+    @counter.word_count_of_def_lib = 0
     # recount
-    word_count
+    @counter.count_def_lib(display: false)
 
-    new_wc = @word_count_of_def_lib
-
+    new_wc = @counter.word_count_of_def_lib
     puts ; puts "#{new_wc - old_wc} words added in Default library"
-
   end
 
 
@@ -120,9 +116,6 @@ class CrypticResolver::Resolver
     if repo.nil?
       abort bold(red("cr: Need an argument!"))
     end
-
-    # Ensure the cr home dir exists
-    FileUtils.mkdir_p(DEFAULT_LIB_PATH)
 
     # Simplify adding dictionary
     if !repo.start_with?("https://") and !repo.start_with?("git@")
@@ -583,43 +576,8 @@ A info looks like this
   end
 
 
-
-
   def word_count
-    default_lib = Dir.children(DEFAULT_LIB_PATH)
-    # Count default library
-    unless default_lib.empty?
-      puts bold(green("Default library: "))
-      default_lib.each do |s|
-        wc = @counter.count_dict_words(DEFAULT_LIB_PATH,s)
-        @word_count_of_def_lib += wc
-        # With color, ljust not works, so we disable color
-        puts("  #{s.ljust(17)}: #{wc}")
-      end
-    end
-
-    if @extra_lib_path
-      extra_lib = Dir.children(@extra_lib_path)
-      extra_lib.reject! do |f|
-        File.file? f
-      end
-      # Count extra library
-      unless extra_lib.empty?
-        wc = 0
-        puts(bold(blue("\nExtra library:")))
-        extra_lib.each do |s|
-          wc = @counter.count_dict_words(@extra_lib_path,s)
-          @word_count_of_extra_lib += wc
-          puts("  #{s.ljust(17)}: #{wc}")
-        end
-      end
-    end
-    @word_count_of_two_libs = @word_count_of_def_lib + @word_count_of_extra_lib
-
-    puts
-    puts "#{@word_count_of_def_lib.to_s.rjust(4)} words in Default library"
-    puts "#{@word_count_of_extra_lib.to_s.rjust(4)  } words in  Extra  library"
-    puts "#{@word_count_of_two_libs.to_s.rjust(4)    } words altogether"
+    @counter.count!(display: true)
   end
 
 end
