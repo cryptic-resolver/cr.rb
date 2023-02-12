@@ -1,4 +1,4 @@
-require_relative 'lib/cr'
+require_relative 'lib/cr/version'
 
 Gem::Specification.new do |s|
   s.name = "cr.rb"
@@ -15,7 +15,7 @@ DESC
 
   s.license = "MIT"
 
-  s.authors = "ccmywish"
+  s.authors = "Aoran Zeng"
   s.email = "ccmywish@qq.com"
   s.homepage = "https://github.com/cryptic-resolver/cr.rb"
 

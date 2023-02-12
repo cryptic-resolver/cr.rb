@@ -9,9 +9,9 @@
 #   This file is the lib of `cr.rb``
 # ------------------------------------------------------
 
-module CrypticResolver
+require 'cr/version'
 
-  GEM_VERSION = "4.1.0"
+module CrypticResolver
 
   module Color
     def bold(str)       "\e[1m#{str}\e[0m" end
