@@ -13,20 +13,18 @@ module CrypticResolver
 
   GEM_VERSION = "4.1.0"
 
+  module Color
+    def bold(str)       "\e[1m#{str}\e[0m" end
+    def underline(str)  "\e[4m#{str}\e[0m" end
+    def red(str)        "\e[31m#{str}\e[0m" end
+    def green(str)      "\e[32m#{str}\e[0m" end
+    def yellow(str)     "\e[33m#{str}\e[0m" end
+    def blue(str)       "\e[34m#{str}\e[0m" end
+    def purple(str)     "\e[35m#{str}\e[0m" end
+    def cyan(str)       "\e[36m#{str}\e[0m" end
+  end
+
 end
-
-
-module CrypticResolver::Color
-  def bold(str)       "\e[1m#{str}\e[0m" end
-  def underline(str)  "\e[4m#{str}\e[0m" end
-  def red(str)        "\e[31m#{str}\e[0m" end
-  def green(str)      "\e[32m#{str}\e[0m" end
-  def yellow(str)     "\e[33m#{str}\e[0m" end
-  def blue(str)       "\e[34m#{str}\e[0m" end
-  def purple(str)     "\e[35m#{str}\e[0m" end
-  def cyan(str)       "\e[36m#{str}\e[0m" end
-end
-
 
 
 class CrypticResolver::Resolver
@@ -48,19 +46,21 @@ class CrypticResolver::Resolver
     "https://github.com/cryptic-resolver/cryptic_technology"
   ]
 
+  extend CrypticResolver::Color
+
   RECOMMENDED_DICTS = <<~EOF
-  Default:
+  #{yellow("Default:")}
     common       computer    windows
     linux       technology
 
-  Field:
+  #{yellow("Field:")}
     electronics   economy     medicine
     mechanical   science       math
 
-  Specific:
+  #{yellow("Specific:")}
     dos         x86        signal
 
-  Feature:
+  #{yellow("Feature:")}
     ccmywish/CRuby-Source-Code-Dictionary
 
   EOF

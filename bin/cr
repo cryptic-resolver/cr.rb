@@ -572,7 +572,7 @@ A info looks like this
     end
 
     puts ; puts blue("=> Official dicts: (Add it by 'cr -a xxx')")
-    puts CrypticResolver::RECOMMENDED_DICTS
+    puts RECOMMENDED_DICTS
   end
 
 
