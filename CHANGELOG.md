@@ -4,6 +4,14 @@
 
 <br>
 
+## [v4.1.2](#) (2023-02-13)
+
+### Bug fixes:
+
+- Fix bug: `cr -c` counts twice
+
+<br>
+
 ## [v4.1.1](#) (2023-02-13)
 
 ### Bug fixes:

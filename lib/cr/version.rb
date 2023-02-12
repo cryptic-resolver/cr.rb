@@ -11,6 +11,6 @@
 
 module CrypticResolver
 
-  GEM_VERSION = "4.1.1"
+  GEM_VERSION = "4.1.2"
 
 end
