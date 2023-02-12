@@ -18,6 +18,21 @@ end
 
 class CrypticResolver::Resolver
 
+  def bold(str)       "\e[1m#{str}\e[0m" end
+  def underline(str)  "\e[4m#{str}\e[0m" end
+  def red(str)        "\e[31m#{str}\e[0m" end
+  def green(str)      "\e[32m#{str}\e[0m" end
+  def yellow(str)     "\e[33m#{str}\e[0m" end
+  def blue(str)       "\e[34m#{str}\e[0m" end
+  def purple(str)     "\e[35m#{str}\e[0m" end
+  def cyan(str)       "\e[36m#{str}\e[0m" end
+
+end
+
+
+
+class CrypticResolver::Resolver
+
   require 'tomlrb'
 
   # attr_accessor   :default_dicts  # Default dictionaries lists
