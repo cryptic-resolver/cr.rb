@@ -1,8 +1,52 @@
 # TypeProf 0.21.3
 
 # Global variables
-$TwoLibWordCount: Integer
-$DefaultLibWordCount: Integer
-$ExtraLibWordCount: Integer
+$TwoLibWordCount: Complex | Float | Integer | Rational
+$DefaultLibWordCount: Complex | Float | Integer | Rational
+$ExtraLibWordCount: Complex | Float | Integer | Rational
 
 # Classes
+module CrypticResolver
+  GEM_VERSION: String
+
+  class Resolver
+    DEFAULT_LIB_PATH: String
+    ORIGINAL_DEFAULT_DICTS: [String, String, String, String, String]
+    RECOMMENDED_DICTS: String
+    @def_dicts: [String, String, String, String, String]
+    @extra_lib_path: nil
+    @def_dicts_user_and_names: Array[String]
+    @def_dicts_names: Array[String?]
+
+    def bold: (String? str) -> String
+    def underline: (untyped str) -> String
+    def red: (String str) -> String
+    def green: (String str) -> String
+    def yellow: (String str) -> String
+    def blue: (Integer | String str) -> String
+    def purple: (String str) -> String
+    def cyan: (untyped str) -> String
+    def initialize: -> void
+    def is_there_any_dict?: -> bool
+    def add_default_dicts_if_none_exists: -> bool
+    def update_dicts: -> nil
+    def add_dict: (untyped repo) -> nil
+    def del_dict: (untyped repo) -> nil
+    def load_sheet: (String library, String dict, String sheet_name) -> Hash[untyped, untyped]?
+    def pp_info: (nil info) -> nil
+    def pp_dict: (String dict) -> nil
+    def pp_same_info: (String library, String dict, String? word, Hash[untyped, untyped]? cache_content, untyped same_key, nil own_name) -> bool
+    def lookup: (String library, String dict, String file, String word) -> bool
+    def resolve_word: (String? word) -> nil
+    def search_word: (untyped pattern) -> nil
+    def search_word_internal: (untyped pattern, String library) -> false
+    def help: -> bool
+    def list_dicts: -> nil
+    def count_dict_words: (String library, String dict) -> (Complex | Float | Integer | Rational)
+    def word_count: -> nil
+  end
+
+  class CliHandler
+    def initialize: (Array[String] args) -> void
+  end
+end

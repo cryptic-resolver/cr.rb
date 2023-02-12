@@ -1,5 +1,19 @@
 # cr in Ruby development
 
+## Develop
+
+Ref: https://github.com/ruby/typeprof/blob/master/doc/doc.md
+
+```PowerShell
+typeprof -I .\lib .\bin\cr    -o sig\bin\cr.rbs
+
+typeprof -I .\lib .\lib\cr.rb -o sig\lib\cr.rbs
+```
+
+<br>
+
+## Test and build
+
 Maybe you need `sudo` access
 
 - `rake gen_output`
