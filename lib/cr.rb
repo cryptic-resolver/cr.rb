@@ -2,30 +2,35 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2023-02-05>
+# Last modified : <2023-02-12>
 #
 # cr:
 #
 #   This file is the lib of `cr.rb``
-#
 # ------------------------------------------------------
 
-CR_GEM_VERSION = "4.0.3"
+module CrypticResolver
 
+  GEM_VERSION = "4.0.4"
 
-CR_OFFICIAL_DICTS = <<-EOF
-Default:
-  common       computer    windows
-  linux       technology
+  RECOMMENDED_DICTS = <<~EOF
+  Default:
+    common       computer    windows
+    linux       technology
 
-Field:
- electronics   economy     medicine
-  mechanical   science       math
+  Field:
+    electronics   economy     medicine
+    mechanical   science       math
 
-Specific:
+  Specific:
     dos         x86        signal
 
-Feature:
-  ccmywish/CRuby-Source-Code-Dictionary
+  Feature:
+    ccmywish/CRuby-Source-Code-Dictionary
 
-EOF
+  EOF
+
+end
+
+
+

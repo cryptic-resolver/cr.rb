@@ -2,10 +2,10 @@ require_relative 'lib/cr'
 
 Gem::Specification.new do |s|
   s.name = "cr.rb"
-  s.version = CR_GEM_VERSION
+  s.version = CrypticResolver::GEM_VERSION
   require 'date'
   s.date = Date.today.to_s
-  
+
   s.summary = "cr: Cryptic Resolver"
 
   s.description = <<DESC

@@ -3,7 +3,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2023-02-05>
+# Last modified : <2023-02-12>
 #
 # cr:
 #
@@ -668,19 +668,22 @@ cr: Cryptic Resolver v#{CR_GEM_VERSION} (#{$TwoLibWordCount} words: Default lib/
 
 Usage:
 
-  cr emacs          => Edit macros: A feature-rich editor
-  cr -c             => Print word count
-  cr -l             => List local dicts and official dicts
-  cr -u             => Update all dicts in Default library
+Query:
+  cr <keyword>   Search the keyword
+  cr emacs       => Edit macros: A feature-rich editor
 
-  cr -a repo.git    => Add a new dict
-  cr -a user/repo   => Add a new dict from Github
-  cr -a  repo       => Add an official dict from Github
+Options:
+  -c             Print word count
+  -s pattern     Search words matched with pattern
+  -h             Print this help
 
-  cr -d cryptic_xx  => Delete a dict
-  cr -s pattern     => Search words matched with pattern
-  cr -v             => Print version
-  cr -h             => Print this help
+Dictionaries:
+  -l                      List local dicts and official dicts
+  -a <https://repo[.git]> Add a new dict
+  -a <user/repo>          Add a new dict from Github
+  -a <dict_name>          Add an official dict, use -l to see
+  -u                      Update all dicts in Default library
+  -d <dict_name>          Delete a dict
 
 HELP
 
@@ -719,7 +722,7 @@ def list_dicts
 
   puts
   puts blue("=> Official dicts: (Add it by 'cr -a xxx')")
-  puts CR_OFFICIAL_DICTS
+  puts CrypticResolver::RECOMMENDED_DICTS
 
 end
 
