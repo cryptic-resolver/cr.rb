@@ -18,6 +18,7 @@ jobs:
       run: bundle exec ./bin/cr
     - name: Install all official dicts
       run: |
+        bundle exec ./bin/cr -a cryptic-resolver/cryptic_electronics
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_economy
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_medicine
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_science
@@ -25,14 +26,14 @@ jobs:
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_math
         bundle exec ./bin/cr -a dos
         bundle exec ./bin/cr -a x86
-        bundle exec ./bin/cr -a https://github.com/cryptic-resolver/cryptic_signal
+        bundle exec ./bin/cr -a signal
     - name: Update word count using ./bin/wc
       run:
         bundle exec ./bin/wc --uwc
     - name: Git commit
       run: |
         git config --local user.email "ccmywish@qq.com"
-        git config --local user.name "ccmywish"
+        git config --local user.name "Aoran Zeng"
         git add README.md
         git commit -m "Update word counts in README" || echo Resist error when nothing to commit
     - name: Push changes

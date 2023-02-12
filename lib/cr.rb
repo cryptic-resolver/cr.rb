@@ -2,7 +2,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2023-02-12>
+# Last modified : <2023-02-13>
 #
 # cr:
 #
@@ -135,14 +135,14 @@ class CrypticResolver::Resolver
         # Windows doesn't have fork
         dicts_user_and_names.each_with_index do |name, i|
           puts "cr: Pulling #{name}..."
-          `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
+          `git -C #{DEFAULT_LIB_PATH} clone #{@def_dicts[i]} -q`
         end
       else
         # *nix-like
         dicts_user_and_names.each_with_index do |name, i|
           fork do
             puts "cr: Pulling #{name}..."
-            `git -C #{DEFAULT_LIB_PATH} clone #{CR_DEFAULT_DICTS[i]} -q`
+            `git -C #{DEFAULT_LIB_PATH} clone #{@def_dicts[i]} -q`
           end
         end
         Process.waitall
@@ -152,7 +152,7 @@ class CrypticResolver::Resolver
       abort "cr: Cancel add default dicts"
       end
 
-      puts "cr: Add done" ; word_count(p: false)
+      puts "cr: Add done" ; word_count
       puts ; puts "#{$DefaultLibWordCount} words added"
 
       # Really added

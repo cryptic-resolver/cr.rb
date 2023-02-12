@@ -127,6 +127,7 @@ $ cr -a electronics
 **Feature dicts:**
 
 - [ccmywish/CRuby-Source-Code-Dictionary](https://github.com/ccmywish/CRuby-Source-Code-Dictionary)
+- [ccmywish/mruby-Source-Code-Dictionary](https://github.com/ccmywish/mruby-Source-Code-Dictionary)
 
 <br>
 

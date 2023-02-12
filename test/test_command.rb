@@ -13,8 +13,8 @@ end
 class TestCommand < Test::Unit::TestCase
 
   def test_a_the_first_one_test_to_run_for_ci
-    # empty to let CI pull dictionaries first
-    result = cr("")
+    # just a random command to let CI pull dictionaries first
+    result = cr("-c", display: true)
   end
 
   #
