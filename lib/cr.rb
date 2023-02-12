@@ -10,6 +10,7 @@
 # ------------------------------------------------------
 
 require 'cr/version'
+# require_relative "#{__dir__}/cr/version"
 
 module CrypticResolver
 

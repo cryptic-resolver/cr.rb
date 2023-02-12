@@ -19,7 +19,7 @@ DESC
   s.email = "ccmywish@qq.com"
   s.homepage = "https://github.com/cryptic-resolver/cr.rb"
 
-  s.files = ['lib/cr.rb']
+  s.files = Dir['lib/*/**'] + Dir['lib/cr.rb']
   s.require_paths = ['lib']
   s.executables = ['cr']
 

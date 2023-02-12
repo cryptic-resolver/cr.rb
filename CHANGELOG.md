@@ -4,6 +4,14 @@
 
 <br>
 
+## [v4.1.1](#) (2023-02-13)
+
+### Bug fixes:
+
+- Fix `require` error in 'lib/cr.rb'
+
+<br>
+
 ## [v4.1.0](#) (2023-02-13)
 
 ### New features:
