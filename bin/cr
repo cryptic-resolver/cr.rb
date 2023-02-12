@@ -46,7 +46,7 @@ class CrypticResolver::CliHandler
 
     Options:
       -c             Print word count
-      -s pattern     Search words matched with pattern
+      -s <pattern>   Search words matched with pattern
       -h             Print this help
 
     Dictionaries:

@@ -6,9 +6,13 @@ Ref: https://github.com/ruby/typeprof/blob/master/doc/doc.md
 
 ```PowerShell
 typeprof -I .\lib .\bin\cr    -o sig\bin\cr.rbs
-
 typeprof -I .\lib .\lib\cr.rb -o sig\lib\cr.rbs
+
+# Or just
+rake sig
 ```
+
+The result: `sig\bin\cr.rbs` is more informative than `sig\lib\cr.rbs`
 
 <br>
 

@@ -3,15 +3,14 @@
 # File          : test-dict.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2022-11-29>
+# Last modified : <2023-02-12>
 #
 # test-dict:
 #
 #   Notice: only used in CI!!!
 #
-#   This file uses `cr.rb` published gem to test 
+#   This file uses `cr.rb` published gem to test
 #   every word in a dictionary.
-#
 # ------------------------------------------------------
 
 require 'tomlrb'
@@ -19,16 +18,14 @@ require 'tomlrb'
 def load_sheet(file)
   if File.exist? file
     return Tomlrb.load_file file # gem 'tomlrb'
-  else
-    nil
-  end
+  else nil end
 end
 
 
 # Report what's wrong in CI
 def report_error_msg(msg)
-  system "cr -v"
-  puts 
+  system "cr -h"
+  puts
   system "cr -l"
   system "cr -c"
   puts
@@ -39,18 +36,18 @@ end
 def test_every_word(dict_dir)
 
   # Important!
-  #   
+  #
   # Add your dictionary in the CI step! Not here!
   #
   # system("cr -a #{dict_repo}")
 
   Dir.children(dict_dir).each do |entry|
     next unless entry.end_with?('.toml')
-    
+
     sheet_content = load_sheet(dict_dir + '/' + entry)
-    
+
     error = false
-    
+
     sheet_content.keys.each do |k|
       # abc.def will be -> abc
       p k
@@ -67,11 +64,10 @@ NotFound
         error = true
       end
 
-
-      if error 
+      if error
         err_msg = "Wrong at #{dict_dir}/#{entry} || word: #{k}"
         report_error_msg(err_msg)
-        exit -1
+        exit 1
       end
 
     end # end traverse words in a sheet
@@ -82,12 +78,12 @@ end # end def
 # For user who reads this:
 #
 # You are trying to test your own dictionary
-# 
+#
 # 1. call `cr -a repo` to add your dictionary in CI runner step
 # 2. use this:
 #
-# ruby -e 
-# "$(curl -fsSL 
+# ruby -e
+# "$(curl -fsSL
 #   https://raw.githubusercontent.com/cryptic-resolver/cr.rb/main/bin/test-dict)"
 #
 

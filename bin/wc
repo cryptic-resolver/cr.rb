@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# coding: utf-8
 # ---------------------------------------------------
 # File          : wc.rb
 # Authors       : ccmywish <ccmywish@qq.com>
@@ -7,12 +6,12 @@
 # Last modified : <2022-12-19>
 #
 # This file is used to count the key words in all
-# our local dictionaries (rather than only default 
+# our local dictionaries (rather than only default
 # dicts)
 #
 # Usage:
 #      wc       # Output count in each file
-#      wc --all # Only output the total counts 
+#      wc --all # Only output the total counts
 #      wc --uwc # Update word count in README
 #
 # ---------------------------------------------------
@@ -28,15 +27,15 @@ else
 end
 
 local_dicts = Dir.children File.expand_path("~/.cryptic-resolver/")
-local_dicts = local_dicts.map do |path| 
+local_dicts = local_dicts.map do |path|
   File.join(
-    File.expand_path("~/.cryptic-resolver/"), 
+    File.expand_path("~/.cryptic-resolver/"),
     path
   )
 end
 
 
-# A file is like 
+# A file is like
 #   a.toml
 #   d.toml
 # So we should first cd into the cryptic_computer sheet
@@ -66,7 +65,7 @@ def update_wc
   end
 
   # puts new_file
-  
+
   File.open("README.md","w") do |f|
     File.write f,new_file
   end
@@ -83,7 +82,7 @@ def count_dict_words(dict_dir)
     next unless entry.end_with?('.toml')
     dict = load_sheet(entry)
     count = dict.keys.count
-  
+
     puts "#{entry}: #{count}" unless ALL_MODE
     wc = wc + count
   end
