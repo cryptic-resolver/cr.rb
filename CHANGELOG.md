@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](#) (2023-02-13)
+## [Unreleased](#) (2023-03-22)
+
+<br>
+
+## [v4.1.4](#) (2023-03-22)
+
+### Bug fixes:
+
+- Fix bug of -l list file: [issues 8](https://github.com/cryptic-resolver/cr.rb/issues/8)
+
+### Deprecations:
+
+- Remove cryptic_dos and cryptic_mechanical dictionaries
 
 <br>
 

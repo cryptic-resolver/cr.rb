@@ -107,18 +107,16 @@ $ cr -a electronics
 ...
 ```
 
-- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
 - [![cryptic_economy](https://github.com/cryptic-resolver/cryptic_economy/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_economy/actions/workflows/test.yml) [cryptic_economy]
 - [![cryptic_medicine](https://github.com/cryptic-resolver/cryptic_medicine/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_medicine/actions/workflows/test.yml) [cryptic_medicine]
+- [![cryptic_electronics](https://github.com/cryptic-resolver/cryptic_electronics/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_electronics/actions/workflows/test.yml) [cryptic_electronics]
 - [![cryptic_science](https://github.com/cryptic-resolver/cryptic_science/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_science/actions/workflows/test.yml) [cryptic_science]
-- [![cryptic_mechanical](https://github.com/cryptic-resolver/cryptic_mechanical/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_mechanical/actions/workflows/test.yml) [cryptic_mechanical]
 - [![cryptic_math](https://github.com/cryptic-resolver/cryptic_math/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_math/actions/workflows/test.yml) [cryptic_math]
 
 <br>
 
 **Specific dicts:**
 
-- [![cryptic_dos](https://github.com/cryptic-resolver/cryptic_dos/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_dos/actions/workflows/test.yml) [cryptic_dos]
 - [![cryptic_x86](https://github.com/cryptic-resolver/cryptic_x86/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_x86/actions/workflows/test.yml) [cryptic_x86]
 - [![cryptic_signal](https://github.com/cryptic-resolver/cryptic_signal/workflows/Test-Dict/badge.svg)](https://github.com/cryptic-resolver/cryptic_signal/actions/workflows/test.yml) [cryptic_signal]
 
@@ -168,7 +166,6 @@ You can use a config file (in `TOML` format) which is specified by the environme
 # cryptic-resolver.toml example
 
 DEFAULT_DICTS = [
-  "https://github.com/cryptic-resolver/cryptic_dos",
   "https://github.com/cryptic-resolver/cryptic_x86",
   "https://github.com/cryptic-resolver/cryptic_electronics"
 ]
@@ -294,13 +291,11 @@ In one sheet, you should consider adding a category specifier to differ each oth
 [tldr]: https://github.com/tldr-pages/tldr
 [cheat]: https://github.com/cheat/cheat
 
-[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
 [cryptic_economy]: https://github.com/cryptic-resolver/cryptic_economy
 [cryptic_medicine]: https://github.com/cryptic-resolver/cryptic_medicine
+[cryptic_electronics]: https://github.com/cryptic-resolver/cryptic_electronics
 [cryptic_science]: https://github.com/cryptic-resolver/cryptic_science
-[cryptic_mechanical]: https://github.com/cryptic-resolver/cryptic_mechanical
 [cryptic_math]: https://github.com/cryptic-resolver/cryptic_math
 
-[cryptic_dos]: https://github.com/cryptic-resolver/cryptic_dos
 [cryptic_x86]: https://github.com/cryptic-resolver/cryptic_x86
 [cryptic_signal]: https://github.com/cryptic-resolver/cryptic_signal
