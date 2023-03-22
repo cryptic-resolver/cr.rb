@@ -2,7 +2,7 @@
 # File          : cr.rb
 # Authors       : ccmywish <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2023-02-13>
+# Last modified : <2023-03-22>
 #
 # cr:
 #
@@ -55,15 +55,14 @@ class CrypticResolver::Resolver
     linux       technology
 
   #{yellow("Field:")}
-    electronics   economy     medicine
-    mechanical   science       math
+    economy     medicine   electronics
+    science       math
 
   #{yellow("Specific:")}
-    dos         x86        signal
+      x86        signal
 
   #{yellow("Feature:")}
     ccmywish/CRuby-Source-Code-Dictionary
-    ccmywish/mruby-Source-Code-Dictionary
 
   EOF
 
