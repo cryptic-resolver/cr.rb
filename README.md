@@ -2,7 +2,7 @@
 
 # Cryptic Resolver
 [![Test](https://github.com/cryptic-resolver/cr.rb/workflows/Test-Behavior/badge.svg)](https://github.com/cryptic-resolver/cr.rb/actions/workflows/test.yml)
-[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1806-brightgreen)](#cryptic-sheets)
+[![word-count](https://img.shields.io/badge/Keywords%20Inlcuded-1822-brightgreen)](#cryptic-sheets)
 [![Gem Version](https://badge.fury.io/rb/cr.rb.svg)](https://rubygems.org/gems/cr.rb)
 
 ![screenshot](./images/screenshot.png)
@@ -15,7 +15,7 @@ The effort is to study etymology and know of naming conventions.
 
 Not only can it be used in the computer filed, but also you can use this to manage your own knowledge base easily.
 
-- Currently we have **1806** keywords explained in all of our official ***cryptic_xxx*** dictionaries.
+- Currently we have **1822** keywords explained in all of our official ***cryptic_xxx*** dictionaries.
 
 <br>
 
