@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](#) (2023-03-22)
+## [Unreleased](#) (2023-05-09)
+
+<br>
+
+## [v4.1.5](#) (2023-05-09)
+
+### Enhancements:
+
+- Compact not found info
+- Refactor lib structure
+- Use `colorator` rather than handmade lib
 
 <br>
 

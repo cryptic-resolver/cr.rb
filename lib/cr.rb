@@ -408,13 +408,15 @@ A info looks like this
     unless results.include? true
       puts <<~NotFound
       cr: Not found anything about '#{word}'. You could try
-      #{"case 1: Update all dicts".blue}
+
+      #{"case 1: Update all dictionaries".blue}
        #{"$ cr -u".yellow}
-      #{"case 2: List available official and feature dicts".blue}
+      #{"case 2: List available official and feature dictionaries".blue}
        #{"$ cr -l".yellow}
        #{"$ cr -a repo".yellow} (Add a specific dict to default lib)
-      #{"case 3: Contribute to theses dicts".blue}
+      #{"case 3: Contribute to theses dictionaries".blue}
        Visit: https://github.com/cryptic-resolver
+
       NotFound
     else return end
   end
