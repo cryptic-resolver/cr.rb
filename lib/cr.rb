@@ -10,9 +10,15 @@
 # ------------------------------------------------------
 
 require 'colorator'
-require_relative './cr/version'
+require_relative 'cr/version'
+
+class String
+  def underline = "\e[4m#{self}\e[0m"
+end
 
 class CrypticResolver::Resolver
+
+  require_relative 'cr/counter'
 
   # Notice that we only update the Default library, not Extra library
   def update_dicts
@@ -145,7 +151,7 @@ A info looks like this
     end
 
     if see_also = info['see']
-      print "\n", "SEE ALSO ".purple
+      print "\n", "SEE ALSO ".magenta
       if see_also.is_a?(Array)
         last_ndx = see_also.size - 1
         see_also.each_with_index do |x,i|
@@ -534,8 +540,6 @@ end
 
 class CrypticResolver::Resolver
 
-  include CrypticResolver::Color
-
   require 'tomlrb'
   require 'fileutils'
 
@@ -550,8 +554,6 @@ class CrypticResolver::Resolver
     "https://github.com/cryptic-resolver/cryptic_linux.git",
     "https://github.com/cryptic-resolver/cryptic_technology"
   ]
-
-  extend CrypticResolver::Color
 
   RECOMMENDED_DICTS = <<~EOF
   #{"Default:".yellow}
