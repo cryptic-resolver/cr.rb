@@ -1,6 +1,6 @@
 # ------------------------------------------------------
 # File          : cr.rb
-# Authors       : ccmywish <ccmywish@qq.com>
+# Authors       : Aoran Zeng <ccmywish@qq.com>
 # Created on    : <2022-04-15>
 # Last modified : <2023-05-09>
 #
