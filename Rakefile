@@ -50,6 +50,5 @@ end
 
 desc "Generate signatures"
 task :sig do
-  system 'typeprof -I .\lib .\bin\cr    -o sig\bin\cr.rbs'
-  system 'typeprof -I .\lib .\lib\cr.rb -o sig\lib\cr.rbs'
+  system 'typeprof -Ilib exe\cr lib\**.rb -o sig\cr.rbs'
 end

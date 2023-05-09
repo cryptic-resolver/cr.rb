@@ -1,0 +1,55 @@
+# TypeProf 0.21.7
+
+# Classes
+class String
+  def underline: -> String
+end
+
+module CrypticResolver
+  GEM_VERSION: String
+
+  class Resolver
+    DEFAULT_LIB_PATH: String
+    ORIGINAL_DEFAULT_DICTS: [String, String, String, String, String]
+    RECOMMENDED_DICTS: String
+
+    def update_dicts: -> nil
+    def add_dict: (String? repo) -> nil
+    def del_dict: (String? repo) -> nil
+    def load_sheet: (String? library, String dict, String sheet_name) -> Hash[untyped, untyped]?
+    def pp_info: (nil info) -> nil
+    def pp_dict: (String dict) -> nil
+    def pp_same_info: (String? library, String dict, String word, Hash[untyped, untyped]? cache_content, untyped same_key, nil own_name) -> bool
+    def lookup: (String? library, String dict, String file, String word) -> bool
+    def resolve_word: (String? word) -> nil
+    def search_word: (String? pattern) -> nil
+    def search_word_internal: (String? pattern, String? library) -> false
+    def list_dicts: -> nil
+    def word_count: -> nil
+    attr_accessor def_dicts: [String, String, String, String, String]
+    attr_accessor extra_lib_path: nil
+    attr_accessor counter: Counter
+    def initialize: -> void
+    def is_there_any_dict?: -> bool
+    def add_default_dicts_if_none_exists: -> bool
+    def _do_the_same_thing: -> Array[String]
+
+    class Counter
+      attr_accessor word_count_of_two_libs: Complex | Float | Integer | Rational
+      attr_accessor word_count_of_def_lib: Complex | Float | Integer | Rational
+      attr_accessor word_count_of_extra_lib: Complex | Float | Integer | Rational
+      attr_accessor resolver: Resolver
+      def initialize: (Resolver resolver) -> void
+      def count_dict_words: (String library, String dict) -> (Complex | Float | Integer | Rational)
+      def count_def_lib: (display: bool) -> (Complex | Float | Integer | Rational)
+      def count_extra_lib: (display: true) -> (Complex | Float | Integer | Rational)
+      def count!: (display: true) -> nil
+      def reset!: -> Integer
+    end
+  end
+
+  module CLI
+    def self.run: -> nil
+    def self.help: -> nil
+  end
+end
