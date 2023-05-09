@@ -21,6 +21,7 @@ DESC
 
   s.files = Dir['lib/*/**'] + Dir['lib/cr.rb']
   s.require_paths = ['lib']
+  s.bindir = 'exe'
   s.executables = ['cr']
 
   s.add_dependency 'tomlrb',    '~> 2.0'
