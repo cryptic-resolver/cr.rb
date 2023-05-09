@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   require 'date'
   s.date = Date.today.to_s
 
-  s.summary = "cr: Cryptic Resolver"
+  s.summary = "Cryptic Resolver on the command line"
 
   s.description = <<DESC
 This command line tool `cr` is used to record and explain cryptic commands, acronyms(initialism), abbreviations and so forth in daily life.
