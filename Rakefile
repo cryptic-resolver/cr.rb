@@ -1,3 +1,15 @@
+# ---------------------------------------------------------------
+# File          : Rakefile
+# Authors       : ccmywish <ccmywish@qq.com>
+# Created on    : <2021-07-16>
+# Last modified : <2023-05-09>
+# Contributors  :
+#
+# Rakefile:
+#
+#   Development tasks.
+# ---------------------------------------------------------------
+
 desc "Count words in all dictionaries"
 task :wc do
   ruby "bin/wc"
@@ -38,6 +50,7 @@ end
 desc "Build and release gem"
 task :release do
 
+  rm_f '*.gem'
   sh 'gem build cr.rb'
 
   cr_rb = Dir.children('.').select {

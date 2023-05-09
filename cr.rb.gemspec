@@ -28,6 +28,8 @@ DESC
   s.add_dependency 'ls_table',  '~> 0.1'
   s.add_dependency 'colorator', '~> 1.1'
 
+  s.required_ruby_version = ">= 3.0.0"
+
   s.metadata = {
     "bug_tracker_uri"   => "https://github.com/cryptic-resolver/cr.rb/issues",
     "source_code_uri"   => "https://github.com/cryptic-resolver/cr.rb"
