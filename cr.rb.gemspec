@@ -23,8 +23,9 @@ DESC
   s.require_paths = ['lib']
   s.executables = ['cr']
 
-  s.add_dependency 'tomlrb','~> 2.0'
-  s.add_dependency 'ls_table', '~> 0.1'
+  s.add_dependency 'tomlrb',    '~> 2.0'
+  s.add_dependency 'ls_table',  '~> 0.1'
+  s.add_dependency 'colorator', '~> 1.1'
 
   s.metadata = {
     "bug_tracker_uri"   => "https://github.com/cryptic-resolver/cr.rb/issues",

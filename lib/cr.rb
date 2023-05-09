@@ -9,8 +9,8 @@
 #   This file is the lib of `cr.rb``
 # ------------------------------------------------------
 
+require 'colorator'
 require_relative './cr/version'
-require_relative './cr/color'
 
 class CrypticResolver::Resolver
 
@@ -62,7 +62,7 @@ class CrypticResolver::Resolver
 
   def add_dict(repo)
     if repo.nil?
-      abort bold(red("cr: Need an argument!"))
+      abort "cr: Need an argument!".bold.red
     end
 
     # Simplify adding dictionary
@@ -92,16 +92,16 @@ class CrypticResolver::Resolver
 
   def del_dict(repo)
     if repo.nil?
-      abort bold(red("cr: Need an argument!"))
+      abort "cr: Need an argument!".bold.red
     end
     Dir.chdir DEFAULT_LIB_PATH do
       begin
       # Dir.rmdir repo        # Can't rm a filled dir
       # FileUtils.rmdir repo  # Can't rm a filled dir
       FileUtils.rm_rf repo
-      puts "cr: Delete dictionary #{bold(green(repo))} done"
+      puts "cr: Delete dictionary #{repo.bold.green} done"
       rescue Exception => e
-      puts bold(red("cr: #{e}"))
+      puts "cr: #{e}".bold.red
       list_dicts
       end
     end
@@ -131,7 +131,7 @@ A info looks like this
 @param info [Hash] the information of the given word (mapped to a keyword in TOML)
 =end
   def pp_info(info)
-    name = info['name'] || red("No name!")  # keyword `or` is invalid here in Ruby
+    name = info['name'] || "No name!".red  # keyword `or` is invalid here in Ruby
 
     desc = info['desc']
     more = info['more']
@@ -145,18 +145,18 @@ A info looks like this
     end
 
     if see_also = info['see']
-      print "\n", purple("SEE ALSO ")
+      print "\n", "SEE ALSO ".purple
       if see_also.is_a?(Array)
         last_ndx = see_also.size - 1
         see_also.each_with_index do |x,i|
           if last_ndx == i
-            print underline(x)  # Last word doesn't show space
+            print x.underline  # Last word doesn't show space
           else
-            print underline(x),' '
+            print x.underline, ' '
           end
         end
       else
-        print underline(see_also)
+        print see_also.underline
       end
       puts
     end
@@ -166,7 +166,7 @@ A info looks like this
 
   # Print default cryptic_ dicts
   def pp_dict(dict)
-    puts green("From: #{dict}")
+    puts "From: #{dict}".green
   end
 
 
@@ -221,7 +221,7 @@ A info looks like this
     unless own_name
       own_name = word
     end
-    puts blue(bold(own_name)) + ' redirects to ' + blue(bold(jump_to))
+    puts own_name.bold.blue + ' redirects to ' + jump_to.bold.blue
 
 =begin
     As '.' is used to delimit a word and a category, what if
@@ -256,8 +256,8 @@ A info looks like this
     end
 
     if info.nil?
-      puts red("WARN: Synonym jumps to the wrong place `#{same}`,
-      Please consider fixing this in `#{x}.toml` of the dictionary `#{dict}`")
+      puts "WARN: Synonym jumps to the wrong place `#{same}`,
+      Please consider fixing this in `#{x}.toml` of the dictionary `#{dict}`".red
       # exit
       return false
     # double or more jumps
@@ -295,8 +295,8 @@ A info looks like this
     # Warn if the info is empty. For example:
     #   emacs = { }
     if info.size == 0
-      abort red("WARN: Lack of everything of the given word
-      Please consider fixing this in the dict `#{dict}`")
+      abort "WARN: Lack of everything of the given word
+      Please consider fixing this in the dict `#{dict}`".red
     end
 
     # Word with no category specifier
@@ -338,7 +338,7 @@ A info looks like this
     if !categories.empty?
 
       if type_1_exist_flag
-        print  blue(bold("OR")),"\n"
+        print "OR".bold.blue, "\n"
       else
         pp_dict(dict)
       end
@@ -353,7 +353,7 @@ A info looks like this
         end
 
         # last meaning doesn't show this separate line
-        print  blue(bold("OR")),"\n" unless categories.last == meaning
+        print "OR".bold.blue, "\n" unless categories.last == meaning
       end
       return true
     elsif type_1_exist_flag then return true
@@ -402,12 +402,12 @@ A info looks like this
     unless results.include? true
       puts <<~NotFound
       cr: Not found anything about '#{word}'. You could try
-      #{blue("case 1: Update all dicts")}
-       #{yellow("$ cr -u")}
-      #{blue("case 2: List available official and feature dicts")}
-       #{yellow("$ cr -l")}
-       #{yellow("$ cr -a repo")} (Add a specific dict to default lib)
-      #{blue("case 3: Contribute to theses dicts")}
+      #{"case 1: Update all dicts".blue}
+       #{"$ cr -u".yellow}
+      #{"case 2: List available official and feature dicts".blue}
+       #{"$ cr -l".yellow}
+       #{"$ cr -a repo".yellow} (Add a specific dict to default lib)
+      #{"case 3: Contribute to theses dicts".blue}
        Visit: https://github.com/cryptic-resolver
       NotFound
     else return end
@@ -427,7 +427,7 @@ A info looks like this
     end
 
     if (found_or_not1 == false) && (found_or_not2 == false)
-      puts red("cr: No words match with #{pattern.inspect}") ; puts
+      puts "cr: No words match with #{pattern.inspect}".red ; puts
     end
   end
 
@@ -444,7 +444,7 @@ A info looks like this
   def search_word_internal(pattern, library)
 
     if pattern.nil?
-      abort bold(red("cr: Need an argument!"))
+      abort "cr: Need an argument!".bold.red
     end
 
     if pattern =~ /^\/(.*)\/$/
@@ -482,7 +482,7 @@ A info looks like this
         pp_dict(dict)
         require 'ls_table'
         LsTable.ls(similar_words_in_a_dict) do |e|
-          puts blue(e)
+          puts e.blue
         end
         puts
       end
@@ -507,19 +507,19 @@ A info looks like this
     end
 
     Dir.chdir DEFAULT_LIB_PATH do
-      puts bold(green("Default library: #{DEFAULT_LIB_PATH}"))
+      puts "Default library: #{DEFAULT_LIB_PATH}".bold.green
       _do_the_same_thing
     end
 
     if @extra_lib_path
       puts
       Dir.chdir @extra_lib_path do
-        puts bold(green("Extra library: #{@extra_lib_path}"))
+        puts "Extra library: #{@extra_lib_path}".bold.green
         _do_the_same_thing
       end
     end
 
-    puts ; puts bold(green("Official dictionaries: (Add it by 'cr -a xxx')"))
+    puts ; puts "Official dictionaries: (Add it by 'cr -a xxx')".bold.green
     puts RECOMMENDED_DICTS
   end
 
@@ -554,18 +554,18 @@ class CrypticResolver::Resolver
   extend CrypticResolver::Color
 
   RECOMMENDED_DICTS = <<~EOF
-  #{yellow("Default:")}
+  #{"Default:".yellow}
     common       computer    windows
     linux       technology
 
-  #{yellow("Field:")}
+  #{"Field:".yellow}
     economy     medicine   electronics
     science       math
 
-  #{yellow("Specific:")}
+  #{"Specific:".yellow}
       x86        signal
 
-  #{yellow("Feature:")}
+  #{"Feature:".yellow}
     ccmywish/CRuby-Source-Code-Dictionary
 
   EOF
@@ -712,7 +712,7 @@ class CrypticResolver::Resolver::Counter
     path = CrypticResolver::Resolver::DEFAULT_LIB_PATH
     default_lib = Dir.children path
     unless default_lib.empty?
-      puts bold(green("Default library: "))  if display
+      puts "Default library: ".bold.green if display
       default_lib.each do |s|
         next if File.file? path + "/#{s}"
         wc = count_dict_words(path,s)
@@ -730,7 +730,7 @@ class CrypticResolver::Resolver::Counter
     if path = @resolver.extra_lib_path
       extra_lib = Dir.children path
       unless extra_lib.empty?
-        puts bold(green("\nExtra library:"))  if display
+        puts "\nExtra library:".bold.green if display
         extra_lib.each do |s|
           next if File.file? path + "/#{s}"
           wc = count_dict_words(path,s)
