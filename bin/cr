@@ -14,12 +14,14 @@
 
 require 'cr'
 
-class CrypticResolver::CliHandler
+class CrypticResolver::CLI
 
-  def initialize(args)
+  def self.run
+    args = ARGV.dup
+
     option = args.shift
 
-    case option when nil, '-h','--help' then help or exit end
+    case option when nil, '-h','--help' then help; exit end
 
     reslvr = CrypticResolver::Resolver.new
 
@@ -36,7 +38,7 @@ class CrypticResolver::CliHandler
   end
 
 
-  def help
+  def self.help
     puts <<~HELP
     cr: Cryptic Resolver v#{CrypticResolver::GEM_VERSION}
 
@@ -581,7 +583,9 @@ A info looks like this
 
 end
 
+
 ####################
-# main: CLI Handling
+#       main
 ####################
-cli = CrypticResolver::CliHandler.new ARGV
+
+CrypticResolver::CLI.run
