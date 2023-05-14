@@ -39,8 +39,8 @@ end
 
 desc "Build the gem"
 task :build do
-  rm_f '*.gem'
-  # sh 'gem build cr.rb'
+  rm_f FileList['*.gem']
+  sh 'gem build cr.rb'
 end
 
 
