@@ -15,6 +15,7 @@ task :wc do
   ruby "bin/wc"
 end
 
+
 desc "Altogether count words in all dictionaries"
 task :wc_all do
   ruby "bin/wc --all"
@@ -26,33 +27,25 @@ task :uwc do |t|
   ruby "bin/wc --uwc"
 end
 
+
 require 'rake/testtask'
 
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList['test/test*.rb']
-  t.verbose = true
+Rake::TestTask.new :spec do |s|
+  s.libs << "spec"
+  s.test_files = FileList['spec/*_spec.rb']
+  s.verbose = true
 end
 
 
-desc "Test if rake works"
-task :run do
-  ruby "-Ilib ./exe/cr emacs"
-end
-
-
-desc "Generate gen_test_output.txt for tests"
-task :gen_test_output do
-  ruby "test/gen_test_output.rb"
-end
-
-
-desc "Build and release gem"
-task :release do
-
+desc "Build the gem"
+task :build do
   rm_f '*.gem'
-  sh 'gem build cr.rb'
+  # sh 'gem build cr.rb'
+end
 
+
+desc "Release the gem"
+task :release do
   cr_rb = Dir.children('.').select {
     /cr.rb-(\d)+\.(\d)+(.)*\.gem/.match? _1
   }.sort.last
