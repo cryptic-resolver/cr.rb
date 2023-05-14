@@ -1,4 +1,4 @@
-# Test command
+# Test commands
 
 ```bash
 # should display help
@@ -42,13 +42,10 @@ cr smt
 # should add a new sheet
 cr -u https://github.com/cryptic-resolver/cryptic_test
 
-# Test no name from cryptic_test 
+# Test no name from cryptic_test
 cr gdm
 
 # should update all sheets
-cr -u 
+cr -u
 
 ```
-
-
-
