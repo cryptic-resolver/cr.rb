@@ -6,7 +6,11 @@ Gem::Specification.new do |s|
   require 'date'
   s.date = Date.today.to_s
 
-  s.summary = "Cryptic Resolver on the command line"
+  s.authors = "Aoran Zeng"
+  s.email   = "ccmywish@qq.com"
+
+  s.homepage = "https://github.com/cryptic-resolver/cr.rb"
+  s.summary  = "Resolve cryptic commands/acronyms on the command line"
 
   s.description = <<DESC
 This command line tool `cr` is used to record and explain cryptic commands, acronyms(initialism), abbreviations and so forth in daily life.
@@ -14,10 +18,6 @@ Not only can it be used in computer filed via our default sheet cryptic_computer
 DESC
 
   s.license = "MIT"
-
-  s.authors = "Aoran Zeng"
-  s.email = "ccmywish@qq.com"
-  s.homepage = "https://github.com/cryptic-resolver/cr.rb"
 
   s.files = Dir['lib/**/*']
   s.require_paths = ['lib']

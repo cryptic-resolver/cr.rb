@@ -1,6 +1,16 @@
 # Changelog
 
-## [Unreleased](#) (2023-05-09)
+## [Unreleased](#) (2023-05-15)
+
+<br>
+
+## [v4.1.6](#) (2023-05-15)
+
+### Enhancements:
+
+- Rename some internal APIs
+- Using `rainbow` rather than `colorator`
+- Using `minitest` rather than `test-unit`
 
 <br>
 
