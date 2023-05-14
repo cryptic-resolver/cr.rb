@@ -37,7 +37,7 @@ end
 
 desc "Test if rake works"
 task :run do
-  ruby "-Ilib ./bin/cr emacs"
+  ruby "-Ilib ./exe/cr emacs"
 end
 
 

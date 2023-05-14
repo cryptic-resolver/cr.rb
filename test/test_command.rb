@@ -3,9 +3,9 @@ require 'test/unit'
 def cr(arg, display: false)
   # rake will automatically change to root dir
   unless display
-    `ruby -Ilib bin/cr #{arg}`
+    `#{RbConfig.ruby} -Ilib exe/cr #{arg}`
   else
-    system("ruby -Ilib bin/cr #{arg}")
+    system("#{RbConfig.ruby} -Ilib exe/cr #{arg}")
   end
 end
 
