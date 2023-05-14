@@ -1,11 +1,31 @@
+# ---------------------------------------------------------------
+# File          : command_spec.rb
+# Authors       : Aoran Zeng <ccmywish@qq.com>
+# Created on    : <2023-05-14>
+# Last modified : <2023-05-14>
+#
+# command_spec:
+#
+#   Test predefined representative words
+# ---------------------------------------------------------------
+
 require 'minitest/autorun'
 require_relative '../lib/cr'
 
 Rainbow.enabled = false
 
 Reslvr = CrypticResolver::Resolver.new
+
+#========= Two Simple Tests ============
+# let CI pull dictionaries first
+Reslvr.add_default_dicts_if_none_exists
+
+Reslvr.count_words
+#=======================================
+
 Result = StringIO.new
 ORIG_STDOUT = STDOUT
+
 
 def lookup(word)
   Reslvr.resolve_word word
@@ -16,17 +36,12 @@ def lookup(word)
   return cont
 end
 
+
 describe CrypticResolver do
 
   before do
     $stdout = Result
   end
-
-  it "run_first_to_pull_dictionaries_for_ci" do
-    # just a random command to let CI pull dictionaries first
-    # result = cr("-c", display: true)
-  end
-
 
   it "lookup 'emacs'" do
     result = lookup 'emacs'
