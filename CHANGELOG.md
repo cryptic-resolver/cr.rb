@@ -28,11 +28,11 @@
 
 ### Bug fixes:
 
-- Fix bug of -l list file: [issues 8](https://github.com/cryptic-resolver/cr.rb/issues/8)
+- Fix bug of `-l` list file: [GitHub issue 8](https://github.com/cryptic-resolver/cr.rb/issues/8)
 
 ### Deprecations:
 
-- Remove cryptic_dos and cryptic_mechanical dictionaries
+- Remove `cryptic_dos` and `cryptic_mechanical` dictionaries
 
 <br>
 
@@ -56,7 +56,7 @@
 
 ### Bug fixes:
 
-- Fix `require` error in 'lib/cr.rb'
+- Fix `require` error in `lib/cr.rb`
 
 <br>
 
@@ -77,11 +77,11 @@
 ### Enhancements:
 
 - Remove command line see also print trailing space
-- Colorize NOT FOUND info
+- Colorize `NOT FOUND` info
 
 ### Bug fixes:
 
-- Fix bug of '$cr' help messages, see [5d8399c](https://github.com/cryptic-resolver/cr.rb/commit/5d8399c6a523001478202a90c90c81f76bd694cb)
+- Fix bug of `$cr` help messages, see [commit 5d8399c](https://github.com/cryptic-resolver/cr.rb/commit/5d8399c6a523001478202a90c90c81f76bd694cb)
 
 <br>
 
@@ -89,7 +89,7 @@
 
 ### Enhancements:
 
-- Use 'WARN' to make CI test more accurate
+- Use `WARN` to make CI test more accurate
 
 <br>
 
@@ -106,7 +106,7 @@
 ### Enhancements:
 
 - Use new index 0-9.toml
-- Use new jump symbol '=>'
+- Use new jump symbol `=>`
 - Add support for user config
 - List official dicts
 - Word count different libraries
@@ -114,7 +114,7 @@
 ### Deprecations:
 
 - Not use old index 0123456789.toml
-- Not use old jump symbol '<=>'
+- Not use old jump symbol `<=>`
 
 <br>
 
@@ -122,7 +122,7 @@
 
 ### Enhancements:
 
-- Add cryptic_linux to default dicts
+- Add `cryptic_linux` to default dicts
 
 <br>
 
@@ -132,7 +132,7 @@
 
 - Update tests
 - CI updates all cryptic_xxx dicts words
-- bin/wc counts all local dicts
+- `bin/wc` counts all local dicts
 - Choose different default dicts
 
 <br>
@@ -142,7 +142,7 @@
 ### New features:
 
 - Support see_also can be one word
-- Simplify adding dictionary with user/repo
+- Simplify adding dictionary with `user/repo`
 
 <br>
 
@@ -162,8 +162,8 @@
 
 ### Deprecations:
 
-- Use 'more' rather than 'full'
-- Use 'name' rather than 'disp'
+- Use `more` rather than `full`
+- Use `name` rather than `disp`
 
 <br>
 
@@ -175,7 +175,7 @@
 
 ### Enhancements:
 
-- Add cr.rb gem
+- Add `cr.rb` gem
 - Add tests
 
 <br>
@@ -188,7 +188,7 @@
 
 ### Bug fixes:
 
-- Fix error on cr -u when first installed, this is because of double word counting
+- Fix error on `cr -u` when first installed, this is because of double word counting
 - Fix no dir error when first installed, this is because of the word count of help
 
 <br>
@@ -246,7 +246,7 @@
 ### Enhancements:
 
 - Migrate from **github_changelog_generator** to **chlog**
-- Yank version v4,5,6 from RubyGems, release on v3.x series
+- Yank version `v4,5,6` from RubyGems, release on `v3.x` series
 
 <br>
 
@@ -255,7 +255,7 @@
 ### New features:
 
 - Add parallel update and pull support
-- Add '-l', '-d' to manage local dictionaries
+- Add `-l`, `-d` to manage local dictionaries
 
 ### Bug fixes:
 
@@ -267,11 +267,11 @@
 
 ### New features:
 
-- Support dotted words [\#5](https://github.com/cryptic-resolver/cr/issues/5)
-- Warn to incomplete explanation [\#4](https://github.com/cryptic-resolver/cr/issues/4)
-- Add original keyword to print [\#3](https://github.com/cryptic-resolver/cr/issues/3)
-- Add 'see' keyword [\#2](https://github.com/cryptic-resolver/cr/issues/2)
-- Add 'same' keyword  [\#1](https://github.com/cryptic-resolver/cr/issues/1)
+- Support dotted words [GitHub issue #5](https://github.com/cryptic-resolver/cr/issues/5)
+- Warn to incomplete explanation [GitHub issue #4](https://github.com/cryptic-resolver/cr/issues/4)
+- Add original keyword to print [GitHub issue #3](https://github.com/cryptic-resolver/cr/issues/3)
+- Add 'see' keyword [GitHub issue #2](https://github.com/cryptic-resolver/cr/issues/2)
+- Add 'same' keyword  [GitHub issue #1](https://github.com/cryptic-resolver/cr/issues/1)
 
 <br>
 
