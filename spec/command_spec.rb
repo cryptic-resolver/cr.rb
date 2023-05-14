@@ -84,4 +84,114 @@ describe CrypticResolver do
     RES
   end
 
+
+  it "lookup 'gles'" do
+    result = lookup 'gles'
+    _(result).must_equal <<~RES
+    From: cryptic_computer
+    GLES redirects to OpenGL ES
+
+      OpenGL ES: OpenGL for Embedded Systems
+
+    RES
+  end
+
+
+  it "lookup 'eg.'" do
+    result = lookup 'eg.'
+    _(result).must_equal <<~RES
+    From: cryptic_common
+    eg. redirects to 'e.g.'
+
+      e.g.: exempli gratia
+
+      The phrase is Latin for 'for example'
+
+    SEE ALSO i.e.
+
+    RES
+  end
+
+
+  it "lookup 'eg'" do
+    result = lookup 'eg'
+    _(result).must_equal <<~RES
+    From: cryptic_common
+    eg redirects to 'eg.'
+    eg. redirects to 'e.g.'
+
+      e.g.: exempli gratia
+
+      The phrase is Latin for 'for example'
+
+    SEE ALSO i.e.
+
+    RES
+  end
+
+
+  it "lookup 'xdm" do
+    result = lookup 'xdm'
+    _(result).must_equal <<~RES
+    From: cryptic_computer
+
+      XDM: eXtreme Download Manager
+
+    OR
+
+      XDM: X Display Manager
+
+    RES
+  end
+
+
+  it "lookup 'ide'" do
+    result = lookup 'ide'
+    _(result).must_equal <<~RES
+    From: cryptic_computer
+
+      IDE: Integrated Development Environment
+
+    OR
+
+      IDE: Integrated Drive Electronics
+
+      A type of cable that is used to connect to the motherboard directly. It's the first version of what is now called the ATA/ATAPI, developed by Western Digital
+
+    SEE ALSO ATA
+
+    RES
+  end
+
+
+
+  it "lookup apm" do
+    result = lookup 'apm'
+    _(result).must_equal <<~RES
+    From: cryptic_computer
+
+      APM: Application performance management
+
+    From: cryptic_windows
+
+      APM: Advanced Power Management
+
+      It was developed by Microsoft and Intel around 1992, as a way to provide power management on Intel PCs
+
+    RES
+  end
+
+
+  it "lookup gdm" do
+    result = lookup 'gdm'
+    _(result).must_equal <<~RES
+    From: cryptic_computer
+
+      GDM: GNOME Display Manager
+
+      The GNOME Display Manager (GDM) is a program that manages graphical display servers and handles graphical user logins.
+
+    RES
+  end
+
 end
