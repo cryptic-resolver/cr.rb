@@ -1,10 +1,6 @@
 # TypeProf 0.21.7
 
 # Classes
-class String
-  def underline: -> String
-end
-
 module CrypticResolver
   GEM_VERSION: String
 
@@ -22,10 +18,10 @@ module CrypticResolver
     def pp_same_info: (String? library, String dict, String word, Hash[untyped, untyped]? cache_content, untyped same_key, nil own_name) -> bool
     def lookup: (String? library, String dict, String file, String word) -> bool
     def resolve_word: (String? word) -> nil
-    def search_word: (String? pattern) -> nil
-    def search_word_internal: (String? pattern, String? library) -> false
+    def search_related_words: (String? pattern) -> nil
+    def search_related_words_internal: (String? pattern, String? library) -> false
     def list_dicts: -> nil
-    def word_count: -> nil
+    def count_words: -> nil
     attr_accessor def_dicts: [String, String, String, String, String]
     attr_accessor extra_lib_path: nil
     attr_accessor counter: Counter
