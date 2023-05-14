@@ -3,7 +3,7 @@
 # File          : cr.rb
 # Authors       : Aoran Zeng <ccmywish@qq.com>
 # Created on    : <2021-07-08>
-# Last modified : <2023-05-09>
+# Last modified : <2023-05-14>
 #
 # cr:
 #
@@ -29,12 +29,13 @@ module CrypticResolver::CLI
 
     case option
     when '-l'   then reslvr.list_dicts
-    when '-c'   then reslvr.word_count
+    when '-c'   then reslvr.count_words
     when '-u'   then reslvr.update_dicts
-    when '-s'   then reslvr.search_word args.shift
-    when '-a'   then reslvr.add_dict args.shift
-    when '-d'   then reslvr.del_dict args.shift
-    else reslvr.resolve_word option end
+    when '-s'   then reslvr.search_related_words args.shift
+    when '-a'   then reslvr.add_dict             args.shift
+    when '-d'   then reslvr.del_dict             args.shift
+    else             reslvr.resolve_word         option
+    end
   end
 
 

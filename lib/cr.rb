@@ -275,8 +275,6 @@ A info looks like this
   end
 
 
-
-  #
   # Lookup the given word in a sheet (a toml file) and also print.
   # The core idea is that:
   #
@@ -365,7 +363,6 @@ A info looks like this
   end
 
 
-  #
   # The main procedure of `cr`
   #
   #   1. Search the default library first
@@ -420,16 +417,15 @@ A info looks like this
   end
 
 
-  #
   # Delegate to `search_word_internal`
   #
-  def search_word(pattern)
+  def search_related_words(pattern)
     found_or_not1 = false
     found_or_not2 = false
 
-    found_or_not1 = search_word_internal(pattern, DEFAULT_LIB_PATH)
+    found_or_not1 = search_related_words_internal(pattern, DEFAULT_LIB_PATH)
     if @extra_lib_path
-      found_or_not2 = search_word_internal(pattern, @extra_lib_path)
+      found_or_not2 = search_related_words_internal(pattern, @extra_lib_path)
     end
 
     if (found_or_not1 == false) && (found_or_not2 == false)
@@ -437,8 +433,9 @@ A info looks like this
     end
   end
 
+
+  # This routine is quite like `resolve_word`
   #
-  # This `search_word_internal` routine is quite like `resolve_word`
   # Notice:
   #   We handle two cases
   #
@@ -447,7 +444,7 @@ A info looks like this
   #
   #  The second is what Ruby and Perl users like to do, handle it!
   #
-  def search_word_internal(pattern, library)
+  def search_related_words_internal(pattern, library)
 
     if pattern.nil?
       abort "cr: Need an argument!".bold.red
@@ -530,7 +527,7 @@ A info looks like this
   end
 
 
-  def word_count
+  def count_words
     @counter.count!(display: true)
   end
 
