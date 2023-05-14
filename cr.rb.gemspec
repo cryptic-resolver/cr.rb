@@ -26,7 +26,7 @@ DESC
 
   s.add_dependency 'tomlrb',    '~> 2.0'
   s.add_dependency 'ls_table',  '~> 0.1'
-  s.add_dependency 'colorator', '~> 1.1'
+  s.add_dependency 'rainbow',   '~> 3.1'
 
   s.required_ruby_version = ">= 3.0.0"
 

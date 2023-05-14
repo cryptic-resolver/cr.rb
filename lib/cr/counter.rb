@@ -1,20 +1,17 @@
 # ---------------------------------------------------------------
 # File          : counter.rb
 # Authors       : Aoran Zeng <ccmywish@qq.com>
-# Created on    : <2023-05-09>
-# Last modified : <2023-05-09>
+# Created on    : <2022-03-06>
+# Last modified : <2023-05-14>
 #
 # counter:
 #
 #   Count words in dictionaries.
-#
-# ----------
-# Changelog:
-#
-# <2023-05-09> Moved from lib/cr.rb
 # ---------------------------------------------------------------
 
 class CrypticResolver::Resolver::Counter
+
+  using Rainbow
 
   attr_accessor :word_count_of_two_libs,  # def_lib + extra_lib
                 :word_count_of_def_lib,

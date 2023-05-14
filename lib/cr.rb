@@ -2,21 +2,19 @@
 # File          : cr.rb
 # Authors       : Aoran Zeng <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2023-05-09>
+# Last modified : <2023-05-14>
 #
 # cr:
 #
 #   This file is the lib of `cr.rb``
 # ------------------------------------------------------
 
-require 'colorator'
+require 'rainbow/refinement'
 require_relative 'cr/version'
 
-class String
-  def underline = "\e[4m#{self}\e[0m"
-end
-
 class CrypticResolver::Resolver
+
+  using Rainbow
 
   require_relative 'cr/counter'
 
@@ -541,6 +539,8 @@ end
 
 
 class CrypticResolver::Resolver
+
+  using Rainbow
 
   require 'tomlrb'
   require 'fileutils'
