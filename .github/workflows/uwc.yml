@@ -15,7 +15,7 @@ jobs:
         ruby-version: 3.2
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Install default dicts
-      run: bundle exec ./bin/cr
+      run: bundle exec ./exe/cr
     - name: Install all official dicts
       run: |
         bundle exec ./bin/cr -a cryptic-resolver/cryptic_economy
