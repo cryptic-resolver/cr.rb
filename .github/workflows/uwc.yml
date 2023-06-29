@@ -18,13 +18,13 @@ jobs:
       run: bundle exec ./exe/cr
     - name: Install all official dicts
       run: |
-        bundle exec ./bin/cr -a cryptic-resolver/cryptic_economy
-        bundle exec ./bin/cr -a cryptic-resolver/cryptic_medicine
-        bundle exec ./bin/cr -a cryptic-resolver/cryptic_electronics
-        bundle exec ./bin/cr -a cryptic-resolver/cryptic_science
-        bundle exec ./bin/cr -a cryptic-resolver/cryptic_math
-        bundle exec ./bin/cr -a x86
-        bundle exec ./bin/cr -a signal
+        bundle exec ./exe/cr -a cryptic-resolver/cryptic_economy
+        bundle exec ./exe/cr -a cryptic-resolver/cryptic_medicine
+        bundle exec ./exe/cr -a cryptic-resolver/cryptic_electronics
+        bundle exec ./exe/cr -a cryptic-resolver/cryptic_science
+        bundle exec ./exe/cr -a cryptic-resolver/cryptic_math
+        bundle exec ./exe/cr -a x86
+        bundle exec ./exe/cr -a signal
     - name: Update word count using ./bin/wc
       run:
         bundle exec ./bin/wc --uwc
