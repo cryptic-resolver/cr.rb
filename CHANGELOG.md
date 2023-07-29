@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2023-05-15)
+## [Unreleased](#) (2023-07-29)
+
+<br>
+
+## [v4.1.7](#) (2023-07-29)
+
+### Deprecations:
+
+- Change default lib location
 
 <br>
 
