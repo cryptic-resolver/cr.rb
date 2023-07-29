@@ -3,7 +3,7 @@
 # File          : wc.rb
 # Authors       : Aoran Zeng <ccmywish@qq.com>
 # Created on    : <2021-07-16>
-# Last modified : <2022-12-19>
+# Last modified : <2023-07-29>
 #
 # This file is used to count the key words in all
 # our local dictionaries (rather than only default
@@ -13,10 +13,10 @@
 #      wc       # Output count in each file
 #      wc --all # Only output the total counts
 #      wc --uwc # Update word count in README
-#
 # ---------------------------------------------------
 
 require 'tomlrb'
+require 'standard_path'
 
 op = ARGV.shift
 
@@ -26,12 +26,11 @@ else
   ALL_MODE = false
 end
 
-local_dicts = Dir.children File.expand_path("~/.cryptic-resolver/")
+DEFAULT_LIB_PATH = StandardPath.app_data 'Cryptic-Resolver'
+
+local_dicts = Dir.children DEFAULT_LIB_PATH
 local_dicts = local_dicts.map do |path|
-  File.join(
-    File.expand_path("~/.cryptic-resolver/"),
-    path
-  )
+  File.join DEFAULT_LIB_PATH, path
 end
 
 

@@ -24,9 +24,10 @@ DESC
   s.bindir = 'exe'
   s.executables = ['cr']
 
-  s.add_dependency 'tomlrb',    '~> 2.0'
-  s.add_dependency 'ls_table',  '~> 0.1'
-  s.add_dependency 'rainbow',   '~> 3.1'
+  s.add_dependency 'tomlrb',        '~> 2.0'
+  s.add_dependency 'ls_table',      '~> 0.1'
+  s.add_dependency 'rainbow',       '~> 3.1'
+  s.add_dependency 'standard_path', '~> 0.1'
 
   s.required_ruby_version = ">= 3.0.0"
 

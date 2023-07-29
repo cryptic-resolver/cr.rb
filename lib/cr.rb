@@ -2,7 +2,7 @@
 # File          : cr.rb
 # Authors       : Aoran Zeng <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2023-05-14>
+# Last modified : <2023-07-29>
 #
 # cr:
 #
@@ -541,10 +541,11 @@ class CrypticResolver::Resolver
 
   require 'tomlrb'
   require 'fileutils'
+  require 'standard_path'
 
   # attr_accessor   :default_dicts  # Default dictionaries lists
 
-  DEFAULT_LIB_PATH = File.expand_path("~/.cryptic-resolver")
+  DEFAULT_LIB_PATH = StandardPath.app_data 'Cryptic-Resolver'
 
   ORIGINAL_DEFAULT_DICTS = [
     "https://github.com/cryptic-resolver/cryptic_common.git",

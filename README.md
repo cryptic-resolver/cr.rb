@@ -136,7 +136,7 @@ $ cr -a electronics
 
 ## Library layout
 
-A library is a folder which contain many dictionaries (which are just `git` repos). By default, dictionaries will be downloaded in `~/.cryptic-resolver` folder, this can't be configured. But, the user can specify an extra library using a config file.
+A library is a folder which contain many dictionaries (which are just `git` repos). By default, dictionaries will be downloaded in OS-specific folder (Using [`StandardPath.app_data`](https://github.com/ccmywish/standard_path)), this can't be configured. But, the user can specify an extra library using a config file.
 
 ```
 Library
