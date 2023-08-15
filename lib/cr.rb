@@ -2,7 +2,7 @@
 # File          : cr.rb
 # Authors       : Aoran Zeng <ccmywish@qq.com>
 # Created on    : <2022-04-15>
-# Last modified : <2023-07-29>
+# Last modified : <2023-08-15>
 #
 # cr:
 #
@@ -80,7 +80,9 @@ class CrypticResolver::Resolver
 
     begin
     puts "cr: Adding new dictionary..."
-    `git -C #{DEFAULT_LIB_PATH} clone #{repo} -q`
+    # Note that, we must add "" to surround the dir
+    # Because some path (e.g. macOS) will have spaces
+    `git -C "#{DEFAULT_LIB_PATH}" clone #{repo} -q`
     rescue Interrupt
     abort "cr: Cancel add dict"
     end
@@ -641,14 +643,14 @@ class CrypticResolver::Resolver
         # Windows doesn't have fork
         dicts_user_and_names.each_with_index do |name, i|
           puts "cr: Pulling #{name}..."
-          `git -C #{DEFAULT_LIB_PATH} clone #{@def_dicts[i]} -q`
+          `git -C "#{DEFAULT_LIB_PATH}" clone #{@def_dicts[i]} -q`
         end
       else
         # *nix-like
         dicts_user_and_names.each_with_index do |name, i|
           fork do
             puts "cr: Pulling #{name}..."
-            `git -C #{DEFAULT_LIB_PATH} clone #{@def_dicts[i]} -q`
+            `git -C "#{DEFAULT_LIB_PATH}" clone #{@def_dicts[i]} -q`
           end
         end
         Process.waitall

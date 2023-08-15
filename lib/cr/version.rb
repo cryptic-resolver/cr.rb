@@ -2,7 +2,7 @@
 # File          : version.rb
 # Authors       : Aoran Zeng <ccmywish@qq.com>
 # Created on    : <2023-02-12>
-# Last modified : <2023-07-29>
+# Last modified : <2023-08-15>
 #
 # version:
 #
@@ -11,6 +11,6 @@
 
 module CrypticResolver
 
-  GEM_VERSION = "4.1.7"
+  GEM_VERSION = "4.1.8"
 
 end
