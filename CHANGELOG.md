@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](#) (2023-07-29)
+## [Unreleased](#) (2023-08-15)
+
+<br>
+
+## [v4.1.8](#) (2023-08-15)
+
+### Bug fixes:
+
+- Fix the path that has spaces when `git clone`
 
 <br>
 
